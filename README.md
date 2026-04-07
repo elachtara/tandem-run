@@ -1,29 +1,22 @@
 # Tandem Run
 
-**Find your perfect running partner in Boston.**
+**A women-only running and walking partner app, launching in Boston, June 2026.**
 
-Tandem Run is a 1-on-1 running and walking partner app launching in Boston, June 2026. This repository contains the waitlist landing page.
+Built by women, for women — because safety shouldn't be an afterthought.
 
 ---
 
 ## About
 
-Most running apps are built for groups or solo tracking. Tandem Run is built for two — matching people by pace, schedule, neighborhood, and vibe so they can actually show up together, week after week.
+Tandem Run matches women with one perfect running or walking partner — same pace, same schedule, same neighborhood. Every profile is verified. Every match is 1-on-1. Every meetup starts at a safe, public location.
 
-Tandem Run is for runners, walkers, and everyone in between. It's built with accessibility at its core — supporting guide running, mixed-ability pairs, and wheelchair users from day one.
+Most running apps are built for groups or solo tracking. Tandem Run is built for two. It's for the runs you've been cutting short, the routes you've been avoiding, and the early mornings you've been skipping because going alone didn't feel worth it.
 
 ---
 
 ## This repo
 
-This is a single-page static site for the pre-launch waitlist. It collects:
-
-- Name and email
-- Pace range
-- Preferred run time
-- Boston / Cambridge / Somerville neighborhood
-
-Signups are sent to a Google Sheet via a Google Apps Script web app.
+Waitlist landing page for the Tandem Run pre-launch. Single-file static site collecting name, email, pace, preferred run time, and Boston neighborhood from interested users. Form submissions are sent to a Google Sheet via Google Apps Script.
 
 ---
 
@@ -33,14 +26,12 @@ Signups are sent to a Google Sheet via a Google Apps Script web app.
 - [Leaflet.js](https://leafletjs.com/) for the Boston map
 - [CartoDB Dark Matter](https://carto.com/basemaps/) map tiles
 - [Google Fonts](https://fonts.google.com/) — Fraunces, DM Sans, Lora
-- Google Apps Script for form submissions
+- Google Apps Script for form submissions to Google Sheets
 
 ---
 
 ## Launch
 
-Boston · June 2026
+Women only · Boston · June 2026
 
----
-
-*Built by [Your Name]. Questions? hello@tandem.run*
+*Built by [Your Name]. Questions? hello@tandemrun.com*
