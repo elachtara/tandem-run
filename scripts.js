@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── CAROUSEL ─────────────────────────────────────────────────────────────
   let currentSlide = 0;
-  const totalSlides = 4;
+  const totalSlides = 3;
   const track = document.getElementById('carouselTrack');
   const dots = document.querySelectorAll('.carousel-dot');
   function updateCarousel() {
