@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startLocation = [42.36701629560474, -71.05851364409887];
   const map = L.map('boston-map', {
     center: [42.362, -71.074],
-    zoom: 14,
+    zoom: 13,
     zoomControl: true,
     scrollWheelZoom: false,
     attributionControl: true
