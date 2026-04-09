@@ -1,4 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 :root {
   --ink: #1a1814;
   --ink-soft: #3a3530;
@@ -32,7 +33,7 @@ nav {
 .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 4.5rem; }
 /* MAP PANEL */
 .hero-map-panel { position: relative; background: #162d5a; overflow: hidden; }
-#boston-map { width: 100%; height: 100%; min-height: 600px; }
+#boston-map { width: 100%; height: 100vh; min-height: 600px; }
 /* Leaflet attribution styling */
 .leaflet-control-attribution { background: rgba(15,14,12,0.7) !important; color: rgba(245,242,236,0.4) !important; font-size: 9px !important; }
 .leaflet-control-attribution a { color: rgba(245,242,236,0.5) !important; }
@@ -143,7 +144,7 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .hero-map-panel { min-height: 380px; }
-  #boston-map { min-height: 380px; }
+  #boston-map { height: 380px; min-height: 380px; }
   .hero-text-panel { padding: 3rem 1.5rem; }
   .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .how-header { grid-template-columns: 1fr; gap: 1.5rem; }
