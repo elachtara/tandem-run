@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── CAROUSEL ─────────────────────────────────────────────────────────────
 
   let currentSlide = 0;
-  const totalSlides = 6;
+  const totalSlides = 7;
   const track = document.getElementById('carouselTrack');
   const dots = document.querySelectorAll('.carousel-dot');
 
@@ -148,9 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const payload = { source: context, email: emailInput.value.trim() };
 
     if (context === 'hero') {
-      const footerEmail = document.getElementById('footer-email');
-      if (footerEmail) footerEmail.value = payload.email;
-      document.querySelector('#waitlist').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('hero-form').hidden = true;
+      document.getElementById('hero-success').hidden = false;
     } else {
       payload.name = document.getElementById('footer-name').value.trim();
       payload.pace = document.getElementById('footer-pace').value;
