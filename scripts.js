@@ -147,10 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const payload = { source: context, email: emailInput.value.trim() };
 
-    if (context === 'hero') {
-      document.getElementById('hero-form').hidden = true;
-      document.getElementById('hero-success').hidden = false;
-    } else {
+    if (context === 'footer') {
       payload.name = document.getElementById('footer-name').value.trim();
       payload.pace = document.getElementById('footer-pace').value;
       payload.time = document.getElementById('footer-time').value;
