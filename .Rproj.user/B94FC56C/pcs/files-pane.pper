@@ -2,12 +2,12 @@
     "sortOrder": [
         {
             "columnIndex": 4,
-            "ascending": false
+            "ascending": true
         },
         {
             "columnIndex": 2,
             "ascending": true
         }
     ],
-    "path": "~/Git/tandem-run"
+    "path": "~/Git/tandem-run/assets/images"
 }
