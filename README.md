@@ -1,6 +1,6 @@
 # Tandem Run
 
-**A women-only running and walking partner app, launching in Boston, June 2026.**
+**A women-only running and walking partner app, launching in Boston, Summer 2026.**
 
 Built by women, for women — because safety shouldn't be an afterthought.
 
