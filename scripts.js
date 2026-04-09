@@ -148,8 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const payload = { source: context, email: emailInput.value.trim() };
 
     if (context === 'hero') {
-      document.getElementById('hero-form').hidden = true;
-      document.getElementById('hero-success').hidden = false;
+      const footerEmail = document.getElementById('footer-email');
+      if (footerEmail) footerEmail.value = payload.email;
+      document.querySelector('#waitlist').scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       payload.name = document.getElementById('footer-name').value.trim();
       payload.pace = document.getElementById('footer-pace').value;
