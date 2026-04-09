@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+
   // ── MAP ──────────────────────────────────────────────────────────────────
+
   try {
+
   const routeCoords = [
     [42.36701629560474, -71.05851364409887],
     [42.370874167376, -71.06163589450246],
@@ -37,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
     [42.36453976883237, -71.06325926555802],
     [42.36689643419987, -71.05865206209846]
   ];
+
   const startLocation = [42.36701629560474, -71.05851364409887];
+
   const map = L.map('boston-map', {
     center: [42.362, -71.074],
     zoom: 13,
@@ -45,30 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollWheelZoom: false,
     attributionControl: true
   });
+
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
     subdomains: 'abcd',
     maxZoom: 19
   }).addTo(map);
+
   // Navy tint overlay
   L.rectangle([[-90, -180], [90, 180]], {
     color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.25, stroke: false
   }).addTo(map);
+
   // Glow layer
   L.polyline(routeCoords, {
     color: 'rgba(232, 168, 32, 0.2)', weight: 12, lineCap: 'round', lineJoin: 'round'
   }).addTo(map);
+
   // Main route
   L.polyline(routeCoords, {
     color: '#e8a820', weight: 4, lineCap: 'round', lineJoin: 'round'
   }).addTo(map);
+
   // Start/finish dot
   L.marker(startLocation, {
     icon: L.divIcon({
       html: '<div style="width:13px;height:13px;border-radius:50%;background:#3a9e5f;border:2.5px solid rgba(245,242,236,0.85);box-shadow:0 0 0 3px rgba(58,158,95,0.2);"></div>',
       className: '', iconSize: [13, 13], iconAnchor: [6, 6]
     })
-}).addTo(map);
+  }).addTo(map);
 
   map.invalidateSize();
 
@@ -76,10 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ── CAROUSEL ─────────────────────────────────────────────────────────────
+
   let currentSlide = 0;
-  const totalSlides = 6;
+  const totalSlides = 7;
   const track = document.getElementById('carouselTrack');
   const dots = document.querySelectorAll('.carousel-dot');
+
   function updateCarousel() {
     track.style.transform = `translateX(-${currentSlide * 100}%)`;
     dots.forEach((dot, i) => {
@@ -87,24 +99,32 @@ document.addEventListener('DOMContentLoaded', () => {
       dot.setAttribute('aria-selected', String(i === currentSlide));
     });
   }
+
   function moveCarousel(dir) {
     currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
     updateCarousel();
   }
+
   document.querySelectorAll('.carousel-btn').forEach(btn => {
     btn.addEventListener('click', () => moveCarousel(Number(btn.dataset.dir)));
   });
+
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
       currentSlide = i;
       updateCarousel();
     });
   });
+
   setInterval(() => moveCarousel(1), 5000);
+
+
   // ── FORMS ─────────────────────────────────────────────────────────────────
+
   document.querySelectorAll('.signup-btn').forEach(btn => {
     btn.addEventListener('click', () => handleSignup(btn.dataset.context));
   });
+
   document.querySelectorAll('input[type="email"]').forEach(input => {
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
@@ -114,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.style.borderColor = '';
     });
   });
+
   function handleSignup(context) {
     const emailInput = document.getElementById(`${context}-email`);
     if (!emailInput || !emailInput.value.trim().includes('@')) {
@@ -123,29 +144,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return;
     }
+
     const payload = { source: context, email: emailInput.value.trim() };
-    if (context === 'hero') {
-      document.getElementById('hero-form').hidden = true;
-      document.getElementById('hero-success').hidden = false;
-    } else {
+
+    if (context === 'footer') {
       payload.name = document.getElementById('footer-name').value.trim();
       payload.pace = document.getElementById('footer-pace').value;
       payload.time = document.getElementById('footer-time').value;
       payload.neighborhood = document.getElementById('footer-neighborhood').value;
+
       const btn = document.querySelector('.signup-btn[data-context="footer"]');
       btn.disabled = true;
       btn.textContent = "You're on the list!";
       btn.style.background = '#3d3b36';
       document.getElementById('footer-success').hidden = false;
     }
+
     submitToSheets(payload);
   }
+
   function submitToSheets(data) {
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMcJ5fB0PrSLX9__KH9UYSwAQdx2bUspEbD2WnfGC8QZMFvEWjarXBSUGfbjlT1EE1gQ/exec';
+    const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+    if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') return;
     fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
       .catch(err => console.error('Submission error:', err));
   }
+
+
   // ── SMOOTH SCROLL ─────────────────────────────────────────────────────────
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', function (e) {
       const target = document.querySelector(this.getAttribute('href'));
@@ -155,4 +182,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  });
+
+});

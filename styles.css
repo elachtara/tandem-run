@@ -70,11 +70,8 @@ nav {
 .hero-headline { font-family: var(--serif); font-size: clamp(2.75rem, 4vw, 5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 1.75rem; }
 .hero-headline em { font-style: italic; color: var(--accent); }
 .hero-sub { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; font-weight: 300; }
-.hero-form { display: flex; gap: 0; max-width: 400px; border: 1.5px solid var(--ink); border-radius: 3px; overflow: hidden; background: var(--white); }
-.hero-form input[type="email"] { flex: 1; padding: 0.9rem 1.1rem; border: none; background: transparent; font-family: var(--sans); font-size: 0.9rem; color: var(--ink); outline: none; }
-.hero-form input[type="email"]::placeholder { color: var(--ink-muted); }
-.hero-form button { background: var(--ink); color: var(--paper); border: none; padding: 0.9rem 1.25rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-.hero-form button:hover { background: var(--accent); }
+.hero-cta-btn { display: inline-block; align-self: flex-start; background: var(--ink); color: var(--paper); text-decoration: none; border: none; padding: 0.9rem 1.75rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: background 0.2s; white-space: nowrap; }
+.hero-cta-btn:hover { background: var(--accent); }
 .hero-note { margin-top: 0.9rem; font-size: 0.78rem; color: var(--ink-muted); }
 /* Success message — shown via JS by removing the `hidden` attribute */
 .success-msg { display: flex; align-items: center; gap: 0.75rem; background: var(--accent-light); border: 1.5px solid var(--accent); border-radius: 3px; padding: 0.9rem 1.25rem; max-width: 400px; font-size: 0.9rem; color: var(--ink); font-weight: 500; }
@@ -84,7 +81,7 @@ nav {
 .hero-tag { animation-delay: 0.2s; }
 .hero-headline { animation-delay: 0.35s; }
 .hero-sub { animation-delay: 0.5s; }
-.hero-form, .success-msg { animation-delay: 0.62s; }
+.hero-cta-btn { animation-delay: 0.62s; }
 .hero-note { animation-delay: 0.72s; }
 /* SECTIONS */
 .section { padding: 7rem 5vw; }
@@ -160,9 +157,7 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
 @media (max-width: 600px) {
   .how-steps { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
-  .hero-form { flex-direction: column; border: none; background: transparent; }
-  .hero-form input[type="email"] { border: 1.5px solid var(--ink); border-radius: 3px; background: var(--white); padding: 0.85rem 1rem; }
-  .hero-form button { border-radius: 3px; padding: 0.85rem 1rem; }
+
 }
 /* CAROUSEL */
 .carousel-wrap { position: relative; overflow: hidden; border-radius: 12px; }

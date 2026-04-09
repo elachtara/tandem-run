@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-Show less
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tandem Run — Find Your Running Partner</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
 <nav>
   <a href="#" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
   <a href="#waitlist" class="nav-cta">Join the waitlist</a>
 </nav>
+
 <main>
+
   <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-map-panel">
       <div id="boston-map"></div>
+
       <article class="map-overlay-card">
         <p class="map-overlay-label">Proposed run</p>
         <h2 class="map-overlay-run">Tue 7am · 5.2 miles</h2>
@@ -30,6 +35,7 @@ Show less
           <button type="button" class="map-btn-suggest">Suggest edit</button>
         </div>
       </article>
+
       <div class="map-stats">
         <div class="map-stat">
           <span class="map-stat-num">1:1</span>
@@ -45,42 +51,36 @@ Show less
         </div>
       </div>
     </div>
+
     <div class="hero-text-panel">
-      <span class="hero-tag">For the girls · Boston · Coming June 2026</span>
+      <span class="hero-tag">For the girls · Boston · Coming Summer 2026</span>
       <h1 class="hero-headline">Running is better<br><em>as two.</em></h1>
       <p class="hero-sub">
         Tandem Run is a women-only running and walking app — built by women, for women, because safety shouldn't be an afterthought. We match you with one perfect partner near you. Same pace, same schedule, same energy. Not a group. Not a club. Just you and one other gal, moving together, week after week.
       </p>
-      <form class="hero-form" id="hero-form">
-        <input type="email" id="hero-email" placeholder="Your email address" autocomplete="email" aria-label="Email address" required>
-        <button type="button" class="signup-btn" data-context="hero">Reserve my spot</button>
-      </form>
-      <div class="success-msg" id="hero-success" aria-live="polite" hidden>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#b07d0e" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#b07d0e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        You're on the list — we'll be in touch soon.
-      </div>
+      <a href="#waitlist" class="signup-btn hero-cta-btn">Reserve my spot</a>
       <p class="hero-note">Women only · Free to join · Boston launch · No spam, ever</p>
     </div>
   </section>
+
   <!-- PROBLEM -->
   <section class="section problem" id="problem">
-    <p class="section-label">The problem</p>
     <div class="problem-grid">
       <div>
-        <h2 class="problem-headline">Finding a running partner<br>shouldn't be <em>this hard.</em></h2>
+        <h2 class="problem-headline">This is why we love running<br>in <em>tandem.</em></h2>
         <div style="margin-top: 2rem;">
           <div class="carousel-wrap">
-                    <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-track" id="carouselTrack">
               <div class="carousel-slide">
                 <img src="assets/images/runner-1.jpg" alt="Two women celebrating at a finish line together" loading="lazy">
                 <div class="carousel-caption">
-                  <p class="carousel-caption-text">"I never wanted to do speed workouts until I had a friend to go with. - Shauna"</p>
+                  <p class="carousel-caption-text">"I never wanted to do speed workouts until I had a friend to go with. - Emily"</p>
                 </div>
               </div>
               <div class="carousel-slide">
-                <img src="assets/images/runner-2.jpg" alt="Two women running together at castle island" loading="lazy">
+                <img src="assets/images/runner-2.jpg" alt="Two women on a morning run" loading="lazy">
                 <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with friends is always more fun than on my own. It’s become such an important part of my day and something I genuinely look forward to! - Emily"</p>
+                  <p class="carousel-caption-text">"Running with girlfriends has provided not only great motivation but also lasting friendships! - Julia"</p>
                 </div>
               </div>
               <div class="carousel-slide">
@@ -96,15 +96,21 @@ Show less
                 </div>
               </div>
               <div class="carousel-slide">
-                <img src="assets/images/runner-5.jpg" alt="Two women on a morning run" loading="lazy">
+                <img src="assets/images/runner-5.jpg" alt="Two women running together at castle island" loading="lazy">
                 <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with girlfriends has provided not only great motivation but also lasting friendships! - Julia"</p>
+                  <p class="carousel-caption-text">"Running with friends is always more fun than on my own. It's become such an important part of my day and something I genuinely look forward to! - Emily"</p>
                 </div>
               </div>
               <div class="carousel-slide">
-                <img src="assets/images/runner-6.jpg" alt="Women at the Boston Half Marathon start line" loading="lazy">
+                <img src="assets/images/runner-6.jpg" alt="Two women connected by a tether for visually impaired runners at the finish line." loading="lazy">
                 <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running a half marathon is so much more fun with friends. - Emily"</p>
+                  <p class="carousel-caption-text">"I am visually impaired and hard of hearing. I never thought of completing a 5k, now I look forward to running races and training with other women. - Cassandra"</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/images/runner-7.jpg" alt="Two women running a half marathon together" loading="lazy">
+                <div class="carousel-caption">
+                  <p class="carousel-caption-text">"I would've never signed up for my first half marathon if it weren't for a close friend pushing me to go for it. - Lorena"</p>
                 </div>
               </div>
             </div>
@@ -118,6 +124,7 @@ Show less
               <button type="button" class="carousel-dot" data-slide="3" aria-label="Slide 4" aria-selected="false" role="tab"></button>
               <button type="button" class="carousel-dot" data-slide="4" aria-label="Slide 5" aria-selected="false" role="tab"></button>
               <button type="button" class="carousel-dot" data-slide="5" aria-label="Slide 6" aria-selected="false" role="tab"></button>
+              <button type="button" class="carousel-dot" data-slide="6" aria-label="Slide 7" aria-selected="false" role="tab"></button>
             </div>
             <button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide">&#8594;</button>
           </div>
@@ -143,9 +150,9 @@ Show less
       </div>
     </div>
   </section>
+
   <!-- HOW IT WORKS -->
   <section class="section how" id="how">
-    <p class="section-label">How it works</p>
     <div class="how-header">
       <h2 class="how-headline">From profile<br>to <em>running together</em><br>in minutes.</h2>
       <p class="how-desc">No more "we should run sometime!" or "come join my run club!". You propose a real run — day, distance, route — she says yes, tweaks it, or suggests another time. It's that easy.</p>
@@ -173,9 +180,9 @@ Show less
       </div>
     </div>
   </section>
+
   <!-- WHY TANDEM RUN -->
   <section class="section why" id="why">
-    <p class="section-label">Why Tandem Run</p>
     <h2 class="why-headline"><em>Built by women,</em><br>for women.</h2>
     <div class="why-grid">
       <div class="why-card">
@@ -205,10 +212,10 @@ Show less
       </div>
     </div>
   </section>
+
   <!-- WAITLIST -->
   <section class="footer-cta" id="waitlist">
     <div>
-      <p class="section-label">Join the waitlist</p>
       <h2 class="footer-cta-headline">Be one of the first<br>women running <em>in tandem.</em></h2>
       <p style="margin-top: 1.25rem; color: var(--ink-soft); font-size: 0.95rem; font-weight: 300; line-height: 1.7;">We're launching with a small, curated cohort — hand-matching the first 100 women ourselves. Your answers help us match you better from day one. Be one of the first 100 women to sign up and you'll be entered for a <strong>$100 Marathon Sports gift card.</strong></p>
     </div>
@@ -290,12 +297,15 @@ Show less
       </div>
     </div>
   </section>
+
 </main>
+
 <footer>
   <div class="footer-logo">Tandem<span> Run</span></div>
   <div>Boston, MA · tandem.run</div>
   <div>© 2026 Tandem Run · hello@tandem.run</div>
 </footer>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="scripts.js" defer></script>
 </body>
