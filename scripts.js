@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ── MAP ──────────────────────────────────────────────────────────────────
+  try {
   const routeCoords = [
     [42.36701629560474, -71.05851364409887],
     [42.370874167376, -71.06163589450246],
@@ -67,7 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
       html: '<div style="width:13px;height:13px;border-radius:50%;background:#3a9e5f;border:2.5px solid rgba(245,242,236,0.85);box-shadow:0 0 0 3px rgba(58,158,95,0.2);"></div>',
       className: '', iconSize: [13, 13], iconAnchor: [6, 6]
     })
-  }).addTo(map);
+}).addTo(map);
+
+  map.invalidateSize();
+
+  } catch (e) { console.warn('Map failed to load:', e); }
+
+
   // ── CAROUSEL ─────────────────────────────────────────────────────────────
   let currentSlide = 0;
   const totalSlides = 4;
