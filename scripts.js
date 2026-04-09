@@ -142,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function submitToSheets(data) {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMcJ5fB0PrSLX9__KH9UYSwAQdx2bUspEbD2WnfGC8QZMFvEWjarXBSUGfbjlT1EE1gQ/exec';
-    if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxMcJ5fB0PrSLX9__KH9UYSwAQdx2bUspEbD2WnfGC8QZMFvEWjarXBSUGfbjlT1EE1gQ/exec') return;
     fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
       .catch(err => console.error('Submission error:', err));
   }
