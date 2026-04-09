@@ -23,4 +23,4 @@ Waitlist landing page for the Tandem Run pre-launch. Single-file static site col
 
 Women only · Boston · Summer 2026
 
-*Built by Emily Lachtara. Questions? hello@tandemrun.com*
+*Built by Emily Lachtara. Questions? hello@tandemrun.app*
