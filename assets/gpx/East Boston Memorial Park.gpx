@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="StravaGPX" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+ <metadata>
+  <name>Bremen Street Park &amp; East Boston Memorial Park</name>
+  <desc>Wander around 2 of Boston's finest parks in one loop
+
+Both of the parks covered in this hike are charming, and combining them on one hike is a great way of getting your nature fix close to Boston city centre. The parks are right next to Logan International Airport, so this is a great hike for the plane spotters out there. 
+
+Sitting in the Jeffries Point neighborhood, Bremen Street Park features expansive grassy areas, shaded seating areas, and paved pathways, so it's a perfect spot for chilled strolling. It's also an exceptional place to hike with kids, and features one of the best playgrounds you'll find in Boston - budget plenty of time to explore it if you're hiking with kids!
+
+Bremen Street Park is also known for its vibrant community events and programming throughout the year. From summer concerts and movie nights to fitness classes and cultural festivals, there's always something happening at the park, creating a sense of unity and camaraderie among residents.
+
+East Boston Memorial Park is less featured but more open, making it a nice contrast to its neighbor. Written by Charlie Boscoe</desc>
+  <author>
+   <name>Strava Routes</name>
+   <link href="https://www.strava.com/athletes/3370924"/>
+  </author>
+  <copyright author="OpenStreetMap contributors">
+   <year>2020</year>
+   <license>https://www.openstreetmap.org/copyright</license>
+  </copyright>
+  <link href="https://www.strava.com/routes/3258096528493340082"/>
+ </metadata>
+ <trk>
+  <name>Bremen Street Park &amp; East Boston Memorial Park</name>
+  <desc>Wander around 2 of Boston's finest parks in one loop
+
+Both of the parks covered in this hike are charming, and combining them on one hike is a great way of getting your nature fix close to Boston city centre. The parks are right next to Logan International Airport, so this is a great hike for the plane spotters out there. 
+
+Sitting in the Jeffries Point neighborhood, Bremen Street Park features expansive grassy areas, shaded seating areas, and paved pathways, so it's a perfect spot for chilled strolling. It's also an exceptional place to hike with kids, and features one of the best playgrounds you'll find in Boston - budget plenty of time to explore it if you're hiking with kids!
+
+Bremen Street Park is also known for its vibrant community events and programming throughout the year. From summer concerts and movie nights to fitness classes and cultural festivals, there's always something happening at the park, creating a sense of unity and camaraderie among residents.
+
+East Boston Memorial Park is less featured but more open, making it a nice contrast to its neighbor. Written by Charlie Boscoe</desc>
+  <link href="https://www.strava.com/routes/3258096528493340082"/>
+  <type>hiking</type>
+  <trkseg>
+   <trkpt lat="42.3731" lon="-71.03351">
+    <ele>2.8800000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37321" lon="-71.03353">
+    <ele>2.91</ele>
+   </trkpt>
+   <trkpt lat="42.373310000000004" lon="-71.03341">
+    <ele>3.0100000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.37321" lon="-71.03325000000001">
+    <ele>2.7600000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.373580000000004" lon="-71.03276000000001">
+    <ele>2.69</ele>
+   </trkpt>
+   <trkpt lat="42.37371" lon="-71.03272000000001">
+    <ele>2.84</ele>
+   </trkpt>
+   <trkpt lat="42.37388000000001" lon="-71.03277">
+    <ele>3.36</ele>
+   </trkpt>
+   <trkpt lat="42.37397000000001" lon="-71.03273">
+    <ele>3.43</ele>
+   </trkpt>
+   <trkpt lat="42.374610009728784" lon="-71.03198203048531">
+    <ele>3.23</ele>
+   </trkpt>
+   <trkpt lat="42.37525001459576" lon="-71.03123404572572">
+    <ele>3.04</ele>
+   </trkpt>
+   <trkpt lat="42.375890014600714" lon="-71.03048604572072">
+    <ele>3.1</ele>
+   </trkpt>
+   <trkpt lat="42.376530009743455" lon="-71.02973803046973">
+    <ele>3.37</ele>
+   </trkpt>
+   <trkpt lat="42.37717000000001" lon="-71.02899000000001">
+    <ele>3.3100000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37689" lon="-71.02856">
+    <ele>3.16</ele>
+   </trkpt>
+   <trkpt lat="42.37657" lon="-71.02892">
+    <ele>2.68</ele>
+   </trkpt>
+   <trkpt lat="42.37635" lon="-71.02914000000001">
+    <ele>2.7800000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.376200000000004" lon="-71.02931000000001">
+    <ele>3.17</ele>
+   </trkpt>
+   <trkpt lat="42.375910000000005" lon="-71.02981000000001">
+    <ele>3.2700000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.375730000000004" lon="-71.03006">
+    <ele>3.02</ele>
+   </trkpt>
+   <trkpt lat="42.375600000000006" lon="-71.03009">
+    <ele>3.06</ele>
+   </trkpt>
+   <trkpt lat="42.37548" lon="-71.03017000000001">
+    <ele>3.25</ele>
+   </trkpt>
+   <trkpt lat="42.37536" lon="-71.03016000000001">
+    <ele>3.33</ele>
+   </trkpt>
+   <trkpt lat="42.37485" lon="-71.03084000000001">
+    <ele>3.6100000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37472" lon="-71.03098">
+    <ele>3.5100000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.37444000000001" lon="-71.03121">
+    <ele>3.45</ele>
+   </trkpt>
+   <trkpt lat="42.37413" lon="-71.03160000000001">
+    <ele>3.58</ele>
+   </trkpt>
+   <trkpt lat="42.37391" lon="-71.0318">
+    <ele>3.7</ele>
+   </trkpt>
+   <trkpt lat="42.3735750008583" lon="-71.03221500207735">
+    <ele>3.34</ele>
+   </trkpt>
+   <trkpt lat="42.37324" lon="-71.03263000000001">
+    <ele>3.17</ele>
+   </trkpt>
+   <trkpt lat="42.37312" lon="-71.03281000000001">
+    <ele>3.17</ele>
+   </trkpt>
+   <trkpt lat="42.37292" lon="-71.03321000000001">
+    <ele>3.1400000000000006</ele>
+   </trkpt>
+   <trkpt lat="42.372820000000004" lon="-71.03334000000001">
+    <ele>3.1400000000000006</ele>
+   </trkpt>
+   <trkpt lat="42.372730000000004" lon="-71.03323">
+    <ele>3.2900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37247000000001" lon="-71.03313">
+    <ele>4.03</ele>
+   </trkpt>
+   <trkpt lat="42.37234" lon="-71.03269">
+    <ele>3.91</ele>
+   </trkpt>
+   <trkpt lat="42.37238000000001" lon="-71.03231000000001">
+    <ele>3.5900000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.372490000000006" lon="-71.03197">
+    <ele>3.4600000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.372640000000004" lon="-71.03167">
+    <ele>3.22</ele>
+   </trkpt>
+   <trkpt lat="42.373160000000006" lon="-71.03112">
+    <ele>3.2</ele>
+   </trkpt>
+   <trkpt lat="42.373250000000006" lon="-71.03099">
+    <ele>3.2800000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.3733" lon="-71.03085">
+    <ele>3.37</ele>
+   </trkpt>
+   <trkpt lat="42.37332000000001" lon="-71.03054">
+    <ele>3.69</ele>
+   </trkpt>
+   <trkpt lat="42.37323000000001" lon="-71.03029000000001">
+    <ele>3.8200000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37314000000001" lon="-71.03018">
+    <ele>3.8200000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37272" lon="-71.02982">
+    <ele>3.86</ele>
+   </trkpt>
+   <trkpt lat="42.372260000000004" lon="-71.0295">
+    <ele>3.5500000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37205" lon="-71.02923000000001">
+    <ele>3.52</ele>
+   </trkpt>
+   <trkpt lat="42.37164500074654" lon="-71.02876499678011">
+    <ele>3.54</ele>
+   </trkpt>
+   <trkpt lat="42.37124" lon="-71.0283">
+    <ele>3.6</ele>
+   </trkpt>
+   <trkpt lat="42.370830000000005" lon="-71.02774000000001">
+    <ele>4.17</ele>
+   </trkpt>
+   <trkpt lat="42.37046" lon="-71.02741">
+    <ele>4.1000000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37035" lon="-71.02739000000001">
+    <ele>4.1000000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.370290000000004" lon="-71.02739000000001">
+    <ele>4.1000000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.370160000000006" lon="-71.02749">
+    <ele>4.07</ele>
+   </trkpt>
+   <trkpt lat="42.37015" lon="-71.02749">
+    <ele>4.07</ele>
+   </trkpt>
+   <trkpt lat="42.37008" lon="-71.02762">
+    <ele>4.0200000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.370050000000006" lon="-71.02774000000001">
+    <ele>4.0200000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.370050000000006" lon="-71.02789">
+    <ele>4.04</ele>
+   </trkpt>
+   <trkpt lat="42.370110000000004" lon="-71.02808">
+    <ele>4.140000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.37033" lon="-71.02849">
+    <ele>4.050000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.37041000000001" lon="-71.0287">
+    <ele>4.03</ele>
+   </trkpt>
+   <trkpt lat="42.37057" lon="-71.02929">
+    <ele>4.010000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.370560000000005" lon="-71.02928">
+    <ele>4.010000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.37066" lon="-71.02946">
+    <ele>3.89</ele>
+   </trkpt>
+   <trkpt lat="42.3708" lon="-71.02968">
+    <ele>3.8300000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37084" lon="-71.02968">
+    <ele>3.8300000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37088000000001" lon="-71.02972000000001">
+    <ele>3.8300000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37153" lon="-71.03036">
+    <ele>3.54</ele>
+   </trkpt>
+   <trkpt lat="42.37176" lon="-71.0308">
+    <ele>3.6300000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37223" lon="-71.03158">
+    <ele>3.8100000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.372310000000006" lon="-71.03175">
+    <ele>3.71</ele>
+   </trkpt>
+   <trkpt lat="42.372350000000004" lon="-71.03193">
+    <ele>3.5700000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37238000000001" lon="-71.03231000000001">
+    <ele>3.5900000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.37234" lon="-71.03269">
+    <ele>3.91</ele>
+   </trkpt>
+   <trkpt lat="42.37247000000001" lon="-71.03313">
+    <ele>4.03</ele>
+   </trkpt>
+   <trkpt lat="42.372730000000004" lon="-71.03323">
+    <ele>3.2900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.372840000000004" lon="-71.03337">
+    <ele>2.9600000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.37295" lon="-71.0334">
+    <ele>2.7900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.373020000000004" lon="-71.0334">
+    <ele>2.7900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.37321" lon="-71.03325000000001">
+    <ele>2.7600000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.373310000000004" lon="-71.03341">
+    <ele>3.0100000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.37321" lon="-71.03353">
+    <ele>2.91</ele>
+   </trkpt>
+   <trkpt lat="42.3731" lon="-71.03351">
+    <ele>2.8800000000000003</ele>
+   </trkpt>
+  </trkseg>
+ </trk>
+</gpx>
