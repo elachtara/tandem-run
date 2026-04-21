@@ -108,8 +108,8 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   const map = L.map('routes-map', {
-    center: [42.325, -71.09],
-    zoom: 12,
+    center: [42.34, -71.09],
+    zoom: 11,
     zoomControl: true,
     scrollWheelZoom: true,
     attributionControl: true
@@ -126,13 +126,36 @@
     color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.2, stroke: false
   }).addTo(map);
 
-  const routes = [
-    { file: '../assets/gpx/arnold_arboretum.gpx',                name: 'Arnold Arboretum' },
-    { file: '../assets/gpx/back_bay_fens.gpx',                   name: 'Back Bay Fens' },
-    { file: '../assets/gpx/franklin_park.gpx',                   name: 'Franklin Park' },
-    { file: '../assets/gpx/harvard_bridge_to_longfellow_bridge.gpx', name: 'Harvard Bridge to Longfellow Bridge' },
-    { file: '../assets/gpx/jamaica_pond.gpx',                    name: 'Jamaica Pond' },
+  const routeNames = [
+    'Arnold Arboretum',
+    'Atlantic Ave',
+    'Boston Harbor Islands Worlds End Loop',
+    'Castle Island JFK Library',
+    'Charles River',
+    'Chestnut Hill Reservoir',
+    'Commonwealth Avenue',
+    'Emerald Necklace',
+    'Esplanade',
+    'Fenway',
+    'Franklin Park',
+    'Fresh Pond',
+    'Harvard',
+    'Heartbreak Hills',
+    'Jamaica Pond',
+    'MIT Bridge',
+    'Middlesex Fells',
+    'Minuteman Bikeway',
+    'Museum of Science',
+    'Reservoir',
+    'Riverway',
+    'Somerville Community Path',
+    'Southwest Corridor Path',
   ];
+
+  const routes = routeNames.map(name => ({
+    name,
+    file: `../assets/gpx/${encodeURIComponent(name)}.gpx`
+  }));
 
   function haversineDistance(coords) {
     let total = 0;
