@@ -27,8 +27,6 @@ nav {
 }
 .nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
 .nav-logo span { color: var(--accent); font-style: italic; }
-.nav-routes { font-family: var(--sans); font-size: 0.8rem; font-weight: 400; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
-.nav-routes:hover { color: var(--accent); }
 .nav-cta { background: var(--navy); color: var(--paper); font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.55rem 1.25rem; border: none; border-radius: 2px; cursor: pointer; text-decoration: none; transition: background 0.2s; }
 .nav-cta:hover { background: var(--accent); color: var(--ink); }
 /* HERO — map left, text right */
