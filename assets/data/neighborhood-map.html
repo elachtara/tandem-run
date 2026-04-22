@@ -13,7 +13,7 @@
 
     .info-card {
       position: absolute;
-      top: 1.5rem; left: 1.5rem;
+      top: 5.5rem; left: 1.5rem;
       z-index: 1000;
       background: rgba(255, 255, 255, 0.96);
       border: 1px solid rgba(28, 63, 122, 0.15);
@@ -25,14 +25,6 @@
     .info-card h1 { font-size: 0.95rem; font-weight: 600; color: #1c3f7a; margin-bottom: 0.3rem; }
     .info-card p  { font-size: 0.73rem; color: #78726a; line-height: 1.6; margin-bottom: 1rem; }
 
-    .legend-title { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1c3f7a; font-weight: 600; margin-bottom: 0.5rem; }
-    .legend-bar {
-      height: 10px; border-radius: 5px;
-      background: linear-gradient(to right, rgba(28,63,122,0.08), rgba(28,63,122,0.4), rgba(28,63,122,0.85));
-      margin-bottom: 0.3rem;
-    }
-    .legend-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: #aaa; }
-    .legend-note { font-size: 0.62rem; color: #bbb; margin-top: 0.6rem; }
 
     .bubble-tooltip {
       background: white;
@@ -56,11 +48,7 @@
 
 <div class="info-card">
   <h1>Where are they?</h1>
-  <p>First 100 waitlist sign-ups. Darker shading = more signups. Hover a neighborhood for exact count.</p>
-  <div class="legend-title">Signup density</div>
-  <div class="legend-bar"></div>
-  <div class="legend-labels"><span>Fewer</span><span>More</span></div>
-  <div class="legend-note">All listed neighborhoods shown as polygons</div>
+  <p>First 100 Tandem Run waitlist sign-ups.</p>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
