@@ -93,7 +93,7 @@
       <div class="legend-circle" style="width:32px;height:32px;"></div> 15
     </div>
   </div>
-  <div class="legend-note">Cambridge, Somerville &amp; suburbs shown as bubbles only — neighborhood boundaries from separate datasets.</div>
+  <div class="legend-note">Suburbs (Hingham, Newton, Medford, Brookline) shown as bubbles only — no municipal neighborhood GeoJSON available.</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -145,54 +145,103 @@
 
   const maxCount = Math.max(...neighborhoods.map(n => n.count));
 
-  // Name aliases to match Boston open data field names
-  const nameAliases = {
+  // Name aliases: signup name → Boston open data name
+  const bostonAliases = {
     'Seaport': 'South Boston Waterfront',
-    'South Boston': 'South Boston',
   };
 
-  function getCount(featureName) {
+  function getBostonCount(featureName) {
     const normalized = featureName.toLowerCase().trim();
     const match = neighborhoods.find(n => {
-      const alias = nameAliases[n.name] || n.name;
-      return alias.toLowerCase() === normalized || n.name.toLowerCase() === normalized;
+      const alias = bostonAliases[n.name] || n.name;
+      return alias.toLowerCase() === normalized;
     });
     return match ? match.count : 0;
   }
 
-  // Load Boston neighborhood boundaries from city open data
+  // Cambridge: GeoJSON neighborhood name → signup neighborhood names that fall within it
+  const cambridgeMapping = {
+    'East Cambridge':       ['East Cambridge', 'Cambridge Crossing', 'Kendall Square'],
+    'West Cambridge':       ['West Cambridge'],
+    'Cambridgeport':        ['Cambridgeport'],
+    'Mid-Cambridge':        ['Mid Cambridge'],
+    'Neighborhood Nine':    ['Porter Square'],
+    'Wellington-Harrington':['Inman Square'],
+  };
+
+  function getCambridgeCount(featureName) {
+    const mapped = cambridgeMapping[featureName] || [];
+    return mapped.reduce((sum, name) => {
+      const match = neighborhoods.find(n => n.name === name);
+      return sum + (match ? match.count : 0);
+    }, 0);
+  }
+
+  function polygonStyle(count) {
+    return {
+      fillColor: '#1c3f7a',
+      fillOpacity: count > 0 ? 0.12 + (count / maxCount) * 0.55 : 0.04,
+      color: '#1c3f7a',
+      weight: 1.5,
+      opacity: count > 0 ? 0.7 : 0.25
+    };
+  }
+
+  function addPolygonLayer(geojson, getCountFn) {
+    L.geoJSON(geojson, {
+      style: feature => {
+        const name = feature.properties.Name || feature.properties.name || feature.properties.NAME || '';
+        return polygonStyle(getCountFn(name));
+      },
+      onEachFeature: (feature, layer) => {
+        const name = feature.properties.Name || feature.properties.name || feature.properties.NAME || '';
+        const count = getCountFn(name);
+        if (count > 0) {
+          layer.bindTooltip(
+            `<strong>${name}</strong>${count} signup${count !== 1 ? 's' : ''}`,
+            { sticky: true, direction: 'top', className: 'bubble-tooltip' }
+          );
+          const base = polygonStyle(count);
+          layer.on('mouseover', () => layer.setStyle({ ...base, fillOpacity: base.fillOpacity + 0.15 }));
+          layer.on('mouseout',  () => layer.setStyle(base));
+        }
+      }
+    }).addTo(map);
+  }
+
+  // Load Boston neighborhood boundaries
   fetch('https://bostonopendata-boston.opendata.arcgis.com/datasets/3525b0ee6e6b427f9aab5d0a1d0a1a28_0.geojson')
     .then(r => r.json())
-    .then(geojson => {
-      L.geoJSON(geojson, {
-        style: feature => {
-          const name = feature.properties.Name || feature.properties.name || '';
-          const count = getCount(name);
-          const fillOpacity = count > 0 ? 0.12 + (count / maxCount) * 0.55 : 0.04;
-          const borderOpacity = count > 0 ? 0.7 : 0.25;
-          return {
-            fillColor: '#1c3f7a',
-            fillOpacity,
-            color: '#1c3f7a',
-            weight: 1.5,
-            opacity: borderOpacity
-          };
-        },
-        onEachFeature: (feature, layer) => {
-          const name = feature.properties.Name || feature.properties.name || '';
-          const count = getCount(name);
-          if (count > 0) {
-            layer.bindTooltip(
-              `<strong>${name}</strong>${count} signup${count !== 1 ? 's' : ''}`,
-              { sticky: true, direction: 'top', className: 'bubble-tooltip' }
-            );
-            layer.on('mouseover', () => layer.setStyle({ fillOpacity: 0.12 + (count / maxCount) * 0.55 + 0.15 }));
-            layer.on('mouseout',  () => layer.setStyle({ fillOpacity: 0.12 + (count / maxCount) * 0.55 }));
-          }
-        }
-      }).addTo(map);
-    })
-    .catch(err => console.warn('Could not load Boston neighborhood boundaries:', err));
+    .then(geojson => addPolygonLayer(geojson, getBostonCount))
+    .catch(err => console.warn('Could not load Boston boundaries:', err));
+
+  // Load Cambridge neighborhood boundaries
+  fetch('https://raw.githubusercontent.com/cambridgegis/cambridgegis_data/main/Boundary/CDD_Neighborhoods/BOUNDARY_CDDNeighborhoods.geojson')
+    .then(r => r.json())
+    .then(geojson => addPolygonLayer(geojson, getCambridgeCount))
+    .catch(err => console.warn('Could not load Cambridge boundaries:', err));
+
+  // Somerville: GeoJSON neighborhood name → signup neighborhood names
+  const somervilleMapping = {
+    'Assembly Square': ['Assembly Row'],
+    'Davis Square':    ['Davis Square'],
+    'Winter Hill':     ['Winter Hill'],
+    'Union Square':    ['Union Square'],
+  };
+
+  function getSomervilleCount(featureName) {
+    const mapped = somervilleMapping[featureName] || [];
+    return mapped.reduce((sum, name) => {
+      const match = neighborhoods.find(n => n.name === name);
+      return sum + (match ? match.count : 0);
+    }, 0);
+  }
+
+  // Load Somerville neighborhood boundaries (Socrata open data)
+  fetch('https://data.somervillema.gov/resource/n5md-vqta.geojson')
+    .then(r => r.json())
+    .then(geojson => addPolygonLayer(geojson, getSomervilleCount))
+    .catch(err => console.warn('Could not load Somerville boundaries:', err));
 
   // Bubble markers for all neighborhoods (on top of polygons)
   neighborhoods.forEach(({ name, lat, lon, count }) => {
