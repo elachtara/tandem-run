@@ -93,6 +93,7 @@
     'Brighton':            8,
     'Charlestown':        15,
     'Dorchester':          3,
+    'Downtown':            0,
     'East Boston':         5,
     'Fenway / Kenmore':    0,
     'Hyde Park':           0,
@@ -104,9 +105,9 @@
     'Roxbury':             0,
     'South Boston':        2,
     'South End':           1,
+    'West End':            0,
     'West Roxbury':        0,
-    // Seaport was a legacy submission before dropdown was updated
-    'Seaport':             1,
+    'Seaport':             1,  // legacy submission
     // Cambridge
     'Cambridgeport':       2,
     'Cambridge Crossing':  1,
@@ -140,35 +141,53 @@
 
   const maxCount = Math.max(...Object.values(signups));
 
-  // ── Boston: GeoJSON "name" → dropdown option ──────────────────────────────
-  // Only entries that differ from the GeoJSON name are listed.
-  const bostonNameMap = {
-    'Fenway':                  'Fenway / Kenmore',
-    'South Boston Waterfront': 'Seaport',
+  // ── Boston: GeoJSON polygon → { display, keys[] } ─────────────────────────
+  // Unlisted polygons use their GeoJSON name as both display and key.
+  // null = hidden (Harbor Islands).
+  const bostonOverrides = {
+    'Fenway':                  { display: 'Fenway / Kenmore', keys: ['Fenway / Kenmore'] },
+    'South Boston Waterfront': { display: 'Seaport',          keys: ['Seaport'] },
+    'Downtown':                { display: 'Downtown',         keys: ['Downtown'] },
+    'Leather District':        { display: 'Downtown',         keys: ['Downtown'] },
+    'Chinatown':               { display: 'Downtown',         keys: ['Downtown'] },
+    'West End':                { display: 'West End',         keys: ['West End'] },
+    'Bay Village':             { display: 'South End',        keys: ['South End'] },
+    'Longwood Medical Area':   { display: 'Fenway / Kenmore', keys: ['Fenway / Kenmore'] },
+    'Harbor Islands':          null,
   };
 
-  // ── Cambridge: CDD polygon "NAME" → { display, signupKeys[] } ────────────
-  // signupKeys allows multiple dropdown options to aggregate onto one polygon.
+  // ── Cambridge: CDD polygon → { display, keys[] } ─────────────────────────
   const cambridgeData = {
-    'East Cambridge':        { display: 'East Cambridge',   keys: ['East Cambridge', 'Cambridge Crossing'] },
-    'Area 2/MIT':            { display: 'Kendall Square',   keys: ['Kendall Square'] },
-    'Cambridgeport':         { display: 'Cambridgeport',    keys: ['Cambridgeport'] },
-    'West Cambridge':        { display: 'West Cambridge',   keys: ['West Cambridge'] },
-    'Mid-Cambridge':         { display: 'Mid Cambridge',    keys: ['Mid Cambridge'] },
-    'North Cambridge':       { display: 'North Cambridge',  keys: ['North Cambridge'] },
-    'Riverside':             { display: 'Harvard Square',   keys: ['Harvard Square'] },
-    'Wellington-Harrington': { display: 'Inman Square',     keys: ['Inman Square'] },
-    'Neighborhood Nine':     { display: 'Porter Square',    keys: ['Porter Square'] },
+    'East Cambridge':        { display: 'East Cambridge',  keys: ['East Cambridge', 'Cambridge Crossing'] },
+    'The Port':              { display: 'East Cambridge',  keys: ['East Cambridge', 'Cambridge Crossing'] },
+    'Area 2/MIT':            { display: 'Kendall Square',  keys: ['Kendall Square'] },
+    'Cambridgeport':         { display: 'Cambridgeport',   keys: ['Cambridgeport'] },
+    'West Cambridge':        { display: 'West Cambridge',  keys: ['West Cambridge'] },
+    'Cambridge Highlands':   { display: 'West Cambridge',  keys: ['West Cambridge'] },
+    'Strawberry Hill':       { display: 'West Cambridge',  keys: ['West Cambridge'] },
+    'Baldwin':               { display: 'West Cambridge',  keys: ['West Cambridge'] },
+    'Mid-Cambridge':         { display: 'Mid Cambridge',   keys: ['Mid Cambridge'] },
+    'North Cambridge':       { display: 'North Cambridge', keys: ['North Cambridge'] },
+    'Riverside':             { display: 'Harvard Square',  keys: ['Harvard Square'] },
+    'Wellington-Harrington': { display: 'Inman Square',    keys: ['Inman Square'] },
+    'Neighborhood Nine':     { display: 'Porter Square',   keys: ['Porter Square'] },
   };
 
-  // ── Somerville: GeoJSON "title" → { display, signupKeys[] } ──────────────
+  // ── Somerville: GeoJSON polygon → { display, keys[] } ────────────────────
   const somervilleData = {
-    'Assembly Square': { display: 'Assembly Row',  keys: ['Assembly Row'] },
-    'Davis Square':    { display: 'Davis Square',  keys: ['Davis Square'] },
-    'East Somerville': { display: 'Ball Square',   keys: ['Ball Square'] },
-    'Magoun Square':   { display: 'Magoun Square', keys: ['Magoun Square'] },
-    'Prospect Hill':   { display: 'Union Square',  keys: ['Union Square'] },
-    'Winter Hill':     { display: 'Winter Hill',   keys: ['Winter Hill'] },
+    'Assembly Square':    { display: 'Assembly Row',  keys: ['Assembly Row'] },
+    'Inner Belt':         { display: 'Assembly Row',  keys: ['Assembly Row'] },
+    'Davis Square':       { display: 'Davis Square',  keys: ['Davis Square'] },
+    'Teele Square':       { display: 'Davis Square',  keys: ['Davis Square'] },
+    'Powder House':       { display: 'Davis Square',  keys: ['Davis Square'] },
+    'East Somerville':    { display: 'Ball Square',   keys: ['Ball Square'] },
+    'Tufts':              { display: 'Ball Square',   keys: ['Ball Square'] },
+    'Ward Two/Cobble Hill':{ display: 'Ball Square',  keys: ['Ball Square'] },
+    'Magoun Square':      { display: 'Magoun Square', keys: ['Magoun Square'] },
+    'Ten Hills':          { display: 'Magoun Square', keys: ['Magoun Square'] },
+    'Prospect Hill':      { display: 'Union Square',  keys: ['Union Square'] },
+    'Spring Hill':        { display: 'Union Square',  keys: ['Union Square'] },
+    'Winter Hill':        { display: 'Winter Hill',   keys: ['Winter Hill'] },
   };
 
   // ── Suburb dot markers (no polygon data) ─────────────────────────────────
@@ -212,14 +231,16 @@
   // ── Boston ────────────────────────────────────────────────────────────────
 
   L.geoJSON(BOSTON_GEO, {
+    filter: feature => bostonOverrides[feature.properties.name] !== null,
     style: feature => {
-      const name = bostonNameMap[feature.properties.name] || feature.properties.name;
-      return polyStyle(signups[name] || 0);
+      const info = bostonOverrides[feature.properties.name] || { keys: [feature.properties.name] };
+      return polyStyle(countForKeys(info.keys));
     },
     onEachFeature: (feature, layer) => {
-      const name  = bostonNameMap[feature.properties.name] || feature.properties.name;
-      const count = signups[name] || 0;
-      layer.bindTooltip(tooltipHtml(name, count), { sticky: true, direction: 'top', className: 'bubble-tooltip' });
+      const override = bostonOverrides[feature.properties.name];
+      const info = override || { display: feature.properties.name, keys: [feature.properties.name] };
+      const count = countForKeys(info.keys);
+      layer.bindTooltip(tooltipHtml(info.display, count), { sticky: true, direction: 'top', className: 'bubble-tooltip' });
       addHover(layer);
     }
   }).addTo(map);
@@ -232,7 +253,7 @@
       return polyStyle(info ? countForKeys(info.keys) : 0);
     },
     onEachFeature: (feature, layer) => {
-      const info  = cambridgeData[feature.properties.NAME];
+      const info    = cambridgeData[feature.properties.NAME];
       const display = info ? info.display : feature.properties.NAME;
       const count   = info ? countForKeys(info.keys) : 0;
       layer.bindTooltip(tooltipHtml(display, count), { sticky: true, direction: 'top', className: 'bubble-tooltip' });
