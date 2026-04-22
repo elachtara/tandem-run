@@ -149,9 +149,9 @@
   }
 
   function fillColor(count) {
-    if (!count) return 'rgba(28,63,122,0.05)';
+    if (!count) return 'rgba(28,63,122,0.20)';
     const t = Math.sqrt(count) / Math.sqrt(maxCount);
-    return `rgba(28,63,122,${(0.12 + t * 0.80).toFixed(2)})`;
+    return `rgba(28,63,122,${(0.30 + t * 0.62).toFixed(2)})`;
   }
 
   function polyStyle(count) {
