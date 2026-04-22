@@ -32,6 +32,7 @@
       margin-bottom: 0.3rem;
     }
     .legend-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: #aaa; }
+    .legend-note { font-size: 0.62rem; color: #bbb; margin-top: 0.6rem; }
 
     .bubble-tooltip {
       background: white;
@@ -55,14 +56,14 @@
 
 <div class="info-card">
   <h1>Where are they?</h1>
-  <p>First 100 waitlist sign-ups. Darker areas = more signups. Hover a dot for exact count.</p>
+  <p>First 100 waitlist sign-ups. Darker shading = more signups. Hover a neighborhood for exact count.</p>
   <div class="legend-title">Signup density</div>
   <div class="legend-bar"></div>
   <div class="legend-labels"><span>Fewer</span><span>More</span></div>
+  <div class="legend-note">● Somerville &amp; suburbs shown as dots</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <script>
   const map = L.map('map', {
     center: [42.355, -71.09],
@@ -78,67 +79,157 @@
     maxZoom: 19
   }).addTo(map);
 
-  const neighborhoods = [
-    { name: 'Charlestown',        lat: 42.3782, lon: -71.0602, count: 15 },
-    { name: 'North End',          lat: 42.3647, lon: -71.0542, count: 12 },
-    { name: 'Beacon Hill',        lat: 42.3588, lon: -71.0707, count: 9  },
-    { name: 'Brighton',           lat: 42.3518, lon: -71.1545, count: 8  },
-    { name: 'East Cambridge',     lat: 42.3676, lon: -71.0905, count: 6  },
-    { name: 'East Boston',        lat: 42.3736, lon: -71.0390, count: 5  },
-    { name: 'Allston',            lat: 42.3538, lon: -71.1328, count: 3  },
-    { name: 'Dorchester',         lat: 42.3021, lon: -71.0657, count: 3  },
-    { name: 'Jamaica Plain',      lat: 42.3103, lon: -71.1132, count: 3  },
-    { name: 'Davis Square',       lat: 42.3967, lon: -71.1222, count: 2  },
-    { name: 'West Cambridge',     lat: 42.3779, lon: -71.1414, count: 2  },
-    { name: 'Cambridgeport',      lat: 42.3626, lon: -71.1105, count: 2  },
-    { name: 'Assembly Row',       lat: 42.3953, lon: -71.0773, count: 2  },
-    { name: 'South Boston',       lat: 42.3380, lon: -71.0436, count: 2  },
-    { name: 'Hingham',            lat: 42.2421, lon: -70.8900, count: 2  },
-    { name: 'Seaport',            lat: 42.3502, lon: -71.0437, count: 1  },
-    { name: 'Winter Hill',        lat: 42.3928, lon: -71.0984, count: 1  },
-    { name: 'Inman Square',       lat: 42.3735, lon: -71.1027, count: 1  },
-    { name: 'Cambridge Crossing', lat: 42.3746, lon: -71.0760, count: 1  },
-    { name: 'Kendall Square',     lat: 42.3623, lon: -71.0875, count: 1  },
-    { name: 'South End',          lat: 42.3416, lon: -71.0743, count: 1  },
-    { name: 'Union Square',       lat: 42.3788, lon: -71.0988, count: 1  },
-    { name: 'Medford',            lat: 42.4184, lon: -71.1062, count: 1  },
-    { name: 'Newton',             lat: 42.3370, lon: -71.2092, count: 1  },
-    { name: 'Back Bay',           lat: 42.3503, lon: -71.0810, count: 1  },
-    { name: 'Brookline',          lat: 42.3317, lon: -71.1213, count: 1  },
-    { name: 'Porter Square',      lat: 42.3884, lon: -71.1192, count: 1  },
-    { name: 'Mid Cambridge',      lat: 42.3780, lon: -71.1099, count: 1  },
+  // ── Waitlist data ──────────────────────────────────────────────────────────
+
+  const signups = {
+    'Charlestown':        15,
+    'North End':          12,
+    'Beacon Hill':         9,
+    'Brighton':            8,
+    'East Cambridge':      6,
+    'East Boston':         5,
+    'Allston':             3,
+    'Dorchester':          3,
+    'Jamaica Plain':       3,
+    'Davis Square':        2,
+    'West Cambridge':      2,
+    'Cambridgeport':       2,
+    'Assembly Row':        2,
+    'South Boston':        2,
+    'Hingham':             2,
+    'Seaport':             1,
+    'Winter Hill':         1,
+    'Inman Square':        1,
+    'Cambridge Crossing':  1,
+    'Kendall Square':      1,
+    'South End':           1,
+    'Union Square':        1,
+    'Medford':             1,
+    'Newton':              1,
+    'Back Bay':            1,
+    'Brookline':           1,
+    'Porter Square':       1,
+    'Mid Cambridge':       1,
+  };
+
+  const maxCount = 15;
+
+  // ── Boston GeoJSON name → waitlist name ───────────────────────────────────
+  // Only entries that differ from the GeoJSON name are listed.
+  const bostonNameMap = {
+    'South Boston Waterfront': 'Seaport',
+  };
+
+  // ── Cambridge CDD neighborhoods → aggregated waitlist data ────────────────
+  // Some CDD polygons cover multiple colloquial neighborhoods.
+  const cambridgeData = {
+    'East Cambridge':       { display: 'East Cambridge',  count: signups['East Cambridge'] + signups['Cambridge Crossing'] + signups['Kendall Square'] },
+    'Cambridgeport':        { display: 'Cambridgeport',   count: signups['Cambridgeport'] },
+    'West Cambridge':       { display: 'West Cambridge',  count: signups['West Cambridge'] },
+    'Mid-Cambridge':        { display: 'Mid Cambridge',   count: signups['Mid Cambridge'] },
+    'Wellington-Harrington':{ display: 'Inman Square',    count: signups['Inman Square'] },
+    'Neighborhood Nine':    { display: 'Porter Square',   count: signups['Porter Square'] },
+  };
+
+  // ── Somerville + suburbs — dot markers (no polygon data available) ─────────
+  const dotMarkers = [
+    { name: 'Davis Square',  lat: 42.3967, lon: -71.1222, count: signups['Davis Square'] },
+    { name: 'Assembly Row',  lat: 42.3953, lon: -71.0773, count: signups['Assembly Row'] },
+    { name: 'Winter Hill',   lat: 42.3928, lon: -71.0984, count: signups['Winter Hill'] },
+    { name: 'Union Square',  lat: 42.3788, lon: -71.0988, count: signups['Union Square'] },
+    { name: 'Hingham',       lat: 42.2421, lon: -70.8900, count: signups['Hingham'] },
+    { name: 'Medford',       lat: 42.4184, lon: -71.1062, count: signups['Medford'] },
+    { name: 'Newton',        lat: 42.3370, lon: -71.2092, count: signups['Newton'] },
+    { name: 'Brookline',     lat: 42.3317, lon: -71.1213, count: signups['Brookline'] },
   ];
 
-  const maxCount = Math.max(...neighborhoods.map(n => n.count));
+  // ── Helpers ───────────────────────────────────────────────────────────────
 
-  // Heatmap layer
-  const heatData = neighborhoods.map(({ lat, lon, count }) => [lat, lon, count / maxCount]);
+  function fillColor(count) {
+    if (!count) return 'rgba(28,63,122,0.05)';
+    const t = Math.sqrt(count) / Math.sqrt(maxCount);
+    const opacity = (0.12 + t * 0.80).toFixed(2);
+    return `rgba(28,63,122,${opacity})`;
+  }
 
-  L.heatLayer(heatData, {
-    radius: 55,
-    blur: 45,
-    maxZoom: 13,
-    max: 1.0,
-    gradient: {
-      0.0: 'rgba(28,63,122,0)',
-      0.2: 'rgba(28,63,122,0.12)',
-      0.5: 'rgba(28,63,122,0.45)',
-      0.8: 'rgba(28,63,122,0.72)',
-      1.0: 'rgba(28,63,122,0.92)'
-    }
-  }).addTo(map);
+  function polyStyle(count) {
+    return {
+      fillColor: fillColor(count),
+      fillOpacity: 1,
+      color: 'rgba(28,63,122,0.22)',
+      weight: 0.8,
+    };
+  }
 
-  // Small dot markers for hover tooltips
-  neighborhoods.forEach(({ name, lat, lon, count }) => {
+  function tooltipHtml(name, count) {
+    return `<strong>${name}</strong>${count} signup${count !== 1 ? 's' : ''}`;
+  }
+
+  // ── Boston neighborhoods ───────────────────────────────────────────────────
+
+  fetch('boston-neighborhoods.geojson')
+    .then(r => r.json())
+    .then(data => {
+      L.geoJSON(data, {
+        style: feature => {
+          const geoName = feature.properties.name;
+          const name = bostonNameMap[geoName] || geoName;
+          return polyStyle(signups[name] || 0);
+        },
+        onEachFeature: (feature, layer) => {
+          const geoName = feature.properties.name;
+          const name = bostonNameMap[geoName] || geoName;
+          const count = signups[name] || 0;
+          layer.bindTooltip(
+            tooltipHtml(name, count),
+            { sticky: true, direction: 'top', className: 'bubble-tooltip' }
+          );
+          layer.on('mouseover', function () { this.setStyle({ weight: 1.5, color: 'rgba(28,63,122,0.5)' }); });
+          layer.on('mouseout',  function () { this.setStyle({ weight: 0.8, color: 'rgba(28,63,122,0.22)' }); });
+        }
+      }).addTo(map);
+    })
+    .catch(e => console.warn('Boston GeoJSON failed:', e));
+
+  // ── Cambridge neighborhoods ────────────────────────────────────────────────
+
+  fetch('cambridge-neighborhoods.geojson')
+    .then(r => r.json())
+    .then(data => {
+      L.geoJSON(data, {
+        style: feature => {
+          const geoName = feature.properties.NAME;
+          const info = cambridgeData[geoName];
+          return polyStyle(info ? info.count : 0);
+        },
+        onEachFeature: (feature, layer) => {
+          const geoName = feature.properties.NAME;
+          const info = cambridgeData[geoName];
+          const display = info ? info.display : geoName;
+          const count   = info ? info.count : 0;
+          layer.bindTooltip(
+            tooltipHtml(display, count),
+            { sticky: true, direction: 'top', className: 'bubble-tooltip' }
+          );
+          layer.on('mouseover', function () { this.setStyle({ weight: 1.5, color: 'rgba(28,63,122,0.5)' }); });
+          layer.on('mouseout',  function () { this.setStyle({ weight: 0.8, color: 'rgba(28,63,122,0.22)' }); });
+        }
+      }).addTo(map);
+    })
+    .catch(e => console.warn('Cambridge GeoJSON failed:', e));
+
+  // ── Dot markers for Somerville + suburbs ──────────────────────────────────
+
+  dotMarkers.forEach(({ name, lat, lon, count }) => {
     L.circleMarker([lat, lon], {
       radius: 5,
       color: '#1c3f7a',
       weight: 1.5,
-      fillColor: 'white',
-      fillOpacity: 0.85,
+      fillColor: fillColor(count),
+      fillOpacity: 0.9,
     })
     .bindTooltip(
-      `<strong>${name}</strong>${count} signup${count !== 1 ? 's' : ''}`,
+      tooltipHtml(name, count),
       { sticky: true, direction: 'top', className: 'bubble-tooltip' }
     )
     .addTo(map);
