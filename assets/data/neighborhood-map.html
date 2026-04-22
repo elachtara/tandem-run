@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waitlist — Neighborhood Map · Tandem Run</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #0f0e0c; }
+
+    #map { width: 100vw; height: 100vh; }
+
+    .info-card {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      z-index: 1000;
+      background: rgba(22, 45, 90, 0.93);
+      border: 1px solid rgba(232, 168, 32, 0.35);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      max-width: 260px;
+      backdrop-filter: blur(8px);
+    }
+    .info-card h1 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(247, 243, 236, 0.95);
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+    .info-card p {
+      font-size: 0.75rem;
+      color: rgba(247, 243, 236, 0.45);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .legend { display: flex; flex-direction: column; gap: 0.5rem; }
+    .legend-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232, 168, 32, 0.7);
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+    .legend-items { display: flex; align-items: center; gap: 1rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; color: rgba(247,243,236,0.5); }
+    .legend-circle {
+      border-radius: 50%;
+      background: rgba(232, 168, 32, 0.7);
+      border: 1.5px solid rgba(232, 168, 32, 0.9);
+      flex-shrink: 0;
+    }
+
+    .bubble-tooltip {
+      background: rgba(22, 45, 90, 0.95);
+      border: 1px solid rgba(232, 168, 32, 0.4);
+      border-radius: 4px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.78rem;
+      color: rgba(247, 243, 236, 0.9);
+      font-family: system-ui, sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .bubble-tooltip::before { display: none; }
+    .bubble-tooltip strong { color: #e8a820; display: block; font-size: 0.8rem; }
+
+    .leaflet-control-attribution { background: rgba(15,14,12,0.7) !important; color: rgba(245,242,236,0.3) !important; font-size: 9px !important; }
+    .leaflet-control-zoom a { background: rgba(15,14,12,0.85) !important; color: rgba(245,242,236,0.6) !important; border-color: rgba(245,242,236,0.1) !important; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="info-card">
+  <h1>Waitlist — Where are they?</h1>
+  <p>First 100 sign-ups by neighborhood. Excludes responses outside the Boston area.</p>
+  <div class="legend">
+    <div class="legend-title">Signups</div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="legend-circle" style="width:10px;height:10px;"></div>
+        1
+      </div>
+      <div class="legend-item">
+        <div class="legend-circle" style="width:18px;height:18px;"></div>
+        5
+      </div>
+      <div class="legend-item">
+        <div class="legend-circle" style="width:26px;height:26px;"></div>
+        10
+      </div>
+      <div class="legend-item">
+        <div class="legend-circle" style="width:32px;height:32px;"></div>
+        15
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map', {
+    center: [42.355, -71.09],
+    zoom: 12,
+    zoomControl: true,
+    scrollWheelZoom: true,
+    attributionControl: true
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  L.rectangle([[-90, -180], [90, 180]], {
+    color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.18, stroke: false
+  }).addTo(map);
+
+  const neighborhoods = [
+    { name: 'Charlestown',       lat: 42.3782, lon: -71.0602, count: 15 },
+    { name: 'North End',         lat: 42.3647, lon: -71.0542, count: 12 },
+    { name: 'Beacon Hill',       lat: 42.3588, lon: -71.0707, count: 9  },
+    { name: 'Brighton',          lat: 42.3518, lon: -71.1545, count: 8  },
+    { name: 'East Cambridge',    lat: 42.3676, lon: -71.0905, count: 6  },
+    { name: 'East Boston',       lat: 42.3736, lon: -71.0390, count: 5  },
+    { name: 'Allston',           lat: 42.3538, lon: -71.1328, count: 3  },
+    { name: 'Dorchester',        lat: 42.3021, lon: -71.0657, count: 3  },
+    { name: 'Jamaica Plain',     lat: 42.3103, lon: -71.1132, count: 3  },
+    { name: 'Davis Square',      lat: 42.3967, lon: -71.1222, count: 2  },
+    { name: 'West Cambridge',    lat: 42.3779, lon: -71.1414, count: 2  },
+    { name: 'Cambridgeport',     lat: 42.3626, lon: -71.1105, count: 2  },
+    { name: 'Assembly Row',      lat: 42.3953, lon: -71.0773, count: 2  },
+    { name: 'South Boston',      lat: 42.3380, lon: -71.0436, count: 2  },
+    { name: 'Hingham',           lat: 42.2421, lon: -70.8900, count: 2  },
+    { name: 'Seaport',           lat: 42.3502, lon: -71.0437, count: 1  },
+    { name: 'Winter Hill',       lat: 42.3928, lon: -71.0984, count: 1  },
+    { name: 'Inman Square',      lat: 42.3735, lon: -71.1027, count: 1  },
+    { name: 'Cambridge Crossing',lat: 42.3746, lon: -71.0760, count: 1  },
+    { name: 'Kendall Square',    lat: 42.3623, lon: -71.0875, count: 1  },
+    { name: 'South End',         lat: 42.3416, lon: -71.0743, count: 1  },
+    { name: 'Union Square',      lat: 42.3788, lon: -71.0988, count: 1  },
+    { name: 'Medford',           lat: 42.4184, lon: -71.1062, count: 1  },
+    { name: 'Newton',            lat: 42.3370, lon: -71.2092, count: 1  },
+    { name: 'Back Bay',          lat: 42.3503, lon: -71.0810, count: 1  },
+    { name: 'Brookline',         lat: 42.3317, lon: -71.1213, count: 1  },
+    { name: 'Porter Square',     lat: 42.3884, lon: -71.1192, count: 1  },
+    { name: 'Mid Cambridge',     lat: 42.3780, lon: -71.1099, count: 1  },
+  ];
+
+  const maxCount = Math.max(...neighborhoods.map(n => n.count));
+
+  neighborhoods.forEach(({ name, lat, lon, count }) => {
+    const radius = Math.sqrt(count / maxCount) * 28 + 6;
+    const opacity = 0.35 + (count / maxCount) * 0.55;
+
+    L.circleMarker([lat, lon], {
+      radius,
+      color: '#e8a820',
+      weight: 1.5,
+      fillColor: '#e8a820',
+      fillOpacity: opacity,
+    })
+    .bindTooltip(
+      `<strong>${name}</strong>${count} signup${count !== 1 ? 's' : ''}`,
+      { sticky: true, direction: 'top', className: 'bubble-tooltip' }
+    )
+    .addTo(map);
+  });
+</script>
+
+</body>
+</html>
