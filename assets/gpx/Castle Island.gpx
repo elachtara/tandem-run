@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="StravaGPX" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+ <metadata>
+  <name>Boston Habor and Castle Island</name>
+  <desc>A stunning loop on the edge of Boston city centre
+
+The hike from Castle Island along the Boston Harbor Walk is scenic and enjoyable, offering a mix of natural beauty and maritime charm. 
+
+Begin your stroll at Castle Island, an iconic spot with Fort Independence standing against the backdrop of the harbor. There is historical interest on the trip and outstanding beauty, too - this is a remarkably varied hike given its relatively brief length. 
+
+The Harbor Walk is a well-maintained trail, lined with benches and green spaces, inviting you to pause and take in the maritime ambience. Walking along, you'll get a grasp of Boston's maritime history and, if you're there in summer, see plenty of folk out enjoying the ocean on their boats. The Harbor Walk passes through parks and open spaces, with panoramas across natural and man-made sights.
+
+The trail along the Boston Harbor Walk is clear throughout and leads you on a beautiful journey through some of Boston's most interesting landmarks. Written by Charlie Boscoe</desc>
+  <author>
+   <name>Strava Routes</name>
+   <link href="https://www.strava.com/athletes/3370924"/>
+  </author>
+  <copyright author="OpenStreetMap contributors">
+   <year>2020</year>
+   <license>https://www.openstreetmap.org/copyright</license>
+  </copyright>
+  <link href="https://www.strava.com/routes/3258096527978866812"/>
+ </metadata>
+ <trk>
+  <name>Boston Habor and Castle Island</name>
+  <desc>A stunning loop on the edge of Boston city centre
+
+The hike from Castle Island along the Boston Harbor Walk is scenic and enjoyable, offering a mix of natural beauty and maritime charm. 
+
+Begin your stroll at Castle Island, an iconic spot with Fort Independence standing against the backdrop of the harbor. There is historical interest on the trip and outstanding beauty, too - this is a remarkably varied hike given its relatively brief length. 
+
+The Harbor Walk is a well-maintained trail, lined with benches and green spaces, inviting you to pause and take in the maritime ambience. Walking along, you'll get a grasp of Boston's maritime history and, if you're there in summer, see plenty of folk out enjoying the ocean on their boats. The Harbor Walk passes through parks and open spaces, with panoramas across natural and man-made sights.
+
+The trail along the Boston Harbor Walk is clear throughout and leads you on a beautiful journey through some of Boston's most interesting landmarks. Written by Charlie Boscoe</desc>
+  <link href="https://www.strava.com/routes/3258096527978866812"/>
+  <type>hiking</type>
+  <trkseg>
+   <trkpt lat="42.338680000000004" lon="-71.01344">
+    <ele>4.46</ele>
+   </trkpt>
+   <trkpt lat="42.338710000000006" lon="-71.01329000000001">
+    <ele>4.46</ele>
+   </trkpt>
+   <trkpt lat="42.33896" lon="-71.01263">
+    <ele>4.750000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.33901" lon="-71.01245">
+    <ele>4.750000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.33914" lon="-71.01166">
+    <ele>4.91</ele>
+   </trkpt>
+   <trkpt lat="42.33921" lon="-71.01114000000001">
+    <ele>5.090000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.339180000000006" lon="-71.01048">
+    <ele>4.68</ele>
+   </trkpt>
+   <trkpt lat="42.33914" lon="-71.01028000000001">
+    <ele>4.750000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.339130000000004" lon="-71.01024000000001">
+    <ele>4.750000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.339040000000004" lon="-71.01012">
+    <ele>4.750000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.338530000000006" lon="-71.00980000000001">
+    <ele>5.0200000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.338460000000005" lon="-71.00976">
+    <ele>5.0200000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.337905000085485" lon="-71.00964499899084">
+    <ele>4.64</ele>
+   </trkpt>
+   <trkpt lat="42.33735" lon="-71.00953000000001">
+    <ele>4.69</ele>
+   </trkpt>
+   <trkpt lat="42.337230000000005" lon="-71.0095">
+    <ele>4.69</ele>
+   </trkpt>
+   <trkpt lat="42.33708" lon="-71.00952000000001">
+    <ele>4.7700000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.337050000000005" lon="-71.00953000000001">
+    <ele>4.7700000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.336980000000004" lon="-71.00954">
+    <ele>4.83</ele>
+   </trkpt>
+   <trkpt lat="42.336850000000005" lon="-71.00963">
+    <ele>4.840000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.33679" lon="-71.00972">
+    <ele>4.710000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.336740000000006" lon="-71.0099">
+    <ele>4.28</ele>
+   </trkpt>
+   <trkpt lat="42.336760000000005" lon="-71.01013">
+    <ele>3.97</ele>
+   </trkpt>
+   <trkpt lat="42.33652500114255" lon="-71.01066000215604">
+    <ele>3.7900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.336290000000005" lon="-71.01119">
+    <ele>3.7900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33612" lon="-71.01150000000001">
+    <ele>3.8200000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.3359" lon="-71.01173">
+    <ele>3.99</ele>
+   </trkpt>
+   <trkpt lat="42.335460000000005" lon="-71.012">
+    <ele>3.98</ele>
+   </trkpt>
+   <trkpt lat="42.335040000000006" lon="-71.01233">
+    <ele>4.3100000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33454500026703" lon="-71.01253500157853">
+    <ele>4.45</ele>
+   </trkpt>
+   <trkpt lat="42.334050000000005" lon="-71.01274000000001">
+    <ele>4.33</ele>
+   </trkpt>
+   <trkpt lat="42.333800000000004" lon="-71.01287">
+    <ele>4.32</ele>
+   </trkpt>
+   <trkpt lat="42.33335000050272" lon="-71.01315000190252">
+    <ele>4.38</ele>
+   </trkpt>
+   <trkpt lat="42.3329" lon="-71.01343">
+    <ele>4.24</ele>
+   </trkpt>
+   <trkpt lat="42.33222000000001" lon="-71.01392">
+    <ele>4.21</ele>
+   </trkpt>
+   <trkpt lat="42.331680000000006" lon="-71.01439">
+    <ele>3.95</ele>
+   </trkpt>
+   <trkpt lat="42.33135" lon="-71.0147">
+    <ele>3.7900000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33081000000001" lon="-71.01526000000001">
+    <ele>2.89</ele>
+   </trkpt>
+   <trkpt lat="42.33072000000001" lon="-71.01509">
+    <ele>2.9200000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.33062" lon="-71.01501">
+    <ele>2.9200000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.330510000000004" lon="-71.01517000000001">
+    <ele>2.9200000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.33052" lon="-71.01516000000001">
+    <ele>2.9200000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.330490000000005" lon="-71.01532">
+    <ele>2.9200000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.330510000000004" lon="-71.01554">
+    <ele>2.86</ele>
+   </trkpt>
+   <trkpt lat="42.33053" lon="-71.01562000000001">
+    <ele>2.86</ele>
+   </trkpt>
+   <trkpt lat="42.33061" lon="-71.01568">
+    <ele>2.86</ele>
+   </trkpt>
+   <trkpt lat="42.33068" lon="-71.01567">
+    <ele>2.89</ele>
+   </trkpt>
+   <trkpt lat="42.330740000000006" lon="-71.0163">
+    <ele>3.5700000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33088" lon="-71.01716">
+    <ele>3.8200000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33109" lon="-71.018">
+    <ele>3.8800000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33133" lon="-71.01876">
+    <ele>3.5900000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.331790000000005" lon="-71.0198">
+    <ele>3.3200000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33219333780752" lon="-71.02051665749559">
+    <ele>3.67</ele>
+   </trkpt>
+   <trkpt lat="42.3325966711524" lon="-71.02123332418267">
+    <ele>3.99</ele>
+   </trkpt>
+   <trkpt lat="42.333000000000006" lon="-71.02195">
+    <ele>3.7</ele>
+   </trkpt>
+   <trkpt lat="42.333360000000006" lon="-71.02263">
+    <ele>3.2600000000000002</ele>
+   </trkpt>
+   <trkpt lat="42.3335" lon="-71.02279">
+    <ele>3.24</ele>
+   </trkpt>
+   <trkpt lat="42.333490000000005" lon="-71.02278000000001">
+    <ele>3.24</ele>
+   </trkpt>
+   <trkpt lat="42.33372000000001" lon="-71.02289">
+    <ele>3.34</ele>
+   </trkpt>
+   <trkpt lat="42.33437000000001" lon="-71.02341000000001">
+    <ele>3.49</ele>
+   </trkpt>
+   <trkpt lat="42.3348" lon="-71.02363000000001">
+    <ele>3.58</ele>
+   </trkpt>
+   <trkpt lat="42.33525" lon="-71.02373">
+    <ele>3.8800000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.335550000000005" lon="-71.02372000000001">
+    <ele>3.99</ele>
+   </trkpt>
+   <trkpt lat="42.33579" lon="-71.02369">
+    <ele>4.0</ele>
+   </trkpt>
+   <trkpt lat="42.336000000000006" lon="-71.02363000000001">
+    <ele>3.95</ele>
+   </trkpt>
+   <trkpt lat="42.336270000000006" lon="-71.02351">
+    <ele>3.87</ele>
+   </trkpt>
+   <trkpt lat="42.336670000000005" lon="-71.02323000000001">
+    <ele>3.4800000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.33686" lon="-71.02306">
+    <ele>3.4400000000000004</ele>
+   </trkpt>
+   <trkpt lat="42.337250000000004" lon="-71.02261">
+    <ele>3.3000000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33726" lon="-71.02253">
+    <ele>3.3000000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.337770000000006" lon="-71.02173">
+    <ele>4.0600000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.338" lon="-71.02128">
+    <ele>3.8400000000000003</ele>
+   </trkpt>
+   <trkpt lat="42.33827" lon="-71.0206">
+    <ele>4.03</ele>
+   </trkpt>
+   <trkpt lat="42.33849" lon="-71.01974">
+    <ele>4.17</ele>
+   </trkpt>
+   <trkpt lat="42.33856" lon="-71.01918">
+    <ele>4.37</ele>
+   </trkpt>
+   <trkpt lat="42.33863" lon="-71.01858">
+    <ele>4.48</ele>
+   </trkpt>
+   <trkpt lat="42.33869000000001" lon="-71.01742">
+    <ele>4.3100000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33872" lon="-71.01621">
+    <ele>4.2</ele>
+   </trkpt>
+   <trkpt lat="42.3387" lon="-71.0154">
+    <ele>3.95</ele>
+   </trkpt>
+   <trkpt lat="42.338660000000004" lon="-71.01502">
+    <ele>3.8300000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33831000000001" lon="-71.01451">
+    <ele>3.67</ele>
+   </trkpt>
+   <trkpt lat="42.338280000000005" lon="-71.01442">
+    <ele>3.6600000000000006</ele>
+   </trkpt>
+   <trkpt lat="42.338280000000005" lon="-71.01357">
+    <ele>3.8300000000000005</ele>
+   </trkpt>
+   <trkpt lat="42.33831000000001" lon="-71.01334">
+    <ele>3.920000000000001</ele>
+   </trkpt>
+   <trkpt lat="42.33827" lon="-71.01312">
+    <ele>3.95</ele>
+   </trkpt>
+   <trkpt lat="42.338280000000005" lon="-71.01305">
+    <ele>3.95</ele>
+   </trkpt>
+   <trkpt lat="42.33869000000001" lon="-71.01327">
+    <ele>4.42</ele>
+   </trkpt>
+   <trkpt lat="42.338710000000006" lon="-71.01329000000001">
+    <ele>4.46</ele>
+   </trkpt>
+   <trkpt lat="42.338680000000004" lon="-71.01344">
+    <ele>4.46</ele>
+   </trkpt>
+  </trkseg>
+ </trk>
+</gpx>

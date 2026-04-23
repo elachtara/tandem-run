@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Routes — Tandem Run</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    #routes-map { width: 100%; height: calc(100vh - 4.5rem); min-height: 600px; }
+
+    .route-tooltip {
+      background: rgba(22, 45, 90, 0.95);
+      border: 1px solid rgba(232, 168, 32, 0.5);
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: rgba(247, 243, 236, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .route-tooltip::before { display: none; }
+    .route-tooltip strong { display: block; color: #e8a820; font-weight: 500; margin-bottom: 0.15rem; }
+
+    .routes-overlay {
+      position: absolute;
+      top: calc(4.5rem + 1.5rem);
+      left: 1.5rem;
+      z-index: 500;
+      background: rgba(22, 45, 90, 0.92);
+      border: 1px solid rgba(232, 168, 32, 0.35);
+      border-radius: 6px;
+      padding: 1.5rem;
+      max-width: 280px;
+      backdrop-filter: blur(8px);
+    }
+    .routes-overlay-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(232, 168, 32, 0.85);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .routes-overlay h2 {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 300;
+      line-height: 1.2;
+      color: rgba(247, 243, 236, 0.95);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .routes-overlay h2 em { font-style: italic; color: #e8a820; }
+    .routes-overlay p {
+      font-size: 0.8rem;
+      color: rgba(247, 243, 236, 0.55);
+      line-height: 1.65;
+      font-weight: 300;
+      margin-bottom: 1.1rem;
+    }
+    .routes-overlay-cta {
+      display: block;
+      background: #e8a820;
+      color: #1a1814;
+      text-decoration: none;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .routes-overlay-cta:hover { background: #f0b830; }
+
+    .routes-map-wrap { position: relative; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
+  <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<main>
+  <div class="routes-map-wrap">
+    <div id="routes-map"></div>
+
+    <div class="routes-overlay">
+      <p class="routes-overlay-tag">Boston · Summer 2026</p>
+      <h2>Routes worth<br>waking up <em>for.</em></h2>
+      <p>A preview of the curated runs waiting for you. Match with a partner and start exploring Boston together.</p>
+      <a href="/#waitlist" class="routes-overlay-cta">Reserve my spot</a>
+    </div>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('routes-map', {
+    center: [42.34, -71.09],
+    zoom: 11,
+    zoomControl: true,
+    scrollWheelZoom: true,
+    attributionControl: true
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Navy tint overlay
+  L.rectangle([[-90, -180], [90, 180]], {
+    color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.2, stroke: false
+  }).addTo(map);
+
+  const routeNames = [
+    'Arboretum Brookline Path',
+    'Arnold Arboretum',
+    'Atlantic Ave',
+    'Boston Freedom Trail',
+    'Boston Harbor Islands Worlds End Loop',
+    'Castle Island JFK Library',
+    'Castle Island',
+    'Charles River',
+    'Chestnut Hill Reservoir',
+    'Commonwealth Avenue',
+    'East Boston Memorial Park',
+    'East Boston Piers',
+    'Emerald Necklace',
+    'Esplanade',
+    'Fenway',
+    'Franklin Park',
+    'Fresh Pond River Loop',
+    'Fresh Pond',
+    'Harvard',
+    'Heartbreak Hills',
+    'Jamaica Pond',
+    'MIT Bridge',
+    'Middlesex Fells',
+    'Millenium Park',
+    'Minuteman Bikeway',
+    'Mystic Lakes',
+    'Mystic River Loop',
+    'Museum of Science',
+    'Reservoir',
+    'Riverway',
+    'Somerville Community Path',
+    'Southwest Corridor Path',
+  ];
+
+  const routes = routeNames.map(name => ({
+    name,
+    file: `../assets/gpx/${encodeURIComponent(name)}.gpx`
+  }));
+
+  function haversineDistance(coords) {
+    let total = 0;
+    for (let i = 1; i < coords.length; i++) {
+      const [lat1, lon1] = coords[i - 1];
+      const [lat2, lon2] = coords[i];
+      const R = 3958.8;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+      total += R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+    return total.toFixed(1);
+  }
+
+  async function loadRoute({ file, name }) {
+    try {
+      const res = await fetch(file);
+      const text = await res.text();
+      const xml = new DOMParser().parseFromString(text, 'application/xml');
+      const coords = Array.from(xml.querySelectorAll('trkpt')).map(pt => [
+        parseFloat(pt.getAttribute('lat')),
+        parseFloat(pt.getAttribute('lon'))
+      ]);
+
+      if (!coords.length) return;
+
+      const distance = haversineDistance(coords);
+
+      // Glow layer
+      const glow = L.polyline(coords, {
+        color: 'rgba(232, 168, 32, 0.18)', weight: 14, lineCap: 'round', lineJoin: 'round'
+      }).addTo(map);
+
+      // Main route
+      const line = L.polyline(coords, {
+        color: '#e8a820', weight: 4, opacity: 0.85, lineCap: 'round', lineJoin: 'round'
+      }).addTo(map);
+
+      const tooltip = `<strong>${name}</strong>${distance} mi`;
+
+      [glow, line].forEach(layer => {
+        layer.bindTooltip(tooltip, {
+          sticky: true, direction: 'top', className: 'route-tooltip'
+        });
+        layer.on('mouseover', () => line.setStyle({ weight: 6, opacity: 1 }));
+        layer.on('mouseout',  () => line.setStyle({ weight: 4, opacity: 0.85 }));
+      });
+
+    } catch (e) {
+      console.warn(`Failed to load route: ${name}`, e);
+    }
+  }
+
+  routes.forEach(loadRoute);
+</script>
+
+</body>
+</html>
