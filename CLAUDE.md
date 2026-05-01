@@ -1,4 +1,4 @@
-# Tandem Run — Project Context for Claude Code :) 
+# Tandem Run — Project Context for Claude Code :) :)
 
 ## Product Overview
 Tandem Run is a women-only running and walking partner app launching in Boston, Summer 2026. We match women 1:1 with one compatible running partner based on pace, schedule, neighborhood, and social preferences. Not a run club — just you and your person.
