@@ -16,7 +16,7 @@ Most running apps are built for groups or solo tracking. Tandem Run is built for
 
 ## This repo
 
-Waitlist landing page for the Tandem Run pre-launch. Single-file static site collecting name, email, pace, preferred run time, and Boston neighborhood from interested users. Form submissions are sent to a Google Sheet via Google Apps Script.
+Waitlist landing page for the Tandem Run pre-launch. Single-file static site collecting name, email, pace, preferred run time, and Boston neighborhood from interested users. Form submissions are sent to a Google Sheet via Google Apps Script. Visitor analytics via the HubSpot tracking code on the homepage.
 
 ---
 *© 2026 Tandem Run LLC · Questions? hello@tandemrun.app*
