@@ -151,7 +151,11 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
   .section { padding: 48px 1.5rem; }
   .footer-cta { padding: 48px 1.5rem; }
   footer { flex-direction: column; text-align: center; }
-  .map-overlay-card { bottom: 1rem; left: 1rem; }
+  .map-overlay-card { bottom: 1rem; left: 1rem; padding: 0.8rem 1rem; border-radius: 12px; min-width: 0; }
+  .map-overlay-label { font-size: 0.625rem; letter-spacing: 0.14em; margin-bottom: 0.35rem; }
+  .map-overlay-run { font-size: 1.05rem; margin-bottom: 0.15rem; }
+  .map-overlay-detail { font-size: 0.75rem; margin-bottom: 0.7rem; }
+  .map-btn-accept, .map-btn-suggest { font-size: 0.65rem; padding: 0.35rem 0.7rem; }
 }
 @media (max-width: 600px) {
   .how-steps { grid-template-columns: 1fr; }

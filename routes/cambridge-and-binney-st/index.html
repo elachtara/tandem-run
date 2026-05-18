@@ -74,10 +74,10 @@
   .hero {
     max-width: 720px;
     margin: 0 auto;
-    padding: 1rem 1.5rem 2rem;
+    padding: 1rem 1.5rem 0.5rem;
   }
   .eyebrow {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--gold);
     text-transform: uppercase;
@@ -93,9 +93,9 @@
     margin-bottom: 0.5rem;
   }
   .subtitle {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: var(--gray-soft);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   /* Highlight cards (distance + starting point) */
@@ -165,6 +165,9 @@
   .content section {
     margin-bottom: 2.5rem;
   }
+  /* Tighter spacing for the start-detail block that sits above the map. */
+  .content-tight { padding-bottom: 0.5rem; }
+  .content-tight section { margin-bottom: 0.5rem; }
   .content h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
@@ -277,41 +280,33 @@
 <header class="hero">
   <div class="eyebrow">Inman Square · BOSTON</div>
   <h1>Cambridge and Binney St</h1>
-  <p class="subtitle">Loop to the river and back</p>
-
-  <div class="highlights">
-    <div class="highlight">
-      <div class="highlight-label">Distance</div>
-      <div class="highlight-value">3.05<span class="unit">miles</span></div>
-    </div>
-    <div class="highlight">
-      <div class="highlight-label">Starting point</div>
-      <div class="highlight-value">Cambridge Public Library Valente Branch</div>
-    </div>
-  </div>
+  <p class="subtitle">3.05 miles · Loop to the river and back</p>
 </header>
 
-<div class="map-container">
-  <div id="map"></div>
-</div>
-
-<main class="content">
-  <section>
-    <h2>Where you'll meet</h2>
-    <div class="start-detail">
-      <div class="start-dot" aria-hidden="true"></div>
-      <div class="start-detail-text">
-        <div class="start-detail-label">Start at</div>
-        <div class="start-detail-value">Cambridge Public Library Valente Branch</div>
+<main>
+  <div class="content content-tight">
+    <section>
+      <div class="start-detail">
+        <div class="start-dot" aria-hidden="true"></div>
+        <div class="start-detail-text">
+          <div class="start-detail-label">Start at</div>
+          <div class="start-detail-value">Cambridge Public Library Valente Branch</div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <section class="cta-section">
-    <h3>Find a partner for this <em>route.</em></h3>
-    <p>Tandem Run hand-matches women runners in Boston. Every member is verified.</p>
-    <a href="https://app.tandemrun.app/signup" class="cta-button">Apply for a match</a>
-  </section>
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+
+  <div class="content">
+    <section class="cta-section">
+      <h3>Find a partner for this <em>route.</em></h3>
+      <p>Tandem Run hand-matches women runners in Boston. Every member is verified.</p>
+      <a href="/#waitlist" class="cta-button">Apply for a match</a>
+    </section>
+  </div>
 </main>
 
 <footer>
