@@ -51,6 +51,7 @@ const path = require('path');
 
 const CSV_PATH = path.join(__dirname, 'routes.csv');
 const TEMPLATE_PATH = path.join(__dirname, 'template.html');
+const ROUTES_INDEX_TEMPLATE_PATH = path.join(__dirname, 'routes-index-template.html');
 const GPX_FOLDER = path.join(__dirname, 'gpx');
 // Output goes directly to the repo's /routes/ folder for deployment.
 // __dirname is .../tandem-run/assets/route_builder, so we walk up two levels.
@@ -206,6 +207,51 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * Render /routes/index.html, the overview map listing every route exactly once.
+ *
+ * Routes that share a name across multiple neighborhoods (Millennium Park,
+ * Chestnut Hill Reservation, Franklin Park, Southwest Corridor Park) use the
+ * same gpx file, so we keep only the first occurrence — drawing the same
+ * polyline twice would be visual noise.
+ *
+ * The template gets two substitutions: {{ROUTES_DATA}} (JSON array of
+ * { slug, name, distance }) and {{ROUTE_COUNT}} (number of unique routes).
+ */
+function writeRoutesOverview(generatedRoutes) {
+  if (!fs.existsSync(ROUTES_INDEX_TEMPLATE_PATH)) {
+    console.log(`\n⚠️  routes-index-template.html not found — skipped writing /routes/index.html`);
+    return;
+  }
+
+  const seen = new Set();
+  const unique = [];
+  let droppedDuplicates = 0;
+  for (const route of generatedRoutes) {
+    if (!route.hasGpx) continue; // a route with no map can't render a polyline
+    if (seen.has(route.name)) {
+      droppedDuplicates++;
+      continue;
+    }
+    seen.add(route.name);
+    unique.push({ slug: route.slug, name: route.name, distance: route.distance });
+  }
+
+  const template = fs.readFileSync(ROUTES_INDEX_TEMPLATE_PATH, 'utf8');
+  // JSON.stringify is safe to drop into a JS literal — no `</script>` concerns
+  // because the route fields are plain strings from the CSV.
+  const json = JSON.stringify(unique, null, 2);
+  const html = template
+    .replace('{{ROUTES_DATA}}', json)
+    .replace(/\{\{ROUTE_COUNT\}\}/g, String(unique.length));
+
+  fs.writeFileSync(path.join(OUTPUT_FOLDER, 'index.html'), html);
+  console.log(
+    `\n🗺  Overview /routes/index.html written: ${unique.length} unique routes` +
+    (droppedDuplicates ? ` (deduped ${droppedDuplicates} duplicate-name entries)` : '')
+  );
+}
+
 // ============================================================
 // MAIN
 // ============================================================
@@ -242,6 +288,7 @@ function main() {
   let generated = 0;
   let skipped = 0;
   const warnings = [];
+  const generatedRoutes = []; // collected for the overview /routes/index.html
 
   for (const row of rows) {
     const name = (row.name || '').trim();
@@ -285,12 +332,23 @@ function main() {
     const html = renderTemplate(template, vars);
     fs.writeFileSync(path.join(routeDir, 'index.html'), html);
 
+    generatedRoutes.push({
+      name,
+      slug,
+      neighborhood: row.neighborhood || '',
+      distance: row.distance_miles || '',
+      hasGpx: !!gpx,
+    });
+
     const gpxInfo = gpx
       ? ` (gpx: ${gpx.grandparentFolder}/${gpx.parentFolder}/${gpx.fileName})`
       : ' (no gpx)';
     console.log(`  ✓ /routes/${slug}/${gpxInfo}`);
     generated++;
   }
+
+  // Write the overview /routes/index.html after all detail pages.
+  writeRoutesOverview(generatedRoutes);
 
   console.log(`\n✓ Generated ${generated} route pages.`);
   if (skipped > 0) console.log(`  Skipped: ${skipped}`);
