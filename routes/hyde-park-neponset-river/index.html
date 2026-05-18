@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hyde Park Neponset River · Tandem Run</title>
+<meta name="description" content="Hyde Park Neponset River in Hyde Park, 3.97 miles. Out and back on river">
+
+<!-- Open Graph (social sharing) -->
+<meta property="og:title" content="Hyde Park Neponset River — a Tandem Run route">
+<meta property="og:description" content="3.97 miles in Hyde Park. Out and back on river">
+<meta property="og:type" content="article">
+
+<!-- Brand fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+<!-- Leaflet (open-source map library) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+  :root {
+    --navy: #1C3F7A;
+    --navy-deep: #14305C;
+    --gold: #F5C842;
+    --gold-soft: #FAE3A0;
+    --cream: #F8F5EF;
+    --cream-deep: #EFE9DC;
+    --gray-soft: #5F5E5A;
+    --gray-rule: #DDDAD0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--navy);
+    background: var(--cream);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Top nav */
+  .nav {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .nav-back {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .nav-back:hover { color: var(--gold); }
+  .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .wordmark em {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* Hero section */
+  .hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--gray-soft);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Highlight cards (distance + starting point) */
+  .highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 540px) {
+    .highlights { grid-template-columns: 1fr; }
+  }
+  .highlight {
+    background: white;
+    border: 1px solid var(--cream-deep);
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+  .highlight-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--gray-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.5rem;
+  }
+  .highlight-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .highlight-value .unit {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray-soft);
+    margin-left: 0.25rem;
+  }
+
+  /* Map */
+  .map-container {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  #map {
+    height: 360px;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--cream-deep);
+    background: var(--navy-deep);
+  }
+  /* Override Leaflet attribution to match brand */
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.625rem !important;
+    color: var(--gray-soft) !important;
+  }
+
+  /* Body content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+  .content section {
+    margin-bottom: 2.5rem;
+  }
+  .content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .content p {
+    color: var(--navy);
+    line-height: 1.6;
+  }
+
+  /* Starting point detail */
+  .start-detail {
+    background: var(--gold-soft);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .start-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #2DAA5F;
+    border: 3px solid white;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+    box-shadow: 0 0 0 1px var(--navy);
+  }
+  .start-detail-text {
+    flex: 1;
+  }
+  .start-detail-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.25rem;
+  }
+  .start-detail-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--navy);
+  }
+
+  /* CTA section */
+  .cta-section {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .cta-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .cta-section h3 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .cta-section p {
+    color: var(--cream-deep);
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+  }
+  .cta-button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: background 0.15s;
+  }
+  .cta-button:hover { background: white; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: var(--gray-soft);
+    font-size: 0.8125rem;
+    border-top: 1px solid var(--cream-deep);
+    margin-top: 1rem;
+  }
+  footer a {
+    color: var(--navy);
+    text-decoration: none;
+  }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/routes/" class="nav-back">← All routes</a>
+  <div class="wordmark">Tandem <em>Run</em></div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Hyde Park · BOSTON</div>
+  <h1>Hyde Park Neponset River</h1>
+  <p class="subtitle">Out and back on river</p>
+
+  <div class="highlights">
+    <div class="highlight">
+      <div class="highlight-label">Distance</div>
+      <div class="highlight-value">3.97<span class="unit">miles</span></div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-label">Starting point</div>
+      <div class="highlight-value">Francis D. Martini Memorial Shell Par...</div>
+    </div>
+  </div>
+</header>
+
+<div class="map-container">
+  <div id="map"></div>
+</div>
+
+<main class="content">
+  <section>
+    <h2>Where you'll meet</h2>
+    <div class="start-detail">
+      <div class="start-dot" aria-hidden="true"></div>
+      <div class="start-detail-text">
+        <div class="start-detail-label">Start at</div>
+        <div class="start-detail-value">Francis D. Martini Memorial Shell Park parking lot</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h3>Find a partner for this <em>route.</em></h3>
+    <p>Tandem Run hand-matches women runners in Boston. Every member is verified.</p>
+    <a href="https://app.tandemrun.app/signup" class="cta-button">Apply for a match</a>
+  </section>
+</main>
+
+<footer>
+  <p>Tandem Run · <a href="https://tandemrun.app">tandemrun.app</a> · Boston</p>
+</footer>
+
+<script>
+  // Initialize the map
+  const map = L.map('map', {
+    zoomControl: true,
+    scrollWheelZoom: false, // prevents accidental zoom while scrolling page
+    attributionControl: true,
+  });
+
+  // Use a clean, minimal tile layer (CartoDB Positron — light, works with brand)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  // Load and render the GPX route
+  fetch('route.gpx')
+    .then(response => {
+      if (!response.ok) throw new Error('Route file not found');
+      return response.text();
+    })
+    .then(gpxText => {
+      const parser = new DOMParser();
+      const gpx = parser.parseFromString(gpxText, 'application/xml');
+
+      // Extract track points from the GPX
+      const trkpts = gpx.querySelectorAll('trkpt');
+      const points = Array.from(trkpts).map(pt => [
+        parseFloat(pt.getAttribute('lat')),
+        parseFloat(pt.getAttribute('lon'))
+      ]);
+
+      if (points.length === 0) {
+        // Fallback: try to read route points (rtept) instead of track points
+        const rtepts = gpx.querySelectorAll('rtept');
+        const rPoints = Array.from(rtepts).map(pt => [
+          parseFloat(pt.getAttribute('lat')),
+          parseFloat(pt.getAttribute('lon'))
+        ]);
+        if (rPoints.length === 0) throw new Error('No route data found in GPX');
+        renderRoute(rPoints);
+      } else {
+        renderRoute(points);
+      }
+    })
+    .catch(err => {
+      console.error('Failed to load route:', err);
+      // Center on Boston if route fails to load
+      map.setView([42.3601, -71.0589], 13);
+      document.getElementById('map').insertAdjacentHTML(
+        'afterbegin',
+        '<div style="position:absolute;top:1rem;left:1rem;background:white;padding:0.5rem 1rem;border-radius:8px;font-size:0.875rem;color:#5F5E5A;z-index:1000;">Route preview unavailable</div>'
+      );
+    });
+
+  function renderRoute(points) {
+    // Draw the route line in brand gold
+    const route = L.polyline(points, {
+      color: '#F5C842',
+      weight: 5,
+      opacity: 0.9,
+      lineCap: 'round',
+      lineJoin: 'round',
+    }).addTo(map);
+
+    // Add a green starting dot
+    const startIcon = L.divIcon({
+      className: 'start-marker',
+      html: '<div style="width:18px;height:18px;border-radius:50%;background:#2DAA5F;border:3px solid white;box-shadow:0 0 0 2px #1C3F7A, 0 2px 8px rgba(0,0,0,0.2);"></div>',
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
+    });
+    L.marker(points[0], { icon: startIcon, title: 'Starting point' }).addTo(map);
+
+    // Fit the map to show the entire route with a little padding
+    map.fitBounds(route.getBounds(), { padding: [40, 40] });
+  }
+</script>
+
+</body>
+</html>

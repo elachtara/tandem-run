@@ -52,7 +52,9 @@ const path = require('path');
 const CSV_PATH = path.join(__dirname, 'routes.csv');
 const TEMPLATE_PATH = path.join(__dirname, 'template.html');
 const GPX_FOLDER = path.join(__dirname, 'gpx');
-const OUTPUT_FOLDER = path.join(__dirname, 'output', 'routes');
+// Output goes directly to the repo's /routes/ folder for deployment.
+// __dirname is .../tandem-run/assets/route_builder, so we walk up two levels.
+const OUTPUT_FOLDER = path.join(__dirname, '..', '..', 'routes');
 
 // ============================================================
 // HELPERS

@@ -3,3 +3,8 @@
 .RData
 .Ruserdata
 .Rproj.user/
+
+# Route builder workshop
+assets/route_builder/gpx/
+assets/route_builder/routes.csv
+assets/route_builder/output/
