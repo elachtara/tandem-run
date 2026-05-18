@@ -284,6 +284,16 @@ function main() {
 
   fs.mkdirSync(OUTPUT_FOLDER, { recursive: true });
 
+  // Pre-count name occurrences so duplicate-name routes can be disambiguated
+  // by neighborhood even on their first occurrence. This matches the CSV's
+  // map_link convention where every duplicate row carries a neighborhood
+  // suffix (e.g. millennium-park-west-roxbury, not millennium-park).
+  const nameCounts = {};
+  for (const r of rows) {
+    const n = (r.name || '').trim();
+    if (n) nameCounts[n] = (nameCounts[n] || 0) + 1;
+  }
+
   const slugCounts = {};
   let generated = 0;
   let skipped = 0;
@@ -299,12 +309,13 @@ function main() {
     }
 
     let slug = slugify(name);
-    if (slugCounts[slug] !== undefined) {
-      slugCounts[slug]++;
+    if (nameCounts[name] > 1) {
+      // Name appears more than once — always append neighborhood (including
+      // on the first occurrence) so every slug is unique. Fall back to a
+      // number suffix if the neighborhood is blank.
+      slugCounts[slug] = (slugCounts[slug] || 0) + 1;
       const neighborhoodSlug = slugify(row.neighborhood || '');
       slug = `${slug}-${neighborhoodSlug || slugCounts[slug]}`;
-    } else {
-      slugCounts[slugify(name)] = 0;
     }
 
     const gpx = findGpxFile(gpxIndex, name, row.neighborhood);
