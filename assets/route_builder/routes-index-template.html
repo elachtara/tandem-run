@@ -94,8 +94,8 @@
     background: rgba(248, 245, 239, 0.96);
     border: 1px solid var(--cream-deep);
     border-radius: 16px;
-    padding: 1.4rem 1.5rem;
-    max-width: 360px;
+    padding: 1.2rem 1.4rem;
+    max-width: 480px;
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 24px rgba(20, 48, 92, 0.08);
   }
@@ -210,6 +210,8 @@
     zoomControl: true,
     scrollWheelZoom: true,
     attributionControl: true,
+    zoomSnap: 0.25,
+    zoomDelta: 0.5,
   });
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -268,7 +270,19 @@
       for (let i = 1; i < allBoundsList.length; i++) {
         combined = combined.extend(allBoundsList[i]);
       }
-      map.fitBounds(combined, { padding: [60, 60] });
+      // On desktop, reserve room on the left for the overlay card so the
+      // auto-fit pushes routes into the right two-thirds of the viewport
+      // (less ocean on the right, no overlap with the card on the
+      // bottom-left). On mobile, the card spans the full bottom — use
+      // symmetric padding instead.
+      const fitOpts = window.innerWidth > 640
+        ? { paddingTopLeft: [400, 60], paddingBottomRight: [60, 200] }
+        : { padding: [60, 60] };
+      map.fitBounds(combined, fitOpts);
+      // Nudge in by 0.75 zoom levels for a slightly tighter framing
+      // than fitBounds alone gives. zoomSnap/zoomDelta of 0.25/0.5 set
+      // above makes fractional levels valid.
+      map.setZoom(map.getZoom() + 0.75);
     }
   });
 </script>
