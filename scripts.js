@@ -4,45 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
 
-  const routeCoords = [
-    [42.36701629560474, -71.05851364409887],
-    [42.370874167376, -71.06163589450246],
-    [42.36962623182157, -71.06721564165711],
-    [42.37019355413631, -71.06870023699022],
-    [42.369815374855904, -71.06967288389886],
-    [42.37079862543021, -71.07161823450349],
-    [42.36387703696508, -71.07837561611623],
-    [42.361318272539506, -71.07856355126128],
-    [42.360506181429486, -71.07988239013079],
-    [42.360668605822326, -71.08191559936456],
-    [42.3571765371955, -71.09252110060879],
-    [42.35188490284068, -71.0900527777897],
-    [42.35332696790459, -71.08466696198103],
-    [42.35390315263166, -71.08477328206058],
-    [42.35636497332749, -71.07580695532833],
-    [42.35709826297858, -71.07513359482266],
-    [42.35717682921921, -71.07403495399757],
-    [42.35712445173638, -71.07371599375828],
-    [42.36026702344407, -71.0726173529332],
-    [42.36115739018794, -71.07304263325261],
-    [42.36395934437439, -71.07275911303927],
-    [42.36464017418456, -71.07205031250707],
-    [42.36492821534486, -71.07098711170907],
-    [42.36477545952158, -71.07006373931472],
-    [42.36603235400361, -71.06914229862281],
-    [42.36676553083859, -71.0682208579309],
-    [42.36760341657083, -71.06673238816592],
-    [42.3677343383591, -71.0655628672878],
-    [42.36694880353713, -71.0644996664898],
-    [42.36634655352168, -71.06393262606368],
-    [42.36553481610426, -71.06400350611672],
-    [42.36524677772519, -71.06407438617035],
-    [42.36453976883237, -71.06325926555802],
-    [42.36689643419987, -71.05865206209846]
-  ];
-
-  const startLocation = [42.36701629560474, -71.05851364409887];
-
   const map = L.map('boston-map', {
     center: [42.362, -71.074],
     zoom: 13,
@@ -51,34 +12,50 @@ document.addEventListener('DOMContentLoaded', () => {
     attributionControl: true
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
     subdomains: 'abcd',
     maxZoom: 19
   }).addTo(map);
 
-  // Navy tint overlay
-  L.rectangle([[-90, -180], [90, 180]], {
-    color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.25, stroke: false
-  }).addTo(map);
+  // Load the Charles River West End route from the generated /routes/ tree.
+  fetch('/routes/charles-river-west-end/route.gpx')
+    .then(r => r.text())
+    .then(text => {
+      const xml = new DOMParser().parseFromString(text, 'application/xml');
+      const points = Array.from(xml.querySelectorAll('trkpt')).map(pt => [
+        parseFloat(pt.getAttribute('lat')),
+        parseFloat(pt.getAttribute('lon'))
+      ]);
+      if (!points.length) return;
 
-  // Glow layer
-  L.polyline(routeCoords, {
-    color: 'rgba(232, 168, 32, 0.2)', weight: 12, lineCap: 'round', lineJoin: 'round'
-  }).addTo(map);
+      // Soft gold glow under-layer
+      L.polyline(points, {
+        color: 'rgba(245, 200, 66, 0.28)', weight: 12, lineCap: 'round', lineJoin: 'round'
+      }).addTo(map);
 
-  // Main route
-  L.polyline(routeCoords, {
-    color: '#e8a820', weight: 4, lineCap: 'round', lineJoin: 'round'
-  }).addTo(map);
+      // Main route line
+      const line = L.polyline(points, {
+        color: '#F5C842', weight: 4, opacity: 0.9, lineCap: 'round', lineJoin: 'round'
+      }).addTo(map);
 
-  // Start/finish dot
-  L.marker(startLocation, {
-    icon: L.divIcon({
-      html: '<div style="width:13px;height:13px;border-radius:50%;background:#3a9e5f;border:2.5px solid rgba(245,242,236,0.85);box-shadow:0 0 0 3px rgba(58,158,95,0.2);"></div>',
-      className: '', iconSize: [13, 13], iconAnchor: [6, 6]
+      // Start dot (matches the detail-page treatment)
+      L.marker(points[0], {
+        icon: L.divIcon({
+          html: '<div style="width:18px;height:18px;border-radius:50%;background:#2DAA5F;border:3px solid white;box-shadow:0 0 0 2px #1C3F7A;"></div>',
+          className: '', iconSize: [18, 18], iconAnchor: [9, 9]
+        })
+      })
+        .bindTooltip('Meeting Point: Museum of Science T.Rex', {
+          direction: 'top',
+          offset: [0, -6],
+          className: 'start-tooltip',
+        })
+        .addTo(map);
+
+      map.fitBounds(line.getBounds(), { padding: [50, 50] });
     })
-  }).addTo(map);
+    .catch(e => console.warn('Failed to load Charles River West End route:', e));
 
   map.invalidateSize();
 

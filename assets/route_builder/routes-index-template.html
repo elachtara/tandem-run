@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Routes · Tandem Run</title>
+<meta name="description" content="Curated running routes across Boston, Cambridge, Somerville, and the inner suburbs — pick one, then match with a partner.">
+
+<meta property="og:title" content="All Routes — Tandem Run">
+<meta property="og:description" content="Curated running routes across the Boston area. Match with a partner and start exploring.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+  :root {
+    --navy: #1C3F7A;
+    --navy-deep: #14305C;
+    --gold: #F5C842;
+    --gold-soft: #FAE3A0;
+    --cream: #F8F5EF;
+    --cream-deep: #EFE9DC;
+    --gray-soft: #5F5E5A;
+    --gray-rule: #DDDAD0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--navy);
+    background: var(--cream);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* Top nav */
+  .nav {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream);
+    border-bottom: 1px solid var(--cream-deep);
+    position: relative;
+    z-index: 600;
+  }
+  .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .wordmark em {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: white; }
+
+  /* Map wrap */
+  .map-wrap {
+    position: relative;
+    height: calc(100vh - 3.75rem);
+    min-height: 540px;
+  }
+  #routes-map { width: 100%; height: 100%; background: var(--cream-deep); }
+
+  /* Hero overlay */
+  .hero-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 500;
+    background: rgba(248, 245, 239, 0.96);
+    border: 1px solid var(--cream-deep);
+    border-radius: 16px;
+    padding: 1.4rem 1.5rem;
+    max-width: 360px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(20, 48, 92, 0.08);
+  }
+  .hero-overlay .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.6rem;
+  }
+  .hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .hero-overlay h1 em { color: var(--gold); font-style: italic; }
+  .hero-overlay p {
+    font-size: 0.875rem;
+    color: var(--gray-soft);
+    line-height: 1.55;
+    margin-bottom: 1.1rem;
+  }
+  .hero-overlay .count {
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .hero-overlay .cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    transition: background 0.15s;
+  }
+  .hero-overlay .cta:hover { background: white; }
+
+  @media (max-width: 640px) {
+    .hero-overlay {
+      top: auto;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      max-width: none;
+      padding: 1.1rem 1.25rem;
+    }
+    .hero-overlay h1 { font-size: 1.4rem; }
+    .hero-overlay p { font-size: 0.8125rem; margin-bottom: 0.9rem; }
+  }
+
+  /* Route hover tooltip */
+  .route-tooltip {
+    background: white;
+    border: 1px solid var(--cream-deep);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--navy);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .route-tooltip::before { display: none; }
+  .route-tooltip strong { display: block; color: var(--navy); font-weight: 600; margin-bottom: 0.15rem; }
+  .route-tooltip .meta { color: var(--gray-soft); font-size: 0.75rem; }
+
+  /* Leaflet overrides */
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.625rem !important;
+    color: var(--gray-soft) !important;
+  }
+  .leaflet-control-zoom a {
+    background: white !important;
+    color: var(--navy) !important;
+    border-color: var(--cream-deep) !important;
+  }
+  .leaflet-interactive { cursor: pointer !important; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="wordmark">Tandem <em>Run</em></a>
+  <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<div class="map-wrap">
+  <div id="routes-map"></div>
+
+  <aside class="hero-overlay">
+    <h1>Your new favorite <em>routes.</em></h1>
+    <p><span class="count">{{ROUTE_COUNT}}</span> hand-curated routes across Boston and the suburbs. Every meeting point is chosen with safety in mind. Tap any route to see the details, then match with a partner to start exploring.</p>
+    <a href="/#waitlist" class="cta">Reserve my spot</a>
+  </aside>
+</div>
+
+<script>
+  // Routes data, injected at generation time.
+  const ROUTES = {{ROUTES_DATA}};
+
+  const map = L.map('routes-map', {
+    center: [42.34, -71.07],
+    zoom: 11,
+    zoomControl: true,
+    scrollWheelZoom: true,
+    attributionControl: true,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  const allBoundsList = [];
+
+  async function loadRoute(route) {
+    try {
+      const res = await fetch(`${route.slug}/route.gpx`);
+      if (!res.ok) return;
+      const text = await res.text();
+      const xml = new DOMParser().parseFromString(text, 'application/xml');
+      const points = Array.from(xml.querySelectorAll('trkpt')).map(pt => [
+        parseFloat(pt.getAttribute('lat')),
+        parseFloat(pt.getAttribute('lon'))
+      ]);
+      if (points.length === 0) return;
+
+      // Soft glow underlay
+      const glow = L.polyline(points, {
+        color: 'rgba(245, 200, 66, 0.28)',
+        weight: 11,
+        lineCap: 'round',
+        lineJoin: 'round',
+        interactive: false,
+      }).addTo(map);
+
+      // Main route line
+      const line = L.polyline(points, {
+        color: '#F5C842',
+        weight: 3.5,
+        opacity: 0.9,
+        lineCap: 'round',
+        lineJoin: 'round',
+      }).addTo(map);
+
+      const tooltipHtml = `<strong>${route.name}</strong><span class="meta">${route.distance} mi</span>`;
+      line.bindTooltip(tooltipHtml, { sticky: true, direction: 'top', className: 'route-tooltip' });
+      line.on('mouseover', () => { line.setStyle({ weight: 5.5, opacity: 1 }); glow.setStyle({ opacity: 0.55 }); });
+      line.on('mouseout',  () => { line.setStyle({ weight: 3.5, opacity: 0.9 }); glow.setStyle({ opacity: 1 }); });
+      line.on('click', () => { window.location.href = `${route.slug}/`; });
+
+      allBoundsList.push(line.getBounds());
+    } catch (e) {
+      console.warn(`Failed to load ${route.slug}:`, e);
+    }
+  }
+
+  Promise.all(ROUTES.map(loadRoute)).then(() => {
+    if (allBoundsList.length) {
+      let combined = allBoundsList[0];
+      for (let i = 1; i < allBoundsList.length; i++) {
+        combined = combined.extend(allBoundsList[i]);
+      }
+      map.fitBounds(combined, { padding: [60, 60] });
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,226 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Run Routes — Tandem Run</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Routes · Tandem Run</title>
+<meta name="description" content="Curated running routes across Boston, Cambridge, Somerville, and the inner suburbs — pick one, then match with a partner.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="All Routes — Tandem Run">
+<meta property="og:description" content="Curated running routes across the Boston area. Match with a partner and start exploring.">
+<meta property="og:type" content="website">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="../styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
-  <style>
-    #routes-map { width: 100%; height: calc(100vh - 4.5rem); min-height: 600px; }
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    .route-tooltip {
-      background: rgba(22, 45, 90, 0.95);
-      border: 1px solid rgba(232, 168, 32, 0.5);
-      border-radius: 4px;
-      padding: 0.5rem 0.75rem;
-      font-family: var(--sans);
-      font-size: 0.8rem;
-      color: rgba(247, 243, 236, 0.95);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-    .route-tooltip::before { display: none; }
-    .route-tooltip strong { display: block; color: #e8a820; font-weight: 500; margin-bottom: 0.15rem; }
+<style>
+  :root {
+    --navy: #1C3F7A;
+    --navy-deep: #14305C;
+    --gold: #F5C842;
+    --gold-soft: #FAE3A0;
+    --cream: #F8F5EF;
+    --cream-deep: #EFE9DC;
+    --gray-soft: #5F5E5A;
+    --gray-rule: #DDDAD0;
+  }
 
-    .routes-overlay {
-      position: absolute;
-      top: calc(4.5rem + 1.5rem);
-      left: 1.5rem;
-      z-index: 500;
-      background: rgba(22, 45, 90, 0.92);
-      border: 1px solid rgba(232, 168, 32, 0.35);
-      border-radius: 6px;
-      padding: 1.5rem;
-      max-width: 280px;
-      backdrop-filter: blur(8px);
-    }
-    .routes-overlay-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(232, 168, 32, 0.85);
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-    .routes-overlay h2 {
-      font-family: var(--serif);
-      font-size: 1.35rem;
-      font-weight: 300;
-      line-height: 1.2;
-      color: rgba(247, 243, 236, 0.95);
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-    }
-    .routes-overlay h2 em { font-style: italic; color: #e8a820; }
-    .routes-overlay p {
-      font-size: 0.8rem;
-      color: rgba(247, 243, 236, 0.55);
-      line-height: 1.65;
-      font-weight: 300;
-      margin-bottom: 1.1rem;
-    }
-    .routes-overlay-cta {
-      display: block;
-      background: #e8a820;
-      color: #1a1814;
-      text-decoration: none;
-      text-align: center;
-      font-family: var(--sans);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 0.65rem 1rem;
-      border-radius: 3px;
-      transition: background 0.2s;
-    }
-    .routes-overlay-cta:hover { background: #f0b830; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .routes-map-wrap { position: relative; }
-  </style>
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--navy);
+    background: var(--cream);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* Top nav */
+  .nav {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream);
+    border-bottom: 1px solid var(--cream-deep);
+    position: relative;
+    z-index: 600;
+  }
+  .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .wordmark em {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: white; }
+
+  /* Map wrap */
+  .map-wrap {
+    position: relative;
+    height: calc(100vh - 3.75rem);
+    min-height: 540px;
+  }
+  #routes-map { width: 100%; height: 100%; background: var(--cream-deep); }
+
+  /* Hero overlay */
+  .hero-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 500;
+    background: rgba(248, 245, 239, 0.96);
+    border: 1px solid var(--cream-deep);
+    border-radius: 16px;
+    padding: 1.4rem 1.5rem;
+    max-width: 360px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(20, 48, 92, 0.08);
+  }
+  .hero-overlay .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.6rem;
+  }
+  .hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .hero-overlay h1 em { color: var(--gold); font-style: italic; }
+  .hero-overlay p {
+    font-size: 0.875rem;
+    color: var(--gray-soft);
+    line-height: 1.55;
+    margin-bottom: 1.1rem;
+  }
+  .hero-overlay .count {
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .hero-overlay .cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    transition: background 0.15s;
+  }
+  .hero-overlay .cta:hover { background: white; }
+
+  @media (max-width: 640px) {
+    .hero-overlay {
+      top: auto;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      max-width: none;
+      padding: 1.1rem 1.25rem;
+    }
+    .hero-overlay h1 { font-size: 1.4rem; }
+    .hero-overlay p { font-size: 0.8125rem; margin-bottom: 0.9rem; }
+  }
+
+  /* Route hover tooltip */
+  .route-tooltip {
+    background: white;
+    border: 1px solid var(--cream-deep);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--navy);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .route-tooltip::before { display: none; }
+  .route-tooltip strong { display: block; color: var(--navy); font-weight: 600; margin-bottom: 0.15rem; }
+  .route-tooltip .meta { color: var(--gray-soft); font-size: 0.75rem; }
+
+  /* Leaflet overrides */
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.625rem !important;
+    color: var(--gray-soft) !important;
+  }
+  .leaflet-control-zoom a {
+    background: white !important;
+    color: var(--navy) !important;
+    border-color: var(--cream-deep) !important;
+  }
+  .leaflet-interactive { cursor: pointer !important; }
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
+<nav class="nav">
+  <a href="/" class="wordmark">Tandem <em>Run</em></a>
   <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
 </nav>
 
-<main>
-  <div class="routes-map-wrap">
-    <div id="routes-map"></div>
+<div class="map-wrap">
+  <div id="routes-map"></div>
 
-    <div class="routes-overlay">
-      <p class="routes-overlay-tag">Boston · Summer 2026</p>
-      <h2>Routes worth<br>waking up <em>for.</em></h2>
-      <p>A preview of the curated runs waiting for you. Match with a partner and start exploring Boston together.</p>
-      <a href="/#waitlist" class="routes-overlay-cta">Reserve my spot</a>
-    </div>
-  </div>
-</main>
+  <aside class="hero-overlay">
+    <h1>Your new favorite <em>routes.</em></h1>
+    <p><span class="count">62</span> hand-curated routes across Boston and the suburbs. Every meeting point is chosen with safety in mind. Tap any route to see the details, then match with a partner to start exploring.</p>
+    <a href="/#waitlist" class="cta">Reserve my spot</a>
+  </aside>
+</div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+  // Routes data, injected at generation time.
+  const ROUTES = [
+  {
+    "slug": "heartbreak-hill",
+    "name": "Heartbreak Hill",
+    "distance": "2.13"
+  },
+  {
+    "slug": "chestnut-hill-reservation",
+    "name": "Chestnut Hill Reservation",
+    "distance": "1.56"
+  },
+  {
+    "slug": "millennium-park",
+    "name": "Millennium Park",
+    "distance": "3.26"
+  },
+  {
+    "slug": "charles-river-watertown",
+    "name": "Charles River Watertown",
+    "distance": "3.26"
+  },
+  {
+    "slug": "charles-river-watertown-2",
+    "name": "Charles River Watertown 2",
+    "distance": "2.36"
+  },
+  {
+    "slug": "charles-river-brighton",
+    "name": "Charles River Brighton",
+    "distance": "2.3"
+  },
+  {
+    "slug": "charles-river-allston",
+    "name": "Charles River Allston",
+    "distance": "2.84"
+  },
+  {
+    "slug": "charles-river-allston-2",
+    "name": "Charles River Allston 2",
+    "distance": "1.6"
+  },
+  {
+    "slug": "charles-river-west-cambridge",
+    "name": "Charles River West Cambridge",
+    "distance": "2.08"
+  },
+  {
+    "slug": "charles-river-mid-cambridge",
+    "name": "Charles River Mid Cambridge",
+    "distance": "2.63"
+  },
+  {
+    "slug": "charles-river-harvard-square",
+    "name": "Charles River Harvard Square",
+    "distance": "1.91"
+  },
+  {
+    "slug": "charles-river-cambridgeport",
+    "name": "Charles River Cambridgeport",
+    "distance": "2.29"
+  },
+  {
+    "slug": "charles-river-fenway-kenmore",
+    "name": "Charles River Fenway Kenmore",
+    "distance": "2.82"
+  },
+  {
+    "slug": "charles-river-kendall-square",
+    "name": "Charles River Kendall Square",
+    "distance": "3.31"
+  },
+  {
+    "slug": "charles-river-back-bay",
+    "name": "Charles River Back Bay",
+    "distance": "3.5"
+  },
+  {
+    "slug": "charles-river-back-bay-2",
+    "name": "Charles River Back Bay 2",
+    "distance": "2"
+  },
+  {
+    "slug": "charles-river-beacon-hill",
+    "name": "Charles River Beacon Hill",
+    "distance": "3"
+  },
+  {
+    "slug": "charles-river-west-end",
+    "name": "Charles River West End",
+    "distance": "3.83"
+  },
+  {
+    "slug": "charles-river-west-end-2",
+    "name": "Charles River West End 2",
+    "distance": "1.92"
+  },
+  {
+    "slug": "charles-river-east-cambridge",
+    "name": "Charles River East Cambridge",
+    "distance": "2.31"
+  },
+  {
+    "slug": "charles-river-charlestown",
+    "name": "Charles River Charlestown",
+    "distance": "3.49"
+  },
+  {
+    "slug": "charles-river-north-end",
+    "name": "Charles River North End",
+    "distance": "3.49"
+  },
+  {
+    "slug": "charles-river-downtown",
+    "name": "Charles River Downtown",
+    "distance": "3.49"
+  },
+  {
+    "slug": "riverway-fenway-kenmore",
+    "name": "Riverway Fenway Kenmore",
+    "distance": "2.8"
+  },
+  {
+    "slug": "riverway-brookline",
+    "name": "Riverway Brookline",
+    "distance": "1.88"
+  },
+  {
+    "slug": "jamaica-pond",
+    "name": "Jamaica Pond",
+    "distance": "1.47"
+  },
+  {
+    "slug": "arnold-arboretum",
+    "name": "Arnold Arboretum",
+    "distance": "3.59"
+  },
+  {
+    "slug": "franklin-park",
+    "name": "Franklin Park",
+    "distance": "3.26"
+  },
+  {
+    "slug": "southwest-corridor-park",
+    "name": "Southwest Corridor Park",
+    "distance": "3.03"
+  },
+  {
+    "slug": "memorial-park",
+    "name": "Memorial Park",
+    "distance": "2.53"
+  },
+  {
+    "slug": "charlestown-harbor-walk",
+    "name": "Charlestown Harbor Walk",
+    "distance": "3.94"
+  },
+  {
+    "slug": "north-end-harbor-walk",
+    "name": "North End Harbor Walk",
+    "distance": "2.68"
+  },
+  {
+    "slug": "downtwon-harbor-walk",
+    "name": "Downtwon Harbor Walk",
+    "distance": "2.14"
+  },
+  {
+    "slug": "seaport-harbor-walk",
+    "name": "Seaport Harbor Walk",
+    "distance": "2.43"
+  },
+  {
+    "slug": "east-boston-harbor-walk",
+    "name": "East Boston Harbor Walk",
+    "distance": "2.42"
+  },
+  {
+    "slug": "castle-island",
+    "name": "Castle Island",
+    "distance": "2.61"
+  },
+  {
+    "slug": "south-boston-harbor-walk",
+    "name": "South Boston Harbor Walk",
+    "distance": "3.92"
+  },
+  {
+    "slug": "umass-harborwalk",
+    "name": "UMass Harborwalk",
+    "distance": "4.3"
+  },
+  {
+    "slug": "squantam-point-park",
+    "name": "Squantam Point Park",
+    "distance": "1.74"
+  },
+  {
+    "slug": "quincy-shore",
+    "name": "Quincy Shore",
+    "distance": "2.52"
+  },
+  {
+    "slug": "back-river-walk",
+    "name": "Back River Walk",
+    "distance": "2.79"
+  },
+  {
+    "slug": "webb-memorial-state-park",
+    "name": "Webb Memorial State Park",
+    "distance": "1.35"
+  },
+  {
+    "slug": "worlds-end-loop",
+    "name": "Worlds End Loop",
+    "distance": "3.67"
+  },
+  {
+    "slug": "bare-cove-park",
+    "name": "Bare Cove Park",
+    "distance": "3.32"
+  },
+  {
+    "slug": "dorchester-neponset-river",
+    "name": "Dorchester Neponset River",
+    "distance": "2.97"
+  },
+  {
+    "slug": "milton-neponset-river",
+    "name": "Milton Neponset River",
+    "distance": "3.57"
+  },
+  {
+    "slug": "mattapan-neponset-river",
+    "name": "Mattapan Neponset River",
+    "distance": "3.15"
+  },
+  {
+    "slug": "hyde-park-neponset-river",
+    "name": "Hyde Park Neponset River",
+    "distance": "3.97"
+  },
+  {
+    "slug": "pond-meadow-park",
+    "name": "Pond Meadow Park",
+    "distance": "2.3"
+  },
+  {
+    "slug": "public-garden",
+    "name": "Public Garden",
+    "distance": "2.67"
+  },
+  {
+    "slug": "west-cambridge-fresh-pond",
+    "name": "West Cambridge Fresh Pond",
+    "distance": "2.35"
+  },
+  {
+    "slug": "porter-square-fresh-pond",
+    "name": "Porter Square Fresh Pond",
+    "distance": "2.86"
+  },
+  {
+    "slug": "minuteman-bikeway",
+    "name": "Minuteman Bikeway",
+    "distance": "3.54"
+  },
+  {
+    "slug": "argenziano-park",
+    "name": "Argenziano Park",
+    "distance": "1.41"
+  },
+  {
+    "slug": "cambridge-and-binney-st",
+    "name": "Cambridge and Binney St",
+    "distance": "3.05"
+  },
+  {
+    "slug": "winter-hill-somerville-community-path",
+    "name": "Winter Hill Somerville Community Path",
+    "distance": "2.28"
+  },
+  {
+    "slug": "davis-square-somerville-community-path",
+    "name": "Davis Square Somerville Community Path",
+    "distance": "2.9"
+  },
+  {
+    "slug": "magoun-square-somerville-community-path",
+    "name": "Magoun Square Somerville Community Path",
+    "distance": "2.46"
+  },
+  {
+    "slug": "union-square-somerville-community-path",
+    "name": "Union Square Somerville Community Path",
+    "distance": "2.69"
+  },
+  {
+    "slug": "assembly-row-loop",
+    "name": "Assembly Row Loop",
+    "distance": "2.4"
+  },
+  {
+    "slug": "mystic-river-loop",
+    "name": "Mystic River Loop",
+    "distance": "2.68"
+  },
+  {
+    "slug": "pine-bank-park",
+    "name": "Pine Bank Park",
+    "distance": "2.96"
+  }
+];
+
   const map = L.map('routes-map', {
-    center: [42.34, -71.09],
+    center: [42.34, -71.07],
     zoom: 11,
     zoomControl: true,
     scrollWheelZoom: true,
-    attributionControl: true
+    attributionControl: true,
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
     subdomains: 'abcd',
-    maxZoom: 19
+    maxZoom: 19,
   }).addTo(map);
 
-  // Navy tint overlay
-  L.rectangle([[-90, -180], [90, 180]], {
-    color: 'transparent', fillColor: '#1c3f7a', fillOpacity: 0.2, stroke: false
-  }).addTo(map);
+  const allBoundsList = [];
 
-  const routeNames = [
-    'Arboretum Brookline Path',
-    'Arnold Arboretum',
-    'Atlantic Ave',
-    'Boston Freedom Trail',
-    'Boston Harbor Islands Worlds End Loop',
-    'Castle Island JFK Library',
-    'Castle Island',
-    'Charles River',
-    'Chestnut Hill Reservoir',
-    'Commonwealth Avenue',
-    'East Boston Memorial Park',
-    'East Boston Piers',
-    'Emerald Necklace',
-    'Esplanade',
-    'Fenway',
-    'Franklin Park',
-    'Fresh Pond River Loop',
-    'Fresh Pond',
-    'Harvard',
-    'Heartbreak Hills',
-    'Jamaica Pond',
-    'MIT Bridge',
-    'Middlesex Fells',
-    'Millenium Park',
-    'Minuteman Bikeway',
-    'Mystic Lakes',
-    'Mystic River Loop',
-    'Museum of Science',
-    'Reservoir',
-    'Riverway',
-    'Somerville Community Path',
-    'Southwest Corridor Path',
-  ];
-
-  const routes = routeNames.map(name => ({
-    name,
-    file: `../assets/gpx/${encodeURIComponent(name)}.gpx`
-  }));
-
-  function haversineDistance(coords) {
-    let total = 0;
-    for (let i = 1; i < coords.length; i++) {
-      const [lat1, lon1] = coords[i - 1];
-      const [lat2, lon2] = coords[i];
-      const R = 3958.8;
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(dLat / 2) ** 2 +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
-      total += R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    }
-    return total.toFixed(1);
-  }
-
-  async function loadRoute({ file, name }) {
+  async function loadRoute(route) {
     try {
-      const res = await fetch(file);
+      const res = await fetch(`${route.slug}/route.gpx`);
+      if (!res.ok) return;
       const text = await res.text();
       const xml = new DOMParser().parseFromString(text, 'application/xml');
-      const coords = Array.from(xml.querySelectorAll('trkpt')).map(pt => [
+      const points = Array.from(xml.querySelectorAll('trkpt')).map(pt => [
         parseFloat(pt.getAttribute('lat')),
         parseFloat(pt.getAttribute('lon'))
       ]);
+      if (points.length === 0) return;
 
-      if (!coords.length) return;
-
-      const distance = haversineDistance(coords);
-
-      // Glow layer
-      const glow = L.polyline(coords, {
-        color: 'rgba(232, 168, 32, 0.18)', weight: 14, lineCap: 'round', lineJoin: 'round'
+      // Soft glow underlay
+      const glow = L.polyline(points, {
+        color: 'rgba(245, 200, 66, 0.28)',
+        weight: 11,
+        lineCap: 'round',
+        lineJoin: 'round',
+        interactive: false,
       }).addTo(map);
 
-      // Main route
-      const line = L.polyline(coords, {
-        color: '#e8a820', weight: 4, opacity: 0.85, lineCap: 'round', lineJoin: 'round'
+      // Main route line
+      const line = L.polyline(points, {
+        color: '#F5C842',
+        weight: 3.5,
+        opacity: 0.9,
+        lineCap: 'round',
+        lineJoin: 'round',
       }).addTo(map);
 
-      const tooltip = `<strong>${name}</strong>${distance} mi`;
+      const tooltipHtml = `<strong>${route.name}</strong><span class="meta">${route.distance} mi</span>`;
+      line.bindTooltip(tooltipHtml, { sticky: true, direction: 'top', className: 'route-tooltip' });
+      line.on('mouseover', () => { line.setStyle({ weight: 5.5, opacity: 1 }); glow.setStyle({ opacity: 0.55 }); });
+      line.on('mouseout',  () => { line.setStyle({ weight: 3.5, opacity: 0.9 }); glow.setStyle({ opacity: 1 }); });
+      line.on('click', () => { window.location.href = `${route.slug}/`; });
 
-      [glow, line].forEach(layer => {
-        layer.bindTooltip(tooltip, {
-          sticky: true, direction: 'top', className: 'route-tooltip'
-        });
-        layer.on('mouseover', () => line.setStyle({ weight: 6, opacity: 1 }));
-        layer.on('mouseout',  () => line.setStyle({ weight: 4, opacity: 0.85 }));
-      });
-
+      allBoundsList.push(line.getBounds());
     } catch (e) {
-      console.warn(`Failed to load route: ${name}`, e);
+      console.warn(`Failed to load ${route.slug}:`, e);
     }
   }
 
-  routes.forEach(loadRoute);
+  Promise.all(ROUTES.map(loadRoute)).then(() => {
+    if (allBoundsList.length) {
+      let combined = allBoundsList[0];
+      for (let i = 1; i < allBoundsList.length; i++) {
+        combined = combined.extend(allBoundsList[i]);
+      }
+      map.fitBounds(combined, { padding: [60, 60] });
+    }
+  });
 </script>
 
 </body>
