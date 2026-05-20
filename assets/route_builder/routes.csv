@@ -1,0 +1,69 @@
+name,neighborhood,starting_point,distance_miles,description,map_link
+Heartbreak Hill,Newton,Heartbreak Hill Running Company,2.13,"Out and back, hilly",https://tandemrun.app/routes/heartbreak-hill/
+Chestnut Hill Reservation,Brighton,Chestnut Hill Reservation parking circle,1.56,Loop around pond,https://tandemrun.app/routes/chestnut-hill-reservation-brighton/
+Chestnut Hill Reservation,Newton,Chestnut Hill Reservation parking circle,1.56,Loop around pond,https://tandemrun.app/routes/chestnut-hill-reservation-newton/
+Chestnut Hill Reservation,Brookline,Chestnut Hill Reservation parking circle,1.56,Loop around pond,https://tandemrun.app/routes/chestnut-hill-reservation-brookline/
+Millennium Park,West Roxbury,Millennium Park parking circle,3.26,Loop around park,https://tandemrun.app/routes/millennium-park-west-roxbury/
+Millennium Park,Hyde Park,Millennium Park parking circle,3.26,Loop around park,https://tandemrun.app/routes/millennium-park-hyde-park/
+Millennium Park,Roslindale,Millennium Park parking circle,3.26,Loop around park,https://tandemrun.app/routes/millennium-park-roslindale/
+Charles River Watertown,Watertown,Watertown Square Terminal,3.26,Loop around the river,https://tandemrun.app/routes/charles-river-watertown/
+Charles River Watertown 2,Watertown,Arsenal Park parking circle,2.36,Loop around the river,https://tandemrun.app/routes/charles-river-watertown-2/
+Charles River Brighton,Brighton,Daily Field parking lot,2.3,Loop around the river,https://tandemrun.app/routes/charles-river-brighton/
+Charles River Allston,Allston,Herter Park parking lot,2.84,Loop around the river,https://tandemrun.app/routes/charles-river-allston/
+Charles River Allston 2,Allston,Baker lawn,1.6,Loop around the river,https://tandemrun.app/routes/charles-river-allston-2/
+Charles River West Cambridge,West Cambridge,John F. Kennedy park,2.08,Loop around the river,https://tandemrun.app/routes/charles-river-west-cambridge/
+Charles River Mid Cambridge,Mid Cambridge,Joan Lorentz Park,2.63,Loop around the river,https://tandemrun.app/routes/charles-river-mid-cambridge/
+Charles River Harvard Square,Harvard Square,Harvard Station,1.91,Loop around the river,https://tandemrun.app/routes/charles-river-harvard-square/
+Charles River Cambridgeport,Cambridgeport,Shell gas station parking lot,2.29,Loop around the river,https://tandemrun.app/routes/charles-river-cambridgeport/
+Charles River Fenway Kenmore,Fenway Kenmore,Boston University Academy parking lot,2.82,Loop around the river,https://tandemrun.app/routes/charles-river-fenway-kenmore/
+Charles River Kendall Square,Kendall Square,Hart Nautical gallery,3.31,Loop around the river,https://tandemrun.app/routes/charles-river-kendall-square/
+Charles River Back Bay,Back Bay,Fairfield and Marlborough St intersection,3.5,Loop around the river,https://tandemrun.app/routes/charles-river-back-bay/
+Charles River Back Bay 2,Back Bay,Fairfield and Marlborough St intersection,2,Loop around the river,https://tandemrun.app/routes/charles-river-back-bay-2/
+Charles River Beacon Hill,Beacon Hill,CVS near Charles MGH,3,Loop around the river,https://tandemrun.app/routes/charles-river-beacon-hill/
+Charles River West End,West End,Museum of Science T.Rex,3.83,Loop around the river,https://tandemrun.app/routes/charles-river-west-end/
+Charles River West End 2,West End,Museum of Science T.Rex,1.92,Loop around the river,https://tandemrun.app/routes/charles-river-west-end-2/
+Charles River East Cambridge,East Cambridge,North Point Park Playground,2.31,Loop around the river,https://tandemrun.app/routes/charles-river-east-cambridge/
+Charles River Charlestown,Charlestown,Blackmoor,3.49,Loop around the river,https://tandemrun.app/routes/charles-river-charlestown/
+Charles River North End,North End,Prince St Park Tennis Courts,3.49,Loop around the river,https://tandemrun.app/routes/charles-river-north-end/
+Charles River Downtown,Downtown,Prince St Park Tennis Courts,3.49,Loop around the river,https://tandemrun.app/routes/charles-river-downtown/
+Riverway Fenway Kenmore,Fenway Kenmore,Boston University Academy parking lot,2.8,Loop around the riverway,https://tandemrun.app/routes/riverway-fenway-kenmore/
+Riverway Brookline,Brookline,Brookline Avenue Playground,1.88,Loop around the riverway,https://tandemrun.app/routes/riverway-brookline/
+Jamaica Pond,Jamaica Plain,Courageous Sailing at Jamaica Pond Boathouse,1.47,Loop around pond,https://tandemrun.app/routes/jamaica-pond/
+Arnold Arboretum,Jamaica Plain,Hunnewell Visitor Center,3.59,Loop around park,https://tandemrun.app/routes/arnold-arboretum/
+Franklin Park,Mattapan,William J. Devine Golf Course at Franklin Park parking lot,3.26,Loop around park,https://tandemrun.app/routes/franklin-park-mattapan/
+Franklin Park,Roxbury,William J. Devine Golf Course at Franklin Park parking lot,3.26,Loop around park,https://tandemrun.app/routes/franklin-park-roxbury/
+Southwest Corridor Park,Mission Hill,Reggie Lewis Athletic Center,3.03,Out and back,https://tandemrun.app/routes/southwest-corridor-park-mission-hill/
+Southwest Corridor Park,Roxbury,Reggie Lewis Athletic Center,3.03,Out and back,https://tandemrun.app/routes/southwest-corridor-park-roxbury/
+Memorial Park,East Boston,Memorial Park water fountain,2.53,Loop around the city,https://tandemrun.app/routes/memorial-park/
+Charlestown Harbor Walk,Charlestown,Tatte,3.94,Loop around the harbors,https://tandemrun.app/routes/charlestown-harbor-walk/
+North End Harbor Walk,North End,Mother Annas,2.68,Loop around the harbors,https://tandemrun.app/routes/north-end-harbor-walk/
+Downtown Harbor Walk,Downtown,James Hook & Co,2.14,Loop around the harbors,https://tandemrun.app/routes/downtown-harbor-walk/
+Seaport Harbor Walk,Seaport,Barking Crab,2.43,Loop around the harbors,https://tandemrun.app/routes/seaport-harbor-walk/
+East Boston Harbor Walk,East Boston,Reel House,2.42,Loop around the harbors,https://tandemrun.app/routes/east-boston-harbor-walk/
+Castle Island,South Boston,Sullivans,2.61,Loop around the castle,https://tandemrun.app/routes/castle-island/
+South Boston Harbor Walk,South Boston,Moakley Park Picnic Area,3.92,Out and back on the harbors,https://tandemrun.app/routes/south-boston-harbor-walk/
+UMass Harborwalk,Dorchester,Malibu Beach paking lot,4.3,Loop around the harbor,https://tandemrun.app/routes/umass-harborwalk/
+Squantam Point Park,Quincy,Marina Bay Market,1.74,Loop around the park,https://tandemrun.app/routes/squantam-point-park/
+Quincy Shore,Quincy,The Kennedy Center parking lot,2.52,Out and back on the shore,https://tandemrun.app/routes/quincy-shore/
+Back River Walk,Weymouth,CVS,2.79,Out and back on river,https://tandemrun.app/routes/back-river-walk/
+Webb Memorial State Park,Weymouth,Webb Memorial State Park parking circle,1.35,Loop around the park,https://tandemrun.app/routes/webb-memorial-state-park/
+Worlds End Loop,Hingham,Worlds End Loop parking lot,3.67,Loop around the park,https://tandemrun.app/routes/worlds-end-loop/
+Bare Cove Park,Hingham,Bare Cove Park parking lot,3.32,Out and back in the park,https://tandemrun.app/routes/bare-cove-park/
+Dorchester Neponset River,Dorchester,Neponset River parking lot,2.97,Out and back on river,https://tandemrun.app/routes/dorchester-neponset-river/
+Milton Neponset River,Milton,Milton Station parking lot,3.57,Out and back on river,https://tandemrun.app/routes/milton-neponset-river/
+Mattapan Neponset River,Mattapan,Ryan's Playground parking lot,3.15,Out and back on river,https://tandemrun.app/routes/mattapan-neponset-river/
+Hyde Park Neponset River,Hyde Park,Francis D. Martini Memorial Shell Park parking lot,3.97,Out and back on river,https://tandemrun.app/routes/hyde-park-neponset-river/
+Pond Meadow Park,Braintree,Pond Meadow Park parking lot (470 Liberty St),2.3,Loop around pond,https://tandemrun.app/routes/pond-meadow-park/
+Public Garden,South End,Beehive,2.67,Out and back around garden,https://tandemrun.app/routes/public-garden/
+West Cambridge Fresh Pond,West Cambridge,Kingsley Park parking lot,2.35,Loop around pond,https://tandemrun.app/routes/west-cambridge-fresh-pond/
+Porter Square Fresh Pond,Porter Square,William G Maher park parking circle,2.86,Loop around pond,https://tandemrun.app/routes/porter-square-fresh-pond/
+Minuteman Bikeway,North Cambridge,Alewife Station,3.54,Out and back on bikepath,https://tandemrun.app/routes/minuteman-bikeway/
+Argenziano Park,Ball Square,Albert F. Argenziano School parking circle,1.41,Loop around the parks,https://tandemrun.app/routes/argenziano-park/
+Cambridge and Binney St,Inman Square,Cambridge Public Library Valente Branch,3.05,Loop to the river and back,https://tandemrun.app/routes/cambridge-and-binney-st/
+Winter Hill Somerville Community Path,Winter Hill,Foss park parking lot,2.28,Out and back on path,https://tandemrun.app/routes/winter-hill-somerville-community-path/
+Davis Square Somerville Community Path,Davis Square,Seven Hills Park,2.9,Out and back on path,https://tandemrun.app/routes/davis-square-somerville-community-path/
+Magoun Square Somerville Community Path,Magoun Square,Trum Field parking lot,2.46,Out and back on path,https://tandemrun.app/routes/magoun-square-somerville-community-path/
+Union Square Somerville Community Path,Union Square,Prospect Hill tower,2.69,Out and back on path,https://tandemrun.app/routes/union-square-somerville-community-path/
+Assembly Row Loop,Assembly Row,Earls,2.4,Out and back on river,https://tandemrun.app/routes/assembly-row-loop/
+Mystic River Loop,Medford,McGlynn Elementary School parking lot,2.68,Out and back on river,https://tandemrun.app/routes/mystic-river-loop/
+Pine Bank Park,Malden,Main and Forest St corner,2.96,Loop around the park,https://tandemrun.app/routes/pine-bank-park/
