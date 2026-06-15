@@ -340,15 +340,154 @@
 
 <footer>
   <div class="footer-logo">Tandem<span> Run</span></div>
-  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="https://tandemrun.app" style="color: inherit; text-decoration: none;">tandemrun.app</a> · <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">@tandemrunapp</a> · <a href="mailto:hello@tandemrun.app" style="color: inherit; text-decoration: none;">hello@tandemrun.app</a> · <a href="/privacy" style="color: inherit; text-decoration: none;">Privacy Policy</a></div>
+  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="https://tandemrun.app" style="color: inherit; text-decoration: none;">tandemrun.app</a> · <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">@tandemrunapp</a> · <a href="mailto:hello@tandemrun.app" style="color: inherit; text-decoration: none;">hello@tandemrun.app</a> · <a href="/privacy" style="color: inherit; text-decoration: none;">Privacy Policy</a> · <a href="#" onclick="event.preventDefault(); TandemRunCookies.reset();" style="color: inherit; text-decoration: none;">Cookie settings</a></div>
 </footer>
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="scripts.js" defer></script>
 
-<!-- Start of HubSpot Embed Code -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/246013148.js"></script>
-<!-- End of HubSpot Embed Code -->
+<!-- Cookie consent banner + gated HubSpot loader -->
+<style>
+  .tr-cookie-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 2000;
+    background: #1C3F7A;
+    color: #ffffff;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    padding: 0.875rem 1.5rem;
+  }
+  .tr-cookie-banner[hidden] { display: none; }
+  .tr-cookie-banner-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .tr-cookie-banner-text { flex: 1; margin: 0; }
+  .tr-cookie-banner-text a {
+    color: #F5C842;
+    text-decoration: underline;
+  }
+  .tr-cookie-banner-text a:hover { color: #ffffff; }
+  .tr-cookie-banner-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .tr-cookie-btn {
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .tr-cookie-btn-accept {
+    background: #F5C842;
+    color: #1C3F7A;
+    border-color: #F5C842;
+  }
+  .tr-cookie-btn-accept:hover { background: #ffffff; border-color: #ffffff; }
+  .tr-cookie-btn-decline {
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.35);
+  }
+  .tr-cookie-btn-decline:hover {
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(255,255,255,0.65);
+  }
+  @media (max-width: 640px) {
+    .tr-cookie-banner { padding: 0.85rem 1rem; }
+    .tr-cookie-banner-inner { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .tr-cookie-banner-actions { justify-content: flex-end; }
+  }
+</style>
+
+<div id="tr-cookie-banner" class="tr-cookie-banner" role="dialog" aria-live="polite" aria-labelledby="tr-cookie-text" hidden>
+  <div class="tr-cookie-banner-inner">
+    <p id="tr-cookie-text" class="tr-cookie-banner-text">
+      We use cookies for analytics — to understand which pages people visit and how the site is used.
+      See our <a href="/privacy/">privacy policy</a> for details.
+    </p>
+    <div class="tr-cookie-banner-actions">
+      <button type="button" class="tr-cookie-btn tr-cookie-btn-decline" id="tr-cookie-decline">Decline</button>
+      <button type="button" class="tr-cookie-btn tr-cookie-btn-accept"  id="tr-cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var STORAGE_KEY       = 'tr-cookie-consent';                    // 'accepted' | 'declined'
+  var HUBSPOT_SRC       = '//js-na2.hs-scripts.com/246013148.js'; // Tandem Run portal
+  var HUBSPOT_SCRIPT_ID = 'hs-script-loader';
+
+  var banner     = document.getElementById('tr-cookie-banner');
+  var acceptBtn  = document.getElementById('tr-cookie-accept');
+  var declineBtn = document.getElementById('tr-cookie-decline');
+
+  function show() { banner.hidden = false; }
+  function hide() { banner.hidden = true; }
+
+  function loadHubSpot() {
+    if (document.getElementById(HUBSPOT_SCRIPT_ID)) return;
+    var s = document.createElement('script');
+    s.type  = 'text/javascript';
+    s.id    = HUBSPOT_SCRIPT_ID;
+    s.async = true;
+    s.defer = true;
+    s.src   = HUBSPOT_SRC;
+    document.head.appendChild(s);
+  }
+
+  function getConsent() {
+    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+  }
+  function setConsent(v) {
+    try { localStorage.setItem(STORAGE_KEY, v); } catch (e) {}
+  }
+
+  var prior = getConsent();
+  if (prior === 'accepted') {
+    loadHubSpot();
+    hide();
+  } else if (prior === 'declined') {
+    hide();
+  } else {
+    show();
+  }
+
+  acceptBtn.addEventListener('click', function () {
+    setConsent('accepted');
+    loadHubSpot();
+    hide();
+  });
+  declineBtn.addEventListener('click', function () {
+    setConsent('declined');
+    hide();
+  });
+
+  // Public hook so a "Cookie settings" link can re-open / reset the choice.
+  window.TandemRunCookies = {
+    open:   function () { show(); },
+    reset:  function () { try { localStorage.removeItem(STORAGE_KEY); } catch (e) {} show(); },
+    status: function () { return getConsent(); }
+  };
+})();
+</script>
+<!-- End cookie consent -->
 </body>
 </html>
