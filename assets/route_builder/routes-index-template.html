@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -23,6 +23,8 @@
     --navy-deep: #14305C;
     --gold: #F5C842;
     --gold-soft: #FAE3A0;
+    --berry: #BF437F;
+    --berry-deep: #8C2D5C;
     --cream: #F8F5EF;
     --cream-deep: #EFE9DC;
     --gray-soft: #5F5E5A;
@@ -34,7 +36,7 @@
   html, body { height: 100%; }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Lexend', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--navy);
     background: var(--cream);
     line-height: 1.5;
@@ -66,16 +68,17 @@
     font-weight: 600;
   }
   .nav-cta {
-    background: var(--gold);
-    color: var(--navy);
+    background: var(--berry);
+    color: var(--cream);
     padding: 0.5rem 1.1rem;
     border-radius: 999px;
     text-decoration: none;
     font-size: 0.875rem;
-    font-weight: 600;
-    transition: background 0.15s;
+    font-weight: 500;
+    text-transform: lowercase;
+    transition: background 0.2s ease;
   }
-  .nav-cta:hover { background: white; }
+  .nav-cta:hover, .nav-cta:active { background: var(--berry-deep); color: var(--cream); }
 
   /* Map wrap */
   .map-wrap {
@@ -108,7 +111,7 @@
     margin-bottom: 0.6rem;
   }
   .hero-overlay h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lexend', sans-serif;
     font-size: 1.75rem;
     font-weight: 600;
     line-height: 1.15;
@@ -126,7 +129,7 @@
   }
   .hero-overlay p:last-child { margin-bottom: 0; }
   .hero-overlay .fine-print {
-    font-family: 'Lexend', 'Inter', sans-serif;
+    font-family: 'Lexend', sans-serif;
     font-size: 0.6875rem;
     font-weight: 400;
     line-height: 1.45;
@@ -141,16 +144,17 @@
   }
   .hero-overlay .cta {
     display: inline-block;
-    background: var(--gold);
-    color: var(--navy);
+    background: var(--berry);
+    color: var(--cream);
     text-decoration: none;
     font-size: 0.8125rem;
-    font-weight: 600;
+    font-weight: 500;
+    text-transform: lowercase;
     padding: 0.6rem 1.25rem;
     border-radius: 999px;
-    transition: background 0.15s;
+    transition: background 0.2s ease;
   }
-  .hero-overlay .cta:hover { background: white; }
+  .hero-overlay .cta:hover, .hero-overlay .cta:active { background: var(--berry-deep); color: var(--cream); }
 
   @media (max-width: 640px) {
     .hero-overlay {
@@ -171,7 +175,7 @@
     border: 1px solid var(--cream-deep);
     border-radius: 8px;
     padding: 0.5rem 0.75rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Lexend', sans-serif;
     font-size: 0.8125rem;
     color: var(--navy);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
