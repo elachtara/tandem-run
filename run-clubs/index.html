@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boston Run Clubs — Tandem Run</title>
+  <meta name="description" content="Discover run clubs across Boston and the surrounding area. Find your pace, your neighborhood, your people.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Page-specific styles ── */
+    .rc-hero {
+      background: var(--navy);
+      color: var(--paper);
+      padding: 7.5rem 5vw 3.5rem;
+      text-align: center;
+    }
+    .rc-hero .hero-tag {
+      color: var(--accent);
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .rc-hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.75rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--paper);
+      margin-bottom: 1.25rem;
+    }
+    .rc-hero-headline em { font-style: italic; color: var(--accent); }
+    .rc-hero-sub {
+      font-size: 1.05rem;
+      color: rgba(247,243,236,0.65);
+      font-weight: 300;
+      max-width: 540px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.7;
+    }
+    .rc-count-badge {
+      display: inline-block;
+      background: rgba(232,168,32,0.12);
+      border: 1px solid rgba(232,168,32,0.28);
+      color: var(--accent);
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+    }
+
+    /* ── Map ── */
+    #run-clubs-map {
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
+    }
+    .leaflet-control-attribution {
+      background: rgba(15,14,12,0.7) !important;
+      color: rgba(245,242,236,0.4) !important;
+      font-size: 9px !important;
+    }
+    .leaflet-control-attribution a { color: rgba(245,242,236,0.5) !important; }
+    .leaflet-control-zoom a {
+      background: rgba(15,14,12,0.85) !important;
+      color: rgba(245,242,236,0.7) !important;
+      border-color: rgba(245,242,236,0.1) !important;
+    }
+    .leaflet-control-zoom a:hover {
+      background: var(--navy) !important;
+      color: white !important;
+    }
+
+    /* ── Popup ── */
+    .leaflet-popup-content-wrapper {
+      background: var(--paper) !important;
+      border: 1px solid rgba(26,24,20,0.1) !important;
+      border-radius: 14px !important;
+      box-shadow: 0 8px 32px rgba(28,63,122,0.13) !important;
+      padding: 0 !important;
+      overflow: hidden;
+    }
+    .leaflet-popup-content { margin: 0 !important; min-width: 230px; max-width: 290px; }
+    .leaflet-popup-tip-container { display: none; }
+    .leaflet-popup-close-button {
+      color: var(--ink-muted) !important;
+      font-size: 18px !important;
+      top: 10px !important;
+      right: 12px !important;
+      width: 20px !important;
+      height: 20px !important;
+      line-height: 20px !important;
+    }
+    .rc-popup { padding: 1.3rem 1.5rem 1.4rem; font-family: var(--sans); }
+    .rc-popup-area {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .rc-popup-name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+    .rc-popup-detail {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin-bottom: 0.35rem;
+      font-weight: 300;
+    }
+    .rc-popup-detail strong { font-weight: 500; color: var(--ink); }
+    .rc-popup-links { display: flex; gap: 0.45rem; margin-top: 1rem; flex-wrap: wrap; }
+    .rc-popup-link {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      padding: 0.32rem 0.8rem;
+      border-radius: 999px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .rc-popup-link-ig {
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      border: 1px solid rgba(232,168,32,0.22);
+    }
+    .rc-popup-link-ig:hover { background: var(--accent); color: var(--navy); }
+    .rc-popup-link-web {
+      background: var(--navy-light);
+      color: var(--navy);
+      border: 1px solid rgba(28,63,122,0.12);
+    }
+    .rc-popup-link-web:hover { background: var(--navy); color: white; }
+
+    /* ── Marker ── */
+    .rc-marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2.5px solid var(--navy);
+      box-shadow: 0 2px 6px rgba(28,63,122,0.28);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .rc-marker:hover { transform: scale(1.4); }
+
+    /* ── Footer CTA ── */
+    .rc-footer-cta {
+      background: var(--paper-warm);
+      padding: 5rem 5vw;
+      text-align: center;
+    }
+    .rc-footer-cta-headline {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 0.85rem;
+    }
+    .rc-footer-cta-headline em { font-style: italic; color: var(--accent); }
+    .rc-footer-cta p {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      #run-clubs-map { height: 55vh; min-height: 360px; }
+      .rc-hero { padding: 6.5rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
+  <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<main>
+
+  <!-- HEADER -->
+  <section class="rc-hero">
+    <span class="hero-tag">Boston Run Club Directory</span>
+    <h1 class="rc-hero-headline">Find your <em>run tribe.</em></h1>
+    <p class="rc-hero-sub">A map of run clubs across Boston and the surrounding area. Click any marker to see where they meet, when, and how to find them.</p>
+    <div class="rc-count-badge" id="rc-count-badge">13 clubs mapped · updated regularly</div>
+  </section>
+
+  <!-- MAP -->
+  <div id="run-clubs-map" role="region" aria-label="Interactive map of Boston-area run clubs"></div>
+
+  <!-- FOOTER CTA -->
+  <section class="rc-footer-cta">
+    <h2 class="rc-footer-cta-headline">Looking for a running <em>partner,</em> not a group?</h2>
+    <p>Run clubs are great for community. But sometimes you want one person who shows up for you every week, at your pace, in your neighborhood. That's what Tandem Run is for.</p>
+    <a href="/#waitlist" class="hero-cta-btn">Reserve my spot</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-logo">Tandem<span> Run</span></div>
+  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="/" style="color:inherit;text-decoration:none;">tandemrun.app</a> · <a href="/privacy" style="color:inherit;text-decoration:none;">Privacy Policy</a> · <a href="/terms" style="color:inherit;text-decoration:none;">Terms of Service</a></div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// RUN CLUB DATA
+// ───────────────────────────────────────────────────────────────
+// To add a new club, copy one entry below, fill it in, and save.
+// lat / lng: Google Maps → right-click any spot → "What's here?"
+// ═══════════════════════════════════════════════════════════════
+const CLUBS = [
+  {
+    name: "Metro Movin",
+    area: "Back Bay",
+    instagram: "@metromovinrc",
+    schedule: "Tues & Thurs · 6:30am · Mass Ave Bridge (Boston side)",
+    pace: "8:30–10:30 min/mi",
+    website: "",
+    lat: 42.352222, lng: -71.089731
+  },
+  {
+    name: "Run Rich Run Club",
+    area: "South Boston",
+    instagram: "@runrichrunclub",
+    schedule: "Wed · 6:15am · Park City · All paces",
+    pace: "",
+    website: "",
+    lat: 42.33455608013943, lng: -71.0572915857158
+  },
+  {
+    name: "Cafecito Run Club",
+    area: "Boston",
+    instagram: "@amigasrunboston",
+    schedule: "Select weekends · 21 David G. Mugar Way · All paces",
+    pace: "",
+    website: "",
+    lat: 42.35992463299864, lng: -71.07309543196132
+  },
+  {
+    name: "Lunge Run Club",
+    area: "Downtown Boston",
+    instagram: "@lungerunclubboston",
+    schedule: "Wed · 6:45pm · City Hall Plaza · All paces",
+    pace: "",
+    website: "",
+    lat: 42.36039385852986, lng: -71.05934112281608
+  },
+  {
+    name: "Achilles Boston",
+    area: "Back Bay",
+    instagram: "@achillesboston",
+    schedule: "Tues · 6pm · 276 Newbury St · All paces",
+    pace: "",
+    website: "",
+    lat: 42.349313918867374, lng: -71.08361042023948
+  },
+  {
+    name: "Achilles Boston",
+    area: "South Boston",
+    instagram: "@achillesboston",
+    schedule: "Sat · 9am · Carson Beach, 165 HarborWalk · All paces",
+    pace: "",
+    website: "",
+    lat: 42.32639571057264, lng: -71.04821831007807
+  },
+  {
+    name: "Harbor Run Club",
+    area: "Hingham",
+    instagram: "@harborrunclub",
+    schedule: "Sunday · 8am · Brewed Awakenings",
+    pace: "",
+    website: "",
+    lat: 42.241996153261006, lng: -70.88915834755569
+  },
+  {
+    name: "North End Run Club",
+    area: "North End",
+    instagram: "@northendbos_runclub",
+    schedule: "Wed · 6:30pm · Paul Revere Statue · Social pace",
+    pace: "",
+    website: "",
+    lat: 42.36610156003476, lng: -71.05331407301126
+  },
+  {
+    name: "Quincy Social Run Club",
+    area: "Quincy",
+    instagram: "@quincysocialrunclub",
+    schedule: "Tues · 6:30pm · A Healthy Balance · Social pace",
+    pace: "",
+    website: "https://rungroop.com/group/quincy-social-run-club",
+    lat: 42.2562689248114, lng: -71.00787632219793
+  },
+  {
+    name: "Boston Latina Run Club",
+    area: "Boston",
+    instagram: "@bostonlatinarunclub",
+    schedule: "Sunday mornings · Park St · 11–14 min/mi",
+    pace: "",
+    website: "",
+    lat: 42.35636414262463, lng: -71.06236374322665
+  },
+  {
+    name: "Boston Bulldogs Running Club",
+    area: "Brookline / Greater Boston",
+    instagram: "@bostonbulldogsrunning",
+    schedule: "Mon 6:30pm · Thomas Crane Library\nThurs 6:30pm & Sat 9am · Reilly Memorial Rink",
+    pace: "",
+    website: "https://bostonbulldogs.run",
+    lat: 42.335859, lng: -71.153535
+  },
+  {
+    name: "Charles River Rats Run Club",
+    area: "Boston",
+    instagram: "@crrrc_bos",
+    schedule: "Mon · 6:30am · MIT Bridge (Cambridge side) · 8:30–9:30 min/mi",
+    pace: "",
+    website: "",
+    lat: 42.36182267594005, lng: -71.07973566401165
+  },
+  {
+    name: "La Corsa Club Boston",
+    area: "Boston",
+    instagram: "@lacorsaclubboston",
+    schedule: "Mon (Alma Cantina) · Thurs (Roberto Clemente Track) · Sat (Flour Boston Common) · Sun (Puro Ceviche) · All paces",
+    pace: "",
+    website: "",
+    lat: 42.36104422853544, lng: -71.05661327116395
+  },
+];
+
+// ── Update badge count ──
+document.getElementById('rc-count-badge').textContent =
+  CLUBS.length + ' clubs mapped · updated regularly';
+
+// ── Map init ──
+const map = L.map('run-clubs-map', {
+  center: [42.345, -71.065],
+  zoom: 12,
+  zoomControl: true,
+  scrollWheelZoom: true
+});
+
+// CARTO light tiles (same as main site)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+// ── Custom marker ──
+const markerIcon = L.divIcon({
+  className: '',
+  html: '<div class="rc-marker"></div>',
+  iconSize: [14, 14],
+  iconAnchor: [7, 7],
+  popupAnchor: [0, -10]
+});
+
+// ── Build popup HTML ──
+function buildPopup(club) {
+  const igHandle = club.instagram ? club.instagram.replace('@', '') : null;
+  const scheduleLines = club.schedule.replace(/\n/g, '<br>');
+  let links = '';
+  if (igHandle) {
+    links += `<a href="https://instagram.com/${igHandle}" target="_blank" rel="noopener" class="rc-popup-link rc-popup-link-ig">${club.instagram}</a>`;
+  }
+  if (club.website) {
+    links += `<a href="${club.website}" target="_blank" rel="noopener" class="rc-popup-link rc-popup-link-web">Website ↗</a>`;
+  }
+  return `
+    <div class="rc-popup">
+      <div class="rc-popup-area">${club.area}</div>
+      <div class="rc-popup-name">${club.name}</div>
+      <div class="rc-popup-detail"><strong>When & where:</strong> ${scheduleLines}</div>
+      ${club.pace ? `<div class="rc-popup-detail"><strong>Pace:</strong> ${club.pace}</div>` : ''}
+      ${links ? `<div class="rc-popup-links">${links}</div>` : ''}
+    </div>`;
+}
+
+// ── Add markers ──
+CLUBS.forEach(club => {
+  L.marker([club.lat, club.lng], { icon: markerIcon })
+    .bindPopup(buildPopup(club), { maxWidth: 300, minWidth: 240 })
+    .addTo(map);
+});
+</script>
+
+<!-- ── Cookie consent (matches main site) ── -->
+<style>
+  .tr-cookie-banner { position:fixed; top:0; left:0; right:0; z-index:2000; background:#1C3F7A; color:#fff; font-family:'DM Sans',system-ui,sans-serif; font-size:.875rem; line-height:1.5; box-shadow:0 2px 12px rgba(0,0,0,.18); padding:.875rem 1.5rem; }
+  .tr-cookie-banner[hidden] { display:none; }
+  .tr-cookie-banner-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:1.25rem; }
+  .tr-cookie-banner-text { flex:1; margin:0; }
+  .tr-cookie-banner-text a { color:#F5C842; text-decoration:underline; }
+  .tr-cookie-banner-actions { display:flex; gap:.5rem; flex-shrink:0; }
+  .tr-cookie-btn { font-family:inherit; font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:.55rem 1.15rem; border-radius:999px; cursor:pointer; border:1px solid transparent; transition:background .15s,color .15s,border-color .15s; }
+  .tr-cookie-btn-accept { background:#F5C842; color:#1C3F7A; border-color:#F5C842; }
+  .tr-cookie-btn-accept:hover { background:#fff; border-color:#fff; }
+  .tr-cookie-btn-decline { background:transparent; color:#fff; border-color:rgba(255,255,255,.35); }
+  .tr-cookie-btn-decline:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.65); }
+</style>
+<div id="tr-cookie-banner" class="tr-cookie-banner" role="dialog" aria-live="polite" hidden>
+  <div class="tr-cookie-banner-inner">
+    <p class="tr-cookie-banner-text">We use cookies for analytics — to understand which pages people visit and how the site is used. See our <a href="/privacy/">privacy policy</a> for details.</p>
+    <div class="tr-cookie-banner-actions">
+      <button type="button" class="tr-cookie-btn tr-cookie-btn-decline" id="tr-cookie-decline">Decline</button>
+      <button type="button" class="tr-cookie-btn tr-cookie-btn-accept" id="tr-cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY='tr-cookie-consent';
+  var banner=document.getElementById('tr-cookie-banner');
+  var acceptBtn=document.getElementById('tr-cookie-accept');
+  var declineBtn=document.getElementById('tr-cookie-decline');
+  function getConsent(){try{return localStorage.getItem(STORAGE_KEY);}catch(e){return null;}}
+  function setConsent(v){try{localStorage.setItem(STORAGE_KEY,v);}catch(e){}}
+  var prior=getConsent();
+  if(!prior){banner.hidden=false;}
+  acceptBtn.addEventListener('click',function(){setConsent('accepted');banner.hidden=true;});
+  declineBtn.addEventListener('click',function(){setConsent('declined');banner.hidden=true;});
+  window.TandemRunCookies={reset:function(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}banner.hidden=false;}};
+})();
+</script>
+
+</body>
+</html>
