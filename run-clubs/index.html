@@ -14,6 +14,23 @@
   <link rel="stylesheet" href="../styles.css">
 
   <style>
+    /* ── Design tokens (mirrors styles.css so page works standalone) ── */
+    :root {
+      --ink: #1a1814;
+      --ink-soft: #3a3530;
+      --ink-muted: #78726a;
+      --paper: #f7f3ec;
+      --paper-warm: #ede7da;
+      --accent: #e8a820;
+      --accent-light: #fdf3d4;
+      --accent-dark: #b07d0e;
+      --navy: #1c3f7a;
+      --navy-light: #e8eef8;
+      --white: #ffffff;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
     /* ── Page-specific styles ── */
     .rc-hero {
       background: var(--navy);
@@ -147,18 +164,36 @@
     }
     .rc-popup-link-web:hover { background: var(--navy); color: white; }
 
-    /* ── Marker ── */
+    /* ── Markers ── */
     .rc-marker {
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: var(--accent);
-      border: 2.5px solid var(--navy);
+      background: #e8a820;
+      border: 2.5px solid #1c3f7a;
       box-shadow: 0 2px 6px rgba(28,63,122,0.28);
       cursor: pointer;
       transition: transform 0.15s;
     }
     .rc-marker:hover { transform: scale(1.4); }
+    .rc-marker-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2.5px solid #1c3f7a;
+      box-shadow: 0 2px 8px rgba(28,63,122,0.35);
+      background: white;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .rc-marker-logo:hover { transform: scale(1.15); }
+    .rc-marker-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     /* ── Footer CTA ── */
     .rc-footer-cta {
@@ -240,6 +275,7 @@ const CLUBS = [
     schedule: "Tues & Thurs · 6:30am · Mass Ave Bridge (Boston side)",
     pace: "8:30–10:30 min/mi",
     website: "",
+    logo: "metro_movin.jpg",
     lat: 42.352222, lng: -71.089731
   },
   {
@@ -249,6 +285,7 @@ const CLUBS = [
     schedule: "Wed · 6:15am · Park City · All paces",
     pace: "",
     website: "",
+    logo: "run_rich_run_club.jpg",
     lat: 42.33455608013943, lng: -71.0572915857158
   },
   {
@@ -258,6 +295,7 @@ const CLUBS = [
     schedule: "Select weekends · 21 David G. Mugar Way · All paces",
     pace: "",
     website: "",
+    logo: "cafecito_run_club.jpg",
     lat: 42.35992463299864, lng: -71.07309543196132
   },
   {
@@ -267,6 +305,7 @@ const CLUBS = [
     schedule: "Wed · 6:45pm · City Hall Plaza · All paces",
     pace: "",
     website: "",
+    logo: "lunge_run_club.jpg",
     lat: 42.36039385852986, lng: -71.05934112281608
   },
   {
@@ -276,6 +315,7 @@ const CLUBS = [
     schedule: "Tues · 6pm · 276 Newbury St · All paces",
     pace: "",
     website: "",
+    logo: "achilles_boston.jpg",
     lat: 42.349313918867374, lng: -71.08361042023948
   },
   {
@@ -285,6 +325,7 @@ const CLUBS = [
     schedule: "Sat · 9am · Carson Beach, 165 HarborWalk · All paces",
     pace: "",
     website: "",
+    logo: "achilles_boston.jpg",
     lat: 42.32639571057264, lng: -71.04821831007807
   },
   {
@@ -294,6 +335,7 @@ const CLUBS = [
     schedule: "Sunday · 8am · Brewed Awakenings",
     pace: "",
     website: "",
+    logo: "harbor_run_club.jpg",
     lat: 42.241996153261006, lng: -70.88915834755569
   },
   {
@@ -303,6 +345,7 @@ const CLUBS = [
     schedule: "Wed · 6:30pm · Paul Revere Statue · Social pace",
     pace: "",
     website: "",
+    logo: "north_end_run_club.jpg",
     lat: 42.36610156003476, lng: -71.05331407301126
   },
   {
@@ -312,6 +355,7 @@ const CLUBS = [
     schedule: "Tues · 6:30pm · A Healthy Balance · Social pace",
     pace: "",
     website: "https://rungroop.com/group/quincy-social-run-club",
+    logo: "quincy_social_run_club.jpg",
     lat: 42.2562689248114, lng: -71.00787632219793
   },
   {
@@ -321,6 +365,7 @@ const CLUBS = [
     schedule: "Sunday mornings · Park St · 11–14 min/mi",
     pace: "",
     website: "",
+    logo: "boston_latina_run_club.jpg",
     lat: 42.35636414262463, lng: -71.06236374322665
   },
   {
@@ -330,6 +375,7 @@ const CLUBS = [
     schedule: "Mon 6:30pm · Thomas Crane Library\nThurs 6:30pm & Sat 9am · Reilly Memorial Rink",
     pace: "",
     website: "https://bostonbulldogs.run",
+    logo: "boston_bulldogs_running_club.jpg",
     lat: 42.335859, lng: -71.153535
   },
   {
@@ -339,6 +385,7 @@ const CLUBS = [
     schedule: "Mon · 6:30am · MIT Bridge (Cambridge side) · 8:30–9:30 min/mi",
     pace: "",
     website: "",
+    logo: "charles_river_rats_run_club.jpg",
     lat: 42.36182267594005, lng: -71.07973566401165
   },
   {
@@ -348,6 +395,7 @@ const CLUBS = [
     schedule: "Mon (Alma Cantina) · Thurs (Roberto Clemente Track) · Sat (Flour Boston Common) · Sun (Puro Ceviche) · All paces",
     pace: "",
     website: "",
+    logo: "la_corsa_club_boston.jpg",
     lat: 42.36104422853544, lng: -71.05661327116395
   },
 ];
@@ -371,14 +419,25 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
-// ── Custom marker ──
-const markerIcon = L.divIcon({
-  className: '',
-  html: '<div class="rc-marker"></div>',
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
-  popupAnchor: [0, -10]
-});
+// ── Custom marker (logo or fallback dot) ──
+function makeMarker(club) {
+  if (club.logo) {
+    return L.divIcon({
+      className: '',
+      html: `<div class="rc-marker-logo"><img src="${club.logo}" alt="${club.name}" onerror="this.parentElement.outerHTML='<div class=\\'rc-marker\\'></div>'"></div>`,
+      iconSize: [36, 36],
+      iconAnchor: [18, 18],
+      popupAnchor: [0, -20]
+    });
+  }
+  return L.divIcon({
+    className: '',
+    html: '<div class="rc-marker"></div>',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    popupAnchor: [0, -10]
+  });
+}
 
 // ── Build popup HTML ──
 function buildPopup(club) {
@@ -403,7 +462,7 @@ function buildPopup(club) {
 
 // ── Add markers ──
 CLUBS.forEach(club => {
-  L.marker([club.lat, club.lng], { icon: markerIcon })
+  L.marker([club.lat, club.lng], { icon: makeMarker(club) })
     .bindPopup(buildPopup(club), { maxWidth: 300, minWidth: 240 })
     .addTo(map);
 });
