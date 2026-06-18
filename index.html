@@ -9,329 +9,208 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <nav>
   <a href="#" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
-  <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+  <a href="#waitlist" class="nav-cta">join the waitlist</a>
 </nav>
 
 <main>
 
   <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-map-panel">
-      <div id="boston-map"></div>
-
-      <article class="map-overlay-card">
-        <p class="map-overlay-label">Proposed run</p>
-        <h2 class="map-overlay-run">Charles River West End</h2>
-        <p class="map-overlay-detail">3.8 Miles · Tuesday 7am</p>
-        <div class="map-overlay-btns">
-          <button type="button" class="map-btn-accept">Accept</button>
-          <button type="button" class="map-btn-suggest">Suggest edit</button>
-        </div>
-      </article>
+  <section class="home-hero" id="home">
+    <div class="home-hero-image">
+      <img src="assets/images/women_with_flag.png" alt="Two women holding a finish-line flag together after a race." loading="lazy">
     </div>
-
-    <div class="hero-text-panel">
-      <span class="hero-tag">For the girls · Boston · Coming Summer 2026</span>
-      <h1 class="hero-headline">Running is better<br><em>as two.</em></h1>
-      <p class="hero-sub">
-        Tandem Run is a women-only running and walking app launching Summer 2026 — built by women, for women. We match you with one perfect partner near you. Same pace, same schedule, same energy. Not a group. Not a club. Just you and one other gal, moving together, week after week.
-      </p>
-      <a href="#waitlist" class="signup-btn hero-cta-btn">Reserve my spot</a>
-      <p class="hero-note">Women only · Free to join · Boston launch · No spam, ever</p>
+    <div class="home-hero-content">
+      <div class="home-hero-wordmark"><span class="home-hero-wordmark-tandem">Tandem</span><span class="home-hero-wordmark-run"> Run</span></div>
+      <h1 class="home-hero-subhead">Because running is better as two</h1>
+      <p>Tandem Run is a women-only running and walking buddy app launching in Boston Summer of 2026.</p>
+      <p>We match you with one perfect partner near you: same pace, same schedule, same vibe. We supply the routes, you just pick a time and show up.</p>
+      <a href="#waitlist" class="btn-primary">join the waitlist</a>
+      <p class="home-hero-byline">By women, for women</p>
     </div>
   </section>
 
-  <!-- PROBLEM -->
-  <section class="section problem" id="problem">
-    <div class="problem-grid">
-      <div>
-        <h2 class="problem-headline">This is why we love running<br>in <em>tandem.</em></h2>
-        <div style="margin-top: 2rem;">
-          <div class="carousel-wrap">
-            <div class="carousel-track" id="carouselTrack">
-              <div class="carousel-slide">
-                <img src="assets/images/runner-1.jpg" alt="Two women celebrating at a finish line together" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"I never wanted to do speed workouts until I had a friend to go with." — Emily.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-2.jpg" alt="Two women on a morning run" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with girlfriends has provided not only great motivation but also lasting friendships!" — Julia.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-3.jpg" alt="Two women running together in cold weather" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with friends helped me get out there on those below freezing days!" — Emma.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-4.jpg" alt="Two women crossing a finish line together" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"There is no better feeling than crossing the finish line together." — Becca.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-5.jpg" alt="Two women running together at castle island" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with friends is always more fun than on my own. It's become such an important part of my day and something I genuinely look forward to!" — Emily.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-6.jpg" alt="Two women connected by a tether for visually impaired runners at the finish line." loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"I am visually impaired and hard of hearing. I never thought of completing a 5k, now I look forward to running races and training with other women." — Casandra.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-7.jpg" alt="Two women running a half marathon together" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"I would've never signed up for my first half marathon if it weren't for a close friend pushing me to go for it." — Lorena.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-8.jpg" alt="Two women on race day together" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Race day is always 10x more fun with the friend you trained with!" — Allison.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-9.jpg" alt="Women running side by side together" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"It's never easy starting a run alone. But running side by side with my gals gives me the motivation I need!" — Julia.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-10.jpg" alt="Women exercising together and catching up" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"I like moving with other people because it takes the pressure out of exercising, and makes it more of a fun chance to catch up with friends and meet new people!" — Erin.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-11.jpg" alt="Friends running together during marathon training" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Nothing better than an accountability buddy to get you up and out the door for a run! Wouldn't be able to get through marathon training without friends that make long runs feel too short!" — Taylor.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <img src="assets/images/runner-12.jpg" alt="Women running together and building meaningful friendships" loading="lazy">
-                <div class="carousel-caption">
-                  <p class="carousel-caption-text">"Running with others is the best because we can share our stories with each other and develop meaningful friendships all while doing something we love!" — Catherine.</p>
-                </div>
-              </div>
+  <!-- HOW IT WORKS + TESTIMONIAL CAROUSEL -->
+  <section class="home-how">
+    <div class="home-how-left">
+      <h2 class="section-headline">Where, when, and how <em class="accent-gold">(fast)</em></h2>
+      <ol class="how-steps">
+        <li class="how-step-card">
+          <h3>Build your profile</h3>
+          <p>Neighborhood, pace, time of day, overall vibe. These are the details that will help us pick your perfect match.</p>
+          <img class="how-step-image" src="assets/images/profile_screenshot.png" alt="Tandem Run profile screen showing pace, schedule, and neighborhood preferences." loading="lazy">
+        </li>
+        <li class="how-step-arrow" aria-hidden="true">
+          <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2 V28 M14 28 L5 19 M14 28 L23 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+        <li class="how-step-card">
+          <h3>Meet your match</h3>
+          <p>We match you with one other highly compatible woman in your area. We supply one of our hand-curated routes.</p>
+          <img class="how-step-image" src="assets/images/match_screenshot.png" alt="Tandem Run match screen showing a proposed run with another verified user." loading="lazy">
+        </li>
+        <li class="how-step-arrow" aria-hidden="true">
+          <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2 V28 M14 28 L5 19 M14 28 L23 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+        <li class="how-step-card">
+          <h3>Make it happen</h3>
+          <p>Propose a time and then she accepts. Simple as that!</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="home-how-right">
+      <h2 class="section-headline">We <span class="heart" aria-hidden="true"><svg width="28" height="26" viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 24 C14 24 2 16 2 8.5 C2 4.4 5.1 1.5 8.8 1.5 C11.2 1.5 13.1 2.9 14 5 C14.9 2.9 16.8 1.5 19.2 1.5 C22.9 1.5 26 4.4 26 8.5 C26 16 14 24 14 24 Z" fill="currentColor"/></svg></span><span class="visually-hidden">love</span> running in Tandem</h2>
+      <p>We asked women why they love running with a buddy, here's what they had to say:</p>
+
+      <div class="carousel-wrap home-how-carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <img src="assets/images/runner-1.jpg" alt="Two women celebrating at a finish line together" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"I never wanted to do speed workouts until I had a friend to go with." — Emily.</p>
             </div>
           </div>
-          <div class="carousel-controls">
-            <button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide">&#8592;</button>
-            <div class="carousel-dots" role="tablist" aria-label="Carousel navigation">
-              <button type="button" class="carousel-dot active" data-slide="0" aria-label="Slide 1" aria-selected="true" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="1" aria-label="Slide 2" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="2" aria-label="Slide 3" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="3" aria-label="Slide 4" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="4" aria-label="Slide 5" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="5" aria-label="Slide 6" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="6" aria-label="Slide 7" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="7" aria-label="Slide 8" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="8" aria-label="Slide 9" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="9" aria-label="Slide 10" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="10" aria-label="Slide 11" aria-selected="false" role="tab"></button>
-              <button type="button" class="carousel-dot" data-slide="11" aria-label="Slide 12" aria-selected="false" role="tab"></button>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-2.jpg" alt="Two women on a morning run" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Running with girlfriends has provided not only great motivation but also lasting friendships!" — Julia.</p>
             </div>
-            <button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide">&#8594;</button>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-3.jpg" alt="Two women running together in cold weather" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Running with friends helped me get out there on those below freezing days!" — Emma.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-4.jpg" alt="Two women crossing a finish line together" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"There is no better feeling than crossing the finish line together." — Becca.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-5.jpg" alt="Two women running together at castle island" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Running with friends is always more fun than on my own. It's become such an important part of my day and something I genuinely look forward to!" — Emily.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-6.jpg" alt="Two women connected by a tether for visually impaired runners at the finish line." loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"I am visually impaired and hard of hearing. I never thought of completing a 5k, now I look forward to running races and training with other women." — Casandra.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-7.jpg" alt="Two women running a half marathon together" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"I would've never signed up for my first half marathon if it weren't for a close friend pushing me to go for it." — Lorena.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-8.jpg" alt="Two women on race day together" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Race day is always 10x more fun with the friend you trained with!" — Allison.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-9.jpg" alt="Women running side by side together" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"It's never easy starting a run alone. But running side by side with my gals gives me the motivation I need!" — Julia.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-10.jpg" alt="Women exercising together and catching up" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"I like moving with other people because it takes the pressure out of exercising, and makes it more of a fun chance to catch up with friends and meet new people!" — Erin.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-11.jpg" alt="Friends running together during marathon training" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Nothing better than an accountability buddy to get you up and out the door for a run! Wouldn't be able to get through marathon training without friends that make long runs feel too short!" — Taylor.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/runner-12.jpg" alt="Women running together and building meaningful friendships" loading="lazy">
+            <div class="carousel-caption">
+              <p class="carousel-caption-text">"Running with others is the best because we can share our stories with each other and develop meaningful friendships all while doing something we love!" — Catherine.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="problem-cards">
-        <div class="problem-card">
-          <h3>Love your run club? So do we.</h3>
-          <p>Run clubs are great for community, and meeting your city. But sometimes you want one person who runs your pace, lives nearby, and shows up on the mornings you're actually free.</p>
-        </div>
-        <div class="problem-card">
-          <h3>Strava doesn't make plans</h3>
-          <p>Strava is a highlight reel, not a calendar. You want to be on that Sunday long run, not just give it kudos.</p>
-        </div>
-        <div class="problem-card">
-          <h3>Your friend group only goes so far</h3>
-          <p>Your friends are either too fast, too slow, or "I can only do weekends." We'll match you with someone who isn't.</p>
-        </div>
-        <div class="problem-card">
-          <h3>Solo running has a tax</h3>
-          <p>Running alone means doing the mental math — which route, what time, one earbud in just in case. Let us handle the logistics.</p>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide">&#8592;</button>
+          <div class="carousel-dots" role="tablist" aria-label="Carousel navigation">
+            <button type="button" class="carousel-dot active" data-slide="0" aria-label="Slide 1" aria-selected="true" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="1" aria-label="Slide 2" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="2" aria-label="Slide 3" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="3" aria-label="Slide 4" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="4" aria-label="Slide 5" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="5" aria-label="Slide 6" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="6" aria-label="Slide 7" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="7" aria-label="Slide 8" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="8" aria-label="Slide 9" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="9" aria-label="Slide 10" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="10" aria-label="Slide 11" aria-selected="false" role="tab"></button>
+            <button type="button" class="carousel-dot" data-slide="11" aria-label="Slide 12" aria-selected="false" role="tab"></button>
+          </div>
+          <button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide">&#8594;</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section how" id="how">
-    <div class="how-header">
-      <h2 class="how-headline">From profile<br>to <em>running together</em><br>in minutes.</h2>
-      <p class="how-desc">No more "we should run sometime" or "just come to my run club." You propose a real run — day, distance, route — she says yes, tweaks it, or suggests another time. It's that easy.</p>
-    </div>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="step-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="6" r="3" stroke="#e8a820" stroke-width="1.5"/><path d="M3 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="#e8a820" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <h3>Build your profile</h3>
-        <p>Pace range, preferred run types, neighborhood, when you're free, how chatty you like to be.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2 9l4 4 10-8" stroke="#e8a820" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Meet your match</h3>
-        <p>We suggest one or two highly compatible runners near you.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2" stroke="#e8a820" stroke-width="1.5"/><path d="M6 2v3M12 2v3M2 8h14" stroke="#e8a820" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <h3>Make it happen</h3>
-        <p>Pick a day, distance, route, and effort level — then send it. They accept, tweak, or suggest another time.</p>
-      </div>
-      <div class="how-step">
-        <div class="step-icon"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2l2 5h5l-4 3 1.5 5L9 12l-4.5 3L6 10 2 7h5z" stroke="#e8a820" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-        <h3>Become regulars</h3>
-        <p>After a good run, reschedule with one tap. There's nothing better than a weekly ritual with your running buddy.</p>
-      </div>
-    </div>
-  </section>
+  <!-- BUILT BY WOMEN + GET EARLY ACCESS -->
+  <section class="home-founders">
+    <div class="home-founders-left">
+      <h2 class="section-headline">Built by <em class="accent-berry">women</em>, for <em class="accent-berry">women</em>.</h2>
+      <img class="founders-portrait" src="assets/images/founders_portrait.png" alt="Founders Meg and Em standing together at a race." loading="lazy">
+      <p class="hi-bestie">Hi bestie &lt;3</p>
+      <p>We're Meg and Em. We built Tandem Run because every woman deserves a buddy.</p>
+      <p>Run clubs are great, and we love Strava, but neither help you find that girl who is running at the same time, same pace, and same routes as you.</p>
+      <p>Whether you just moved to Boston, or have lived here your whole life, we want to help you find your perfect running or walking buddy!</p>
 
-  <!-- WHY TANDEM RUN -->
-  <section class="section why" id="why">
-    <h2 class="why-headline"><em>Built by women,</em><br>for women.</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-card-accent"></div>
-        <h3>Women only — by design</h3>
-        <p>Tandem Run is being built as a women-only space from day one. Our platform is designed to include profile verification because we believe you should never have to think twice about who you're meeting. Tandem Run is open to all who identify as women, including transgender women and nonbinary individuals who feel comfortable in a women-centered space.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-card-accent"></div>
-        <h3>Built by women</h3>
-        <p>Tandem Run was built by women who run. We've felt the mental weight of running solo and appreciated the freedom of running with a partner. We built the app we wished existed.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-card-accent"></div>
-        <h3>Designed with safety in mind.</h3>
-        <p>We've thought carefully about safety from day one. Every match is hand-selected by our team, identity is verified through Persona, and we suggest meeting points in public, well-trafficked areas — so you can focus on the run.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-card-accent"></div>
-        <h3>Precision matching</h3>
-        <p>Not just pace — our matching is designed to consider schedule, social preference, and neighborhood. The difference between a great partner and an awkward one is in the details.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-card-accent"></div>
-        <h3>Truly accessible</h3>
-        <p>Tandem Run is being designed with accessibility at its core — for guide running, wheelchair users, mixed-ability pairs, and anyone who moves differently. Everyone is welcome, at any ability level.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAITLIST -->
-  <section class="footer-cta" id="waitlist">
-    <div>
-      <h2 class="footer-cta-headline">Be one of the first<br>women running <em>in tandem.</em></h2>
-      <p style="margin-top: 1.25rem; color: var(--ink-soft); font-size: 0.95rem; font-weight: 300; line-height: 1.7;">We're launching with a small, curated cohort — hand-matching the first 100 women ourselves. Your answers help us match you better from day one.</p>
-    </div>
-    <div>
-      <form class="footer-form" id="footer-form">
-        <div class="footer-input-row">
-          <input class="footer-input" type="text" id="footer-name" placeholder="First name" autocomplete="given-name" aria-label="First name">
-          <input class="footer-input" type="email" id="footer-email" placeholder="Email address" autocomplete="email" aria-label="Email address" required>
+      <div class="founders-blurbs">
+        <div class="founders-blurb">
+          <h4>Women only by design</h4>
+          <p>Tandem Run is open to all who identify as women, including transgender women and nonbinary individuals who feel comfortable in a women-centered space.</p>
         </div>
-        <select class="footer-select" id="footer-pace" aria-label="Your typical pace per mile">
-          <option value="" disabled selected>Your typical pace (per mile)</option>
-          <option>Under 7:00</option>
-          <option>7:00–8:30</option>
-          <option>8:30–10:00</option>
-          <option>10:00–12:00</option>
-          <option>12:00+</option>
-          <option>I'm a walker — pace varies</option>
-        </select>
-        <select class="footer-select" id="footer-time" aria-label="Preferred run time">
-          <option value="" disabled selected>Preferred run time</option>
-          <option>Early morning (5–7am)</option>
-          <option>Morning (7–9am)</option>
-          <option>Lunch (11am–1pm)</option>
-          <option>After work (5–7pm)</option>
-          <option>Evening (7pm+)</option>
-          <option>Weekends only</option>
-        </select>
-        <select class="footer-select" id="footer-neighborhood" aria-label="Your neighborhood">
-          <option value="" disabled selected>Your neighborhood</option>
-          <optgroup label="Boston">
-            <option>Allston</option>
-            <option>Back Bay</option>
-            <option>Beacon Hill</option>
-            <option>Brighton</option>
-            <option>Charlestown</option>
-            <option>Dorchester</option>
-            <option>Downtown</option>
-            <option>East Boston</option>
-            <option>Fenway Kenmore</option>
-            <option>Hyde Park</option>
-            <option>Jamaica Plain</option>
-            <option>Mattapan</option>
-            <option>Mission Hill</option>
-            <option>North End</option>
-            <option>Roslindale</option>
-            <option>Roxbury</option>
-            <option>Seaport</option>
-            <option>South Boston</option>
-            <option>South End</option>
-            <option>West End</option>
-            <option>West Roxbury</option>
-          </optgroup>
-          <optgroup label="Cambridge">
-            <option>Cambridgeport</option>
-            <option>Cambridge Crossing</option>
-            <option>East Cambridge</option>
-            <option>Harvard Square</option>
-            <option>Inman Square</option>
-            <option>Kendall Square</option>
-            <option>Mid Cambridge</option>
-            <option>North Cambridge</option>
-            <option>Porter Square</option>
-            <option>West Cambridge</option>
-          </optgroup>
-          <optgroup label="Somerville">
-            <option>Assembly Row</option>
-            <option>Ball Square</option>
-            <option>Davis Square</option>
-            <option>Magoun Square</option>
-            <option>Union Square</option>
-            <option>Winter Hill</option>
-          </optgroup>
-          <optgroup label="Inner Suburbs">
-            <option>Brookline</option>
-            <option>Malden</option>
-            <option>Medford</option>
-            <option>Newton</option>
-            <option>Watertown</option>
-          </optgroup>
-          <optgroup label="South Shore">
-            <option>Braintree</option>
-            <option>Hingham</option>
-            <option>Milton</option>
-            <option>Quincy</option>
-            <option>Weymouth</option>
-          </optgroup>
-          <optgroup label="Other">
-            <option>I don't live in Boston — please bring Tandem Run to my city!</option>
-          </optgroup>
-        </select>
-        <button type="button" class="footer-btn signup-btn" data-context="footer">Reserve my spot on the waitlist</button>
-        <p class="footer-privacy">No spam. No sharing. Just a note when we launch.</p>
+        <div class="founders-blurb">
+          <h4>Designed with safety in mind</h4>
+          <p>We've thought carefully about safety from day one. Identity is verified through Persona, and we suggest meeting points in public, well-trafficked areas.</p>
+        </div>
+        <div class="founders-blurb">
+          <h4>Inclusive of all abilities</h4>
+          <p>Everyone is welcome, at any ability level, including guide running, wheelchair users, stroller-pushers and anyone who moves differently.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-founders-right" id="waitlist">
+      <h2 class="section-headline">Get early access</h2>
+      <p>We're launching in Boston Summer of 2026. We hope to bring Tandem Run to other cities across the U.S. Join the waitlist to get early access to the app, and community updates from the Tandem Founders.</p>
+
+      <form class="waitlist-form" id="waitlist-form" autocomplete="on" novalidate>
+        <input class="waitlist-input" type="text" id="footer-name" name="first-name" placeholder="First name" autocomplete="given-name" aria-label="First name">
+        <input class="waitlist-input" type="email" id="footer-email" name="email" placeholder="Email address" autocomplete="email" aria-label="Email address" required>
+        <input class="waitlist-input" type="text" id="footer-city" name="city" placeholder="Your city" autocomplete="address-level2" aria-label="Your city">
+        <button type="button" class="btn-primary signup-btn" data-context="footer">join the waitlist</button>
+        <p class="waitlist-success" id="footer-success" hidden>You're on the list — we'll be in touch.</p>
       </form>
-      <div class="success-msg" id="footer-success" aria-live="polite" hidden>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#b07d0e" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#b07d0e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        You're on the list! We'll be in touch soon.
+
+      <div class="early-access-media">
+        <img class="early-access-image" src="assets/images/women_in_grass.png" alt="Two women laying in tall grass after a run." loading="lazy">
+        <video class="early-access-video" autoplay loop muted playsinline aria-label="Two women dancing in pink and blue light.">
+          <source src="assets/images/pink-and-blue-dance-2.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
@@ -340,11 +219,9 @@
 
 <footer>
   <div class="footer-logo">Tandem<span> Run</span></div>
-  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="https://tandemrun.app" style="color: inherit; text-decoration: none;">tandemrun.app</a> · <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">@tandemrunapp</a> · <a href="mailto:hello@tandemrun.app" style="color: inherit; text-decoration: none;">hello@tandemrun.app</a> · <a href="/privacy" style="color: inherit; text-decoration: none;">Privacy Policy</a> · <a href="/terms" style="color: inherit; text-decoration: none;">Terms of Service</a> · <a href="#" onclick="event.preventDefault(); TandemRunCookies.reset();" style="color: inherit; text-decoration: none;">Cookie settings</a></div>
+  <div class="footer-meta">© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="https://tandemrun.app">tandemrun.app</a> · <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener">@tandemrunapp</a> · <a href="mailto:hello@tandemrun.app">hello@tandemrun.app</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> · <a href="#" onclick="event.preventDefault(); TandemRunCookies.reset();">Cookie settings</a></div>
 </footer>
 
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="scripts.js" defer></script>
 
 <!-- Cookie consent banner + gated HubSpot loader -->
@@ -353,8 +230,8 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 2000;
-    background: #1C3F7A;
-    color: #ffffff;
+    background: var(--navy);
+    color: var(--cream);
     font-family: 'Lexend', system-ui, sans-serif;
     font-size: 0.875rem;
     line-height: 1.5;
@@ -371,10 +248,10 @@
   }
   .tr-cookie-banner-text { flex: 1; margin: 0; }
   .tr-cookie-banner-text a {
-    color: #F5C842;
+    color: var(--gold);
     text-decoration: underline;
   }
-  .tr-cookie-banner-text a:hover { color: #ffffff; }
+  .tr-cookie-banner-text a:hover { color: var(--cream); }
   .tr-cookie-banner-actions {
     display: flex;
     gap: 0.5rem;
@@ -383,29 +260,29 @@
   .tr-cookie-btn {
     font-family: inherit;
     font-size: 0.78rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
+    text-transform: lowercase;
     padding: 0.55rem 1.15rem;
     border-radius: 999px;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
   .tr-cookie-btn-accept {
-    background: #F5C842;
-    color: #1C3F7A;
-    border-color: #F5C842;
+    background: var(--berry);
+    color: var(--cream);
+    border-color: var(--berry);
   }
-  .tr-cookie-btn-accept:hover { background: #ffffff; border-color: #ffffff; }
+  .tr-cookie-btn-accept:hover, .tr-cookie-btn-accept:active { background: var(--berry-deep); border-color: var(--berry-deep); }
   .tr-cookie-btn-decline {
     background: transparent;
-    color: #ffffff;
-    border-color: rgba(255,255,255,0.35);
+    color: var(--cream);
+    border-color: rgba(248,245,239,0.35);
   }
-  .tr-cookie-btn-decline:hover {
-    background: rgba(255,255,255,0.10);
-    border-color: rgba(255,255,255,0.65);
+  .tr-cookie-btn-decline:hover, .tr-cookie-btn-decline:active {
+    background: rgba(248,245,239,0.10);
+    border-color: rgba(248,245,239,0.65);
   }
   @media (max-width: 640px) {
     .tr-cookie-banner { padding: 0.85rem 1rem; }
@@ -480,7 +357,6 @@
     hide();
   });
 
-  // Public hook so a "Cookie settings" link can re-open / reset the choice.
   window.TandemRunCookies = {
     open:   function () { show(); },
     reset:  function () { try { localStorage.removeItem(STORAGE_KEY); } catch (e) {} show(); },
@@ -489,5 +365,6 @@
 })();
 </script>
 <!-- End cookie consent -->
+
 </body>
 </html>
