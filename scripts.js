@@ -63,10 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const payload = { source: context, email: emailInput.value.trim() };
 
     if (context === 'footer') {
-      const nameEl = document.getElementById('footer-name');
-      const cityEl = document.getElementById('footer-city');
-      if (nameEl) payload.name = nameEl.value.trim();
-      if (cityEl) payload.city = cityEl.value.trim();
+      const fields = {
+        name: 'footer-name',
+        neighborhood: 'footer-neighborhood',
+        pace: 'footer-pace',
+        when: 'footer-when',
+      };
+      for (const [key, id] of Object.entries(fields)) {
+        const el = document.getElementById(id);
+        if (el) payload[key] = el.value.trim();
+      }
 
       const btn = document.querySelector('.signup-btn[data-context="footer"]');
       if (btn) {
@@ -85,6 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMcJ5fB0PrSLX9__KH9UYSwAQdx2bUspEbD2WnfGC8QZMFvEWjarXBSUGfbjlT1EE1gQ/exec';
     fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
       .catch(err => console.error('Submission error:', err));
+  }
+
+
+  // ── SCROLL FADE-IN ────────────────────────────────────────────────────────
+
+  const fadeTargets = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window && fadeTargets.length) {
+    // Enable the hidden initial state only now that JS is running.
+    document.documentElement.classList.add('fades-on');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    fadeTargets.forEach(el => fadeObserver.observe(el));
   }
 
 
