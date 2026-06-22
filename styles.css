@@ -40,8 +40,8 @@ nav {
   background: var(--navy);
   border-bottom: 1px solid var(--navy-deep);
 }
-.nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--navy); text-decoration: none; letter-spacing: -0.02em; }
-.nav-logo span { color: var(--accent); font-style: italic; }
+.nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--cream); text-decoration: none; letter-spacing: -0.02em; }
+.nav-logo span { color: var(--gold); font-style: italic; }
 .nav-cta { background: var(--berry); color: var(--cream); font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: lowercase; padding: 0.55rem 1.25rem; border: none; border-radius: 999px; cursor: pointer; text-decoration: none; transition: background 0.2s ease; }
 .nav-cta:hover, .nav-cta:active { background: var(--berry-deep); color: var(--cream); }
 /* HERO — map left, text right */
@@ -636,18 +636,21 @@ footer .footer-meta a:hover { color: var(--gold-soft); text-decoration: underlin
   .home-how-left, .home-how-right { padding: 3rem 1.25rem; }
   .how-grid { gap: 1.25rem; }
   .home-founders-left, .home-founders-right-content { padding: 3rem 1.25rem; }
-  .founders-intro { gap: 1.25rem; }
+  .founders-intro {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .founders-intro > * { min-width: 0; }
+  .founders-portrait { max-width: 320px; margin: 0 auto; }
   .waitlist-row { grid-template-columns: 1fr; }
   .early-access-image { height: 32vh; min-height: 240px; max-height: 400px; }
 }
 
 /* Small phones (≤ 520px):
-   Now the inner 2-col grids are too cramped — stack them too. */
+   Inner 2-col grids inside how-it-works are still 2-col by default — stack them. */
 @media (max-width: 520px) {
   .how-grid { grid-template-columns: 1fr; gap: 2rem; }
   .how-screenshots { flex-direction: row; justify-content: center; flex-wrap: wrap; }
-  .founders-intro { grid-template-columns: 1fr; }
-  .founders-portrait { max-width: 320px; }
 }
 @media (max-width: 480px) {
   nav { padding: 0.85rem 1.25rem; }
