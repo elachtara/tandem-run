@@ -40,8 +40,8 @@ nav {
   background: var(--navy);
   border-bottom: 1px solid var(--navy-deep);
 }
-.nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; color: var(--cream); text-decoration: none; letter-spacing: -0.02em; }
-.nav-logo span { color: var(--gold); font-style: italic; }
+.nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--navy); text-decoration: none; letter-spacing: -0.02em; }
+.nav-logo span { color: var(--accent); font-style: italic; }
 .nav-cta { background: var(--berry); color: var(--cream); font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: lowercase; padding: 0.55rem 1.25rem; border: none; border-radius: 999px; cursor: pointer; text-decoration: none; transition: background 0.2s ease; }
 .nav-cta:hover, .nav-cta:active { background: var(--berry-deep); color: var(--cream); }
 /* HERO — map left, text right */
@@ -83,7 +83,7 @@ nav {
 .hero-headline { font-family: var(--sans); font-size: clamp(2.75rem, 4vw, 5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 1.75rem; }
 .hero-headline em { font-style: italic; color: var(--accent); }
 .hero-sub { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; font-weight: 300; }
-.hero-cta-btn { display: inline-block; align-self: flex-start; background: var(--berry); color: var(--cream); text-decoration: none; border: none; padding: 0.9rem 1.75rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: lowercase; cursor: pointer; border-radius: 3px; transition: background 0.2s ease; white-space: nowrap; }
+.hero-cta-btn { display: inline-block; align-self: flex-start; background: var(--berry); color: var(--cream); text-decoration: none; border: none; padding: 0.9rem 1.75rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; text-transform: lowercase; cursor: pointer; border-radius: 999px; transition: background 0.2s ease; white-space: nowrap; }
 .hero-cta-btn:hover, .hero-cta-btn:active { background: var(--berry-deep); color: var(--cream); }
 .hero-note { margin-top: 0.9rem; font-size: 0.78rem; color: var(--ink-muted); }
 /* Success message — shown via JS by removing the `hidden` attribute */
@@ -143,7 +143,7 @@ nav {
 .footer-input:focus { border-color: var(--ink); }
 .footer-input::placeholder { color: var(--ink-muted); }
 .footer-select { padding: 0.875rem 1rem; border: 1.5px solid rgba(15,14,12,0.2); border-radius: 2px; background: var(--white); font-family: var(--sans); font-size: 0.9rem; color: var(--ink); outline: none; cursor: pointer; width: 100%; box-sizing: border-box; }
-.footer-btn { background: var(--berry); color: var(--cream); border: none; padding: 1rem 2rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: lowercase; cursor: pointer; border-radius: 2px; transition: background 0.2s ease; width: 100%; }
+.footer-btn { background: var(--berry); color: var(--cream); border: none; padding: 1rem 2rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: lowercase; cursor: pointer; border-radius: 999px; transition: background 0.2s ease; width: 100%; }
 .footer-btn:hover, .footer-btn:active { background: var(--berry-deep); color: var(--cream); }
 .footer-privacy { font-size: 0.75rem; color: var(--ink-muted); text-align: center; }
 /* FOOTER */
