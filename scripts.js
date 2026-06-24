@@ -67,7 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'footer-name',
         neighborhood: 'footer-neighborhood',
         pace: 'footer-pace',
-        when: 'footer-when',
+        // Payload key stays `time` — the Google Apps Script that writes
+        // to the Sheet is keyed on this name. DOM id is footer-when.
+        time: 'footer-when',
       };
       for (const [key, id] of Object.entries(fields)) {
         const el = document.getElementById(id);
