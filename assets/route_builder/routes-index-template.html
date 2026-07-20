@@ -205,8 +205,46 @@
 
 <nav class="nav">
   <a href="/" class="wordmark"><img src="../assets/images/spikies.png" alt="" class="wordmark-mark">Tandem Run</a>
-  <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
+  <a href="/" id="backCta" class="nav-cta">Back to home</a>
 </nav>
+
+<script>
+  // Context-aware "back" button. If the visitor arrived from the app
+  // (app.tandemrun.app) show "Back to dashboard"; otherwise (from the
+  // marketing site or direct) show "Back to home". The choice is kept in
+  // sessionStorage so it survives internal navigation and refreshes.
+  (function () {
+    var APP_HOST = 'app.tandemrun.app';
+    var cta = document.getElementById('backCta');
+    if (!cta) return;
+    function detect() {
+      var from = new URLSearchParams(location.search).get('from');
+      if (from === 'app' || from === 'dashboard') return 'app';
+      if (from === 'home') return 'home';
+      try {
+        if (document.referrer) {
+          var r = new URL(document.referrer);
+          if (r.hostname === APP_HOST) return 'app';
+          // A tandemrun.app referrer that isn't the routes area itself
+          // means the visitor came from the marketing site.
+          if ((r.hostname === 'tandemrun.app' || r.hostname === 'www.tandemrun.app')
+              && r.pathname.indexOf('/routes') !== 0) return 'home';
+        }
+      } catch (e) {}
+      return null; // unknown / internal navigation
+    }
+    var detected = detect();
+    var ctx = detected || sessionStorage.getItem('tr_routes_ctx') || 'home';
+    if (detected) { try { sessionStorage.setItem('tr_routes_ctx', ctx); } catch (e) {} }
+    if (ctx === 'app') {
+      cta.textContent = 'Back to dashboard';
+      cta.href = 'https://app.tandemrun.app/dashboard';
+    } else {
+      cta.textContent = 'Back to home';
+      cta.href = '/';
+    }
+  })();
+</script>
 
 <div class="map-wrap">
   <div id="routes-map"></div>
