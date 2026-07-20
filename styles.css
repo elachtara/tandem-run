@@ -27,7 +27,6 @@
   --navy-light: #e8eef8;
   --white: #ffffff;
 
-  --serif: 'Playfair Display', Georgia, serif;
   --sans: 'Lexend', system-ui, sans-serif;
 }
 html { scroll-behavior: smooth; }
@@ -40,8 +39,8 @@ nav {
   background: var(--navy);
   border-bottom: 1px solid var(--navy-deep);
 }
-.nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--cream); text-decoration: none; letter-spacing: -0.02em; }
-.nav-logo span { color: var(--gold); font-style: italic; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 1.2rem; font-weight: 600; color: var(--cream); text-decoration: none; letter-spacing: -0.01em; }
+.nav-logo-mark { height: 1.9rem; width: auto; display: block; }
 .nav-cta { background: var(--berry); color: var(--cream); font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: lowercase; padding: 0.55rem 1.25rem; border: none; border-radius: 999px; cursor: pointer; text-decoration: none; transition: background 0.2s ease; }
 .nav-cta:hover, .nav-cta:active { background: var(--berry-deep); color: var(--cream); }
 /* HERO — map left, text right */
@@ -498,7 +497,7 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
   border: 1px solid var(--cream-deep);
 }
 .hi-bestie {
-  font-family: var(--serif) !important;
+  font-family: var(--sans) !important;
   font-style: italic;
   font-size: 1.4rem;
   font-weight: 500 !important;
