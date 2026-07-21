@@ -582,8 +582,6 @@
     zoomControl: true,
     scrollWheelZoom: true,
     attributionControl: true,
-    zoomSnap: 0.25,
-    zoomDelta: 0.5,
   });
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -651,10 +649,6 @@
         ? { paddingTopLeft: [400, 60], paddingBottomRight: [60, 200] }
         : { padding: [60, 60] };
       map.fitBounds(combined, fitOpts);
-      // Nudge in by 0.75 zoom levels for a slightly tighter framing
-      // than fitBounds alone gives. zoomSnap/zoomDelta of 0.25/0.5 set
-      // above makes fractional levels valid.
-      map.setZoom(map.getZoom() + 0.75);
     }
   });
 </script>
