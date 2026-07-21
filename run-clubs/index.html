@@ -56,7 +56,8 @@
       color: var(--navy);
       margin-bottom: 0.6rem;
     }
-    .rc-overlay h1 em { font-style: normal; color: var(--gold); }
+    .rc-overlay h1 .heart { vertical-align: -0.12em; }
+    .rc-overlay h1 .heart svg { width: 1.02em; height: 1.02em; }
     .rc-overlay p {
       font-size: 0.875rem;
       color: var(--gray-soft);
@@ -173,7 +174,7 @@
       cursor: pointer;
       transition: transform 0.15s;
     }
-    .rc-marker:hover { transform: scale(1.4); }
+    .rc-marker:hover { transform: scale(1.6); }
     .rc-marker-logo {
       width: 36px;
       height: 36px;
@@ -183,9 +184,13 @@
       box-shadow: 0 2px 8px rgba(28,63,122,0.35);
       background: white;
       cursor: pointer;
-      transition: transform 0.15s;
+      transform-origin: center;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
     }
-    .rc-marker-logo:hover { transform: scale(1.15); }
+    .rc-marker-logo:hover {
+      transform: scale(1.55);
+      box-shadow: 0 8px 22px rgba(28,63,122,0.5);
+    }
     .rc-marker-logo img {
       width: 100%;
       height: 100%;
@@ -231,7 +236,7 @@
     <div id="run-clubs-map" role="region" aria-label="Interactive map of Boston-area run clubs"></div>
     <aside class="rc-overlay">
       <div class="eyebrow">Boston Run Club Directory</div>
-      <h1>Tandem Run <em>&amp;</em> Run Clubs</h1>
+      <h1 aria-label="Tandem Run loves Run Clubs">Tandem Run <span class="heart" aria-hidden="true"><svg viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 24 C14 24 2 16 2 8.5 C2 4.4 5.1 1.5 8.8 1.5 C11.2 1.5 13.1 2.9 14 5 C14.9 2.9 16.8 1.5 19.2 1.5 C22.9 1.5 26 4.4 26 8.5 C26 16 14 24 14 24 Z" fill="currentColor"/></svg></span> Run Clubs</h1>
       <p>When you want a partner, use Tandem Run. When you want a group, use a run club. Here are some of our favorites: click any icon to see where and when they meet, what pace they run, and their instagram handle.</p>
       <div class="rc-count-badge" id="rc-count-badge">14 Partnered Run Clubs</div>
     </aside>
@@ -479,9 +484,12 @@ function buildPopup(club) {
 
 // ── Add markers ──
 CLUBS.forEach(club => {
-  L.marker([club.lat, club.lng], { icon: makeMarker(club) })
+  const marker = L.marker([club.lat, club.lng], { icon: makeMarker(club) })
     .bindPopup(buildPopup(club), { maxWidth: 300, minWidth: 240 })
     .addTo(map);
+  // Lift the hovered marker above its neighbors while it pops.
+  marker.on('mouseover', () => marker.setZIndexOffset(1000));
+  marker.on('mouseout', () => marker.setZIndexOffset(0));
 });
 </script>
 
