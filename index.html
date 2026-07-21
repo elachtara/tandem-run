@@ -15,8 +15,38 @@
 
 <nav>
   <a href="#" class="nav-logo" aria-label="Tandem Run Home"><img src="assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
-  <a href="#waitlist" class="nav-cta">join the waitlist</a>
+  <div class="nav-menu-wrap">
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-menu" id="navMenu" role="menu" hidden>
+      <a href="#waitlist" class="nav-menu-item is-primary" role="menuitem">join the waitlist</a>
+      <a href="/routes/" class="nav-menu-item" role="menuitem">our routes</a>
+      <a href="/run-clubs/" class="nav-menu-item" role="menuitem">find run clubs</a>
+    </div>
+  </div>
 </nav>
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('navMenu');
+    if (!toggle || !menu) return;
+    function onDoc(e) { if (!menu.contains(e.target) && !toggle.contains(e.target)) closeMenu(); }
+    function onKey(e) { if (e.key === 'Escape') { closeMenu(); toggle.focus(); } }
+    function openMenu() {
+      menu.hidden = false; toggle.setAttribute('aria-expanded', 'true');
+      document.addEventListener('click', onDoc); document.addEventListener('keydown', onKey);
+    }
+    function closeMenu() {
+      menu.hidden = true; toggle.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onKey);
+    }
+    toggle.addEventListener('click', function (e) { e.stopPropagation(); if (menu.hidden) openMenu(); else closeMenu(); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('.nav-menu-item')) closeMenu(); });
+  })();
+</script>
 
 <main>
 
