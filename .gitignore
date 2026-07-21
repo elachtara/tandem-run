@@ -7,3 +7,6 @@
 # Route builder workshop
 assets/route_builder/gpx/
 assets/route_builder/output/
+
+# Internal outreach tracker — contains emails/outreach status; do NOT publish
+run-clubs/*.xlsx
