@@ -50,8 +50,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--cream);
-    border-bottom: 1px solid var(--cream-deep);
+    background: var(--navy);
+    border-bottom: 1px solid var(--navy-deep);
     position: relative;
     z-index: 600;
   }
@@ -62,7 +62,7 @@
     font-family: 'Lexend', sans-serif;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--navy);
+    color: var(--cream);
     text-decoration: none;
   }
   .wordmark-mark {
@@ -227,15 +227,15 @@
           if (r.hostname === APP_HOST) return 'app';
           // A tandemrun.app referrer that isn't the routes area itself
           // means the visitor came from the marketing site.
-          if ((r.hostname === 'tandemrun.app' || r.hostname === 'www.tandemrun.app')
-              && r.pathname.indexOf('/routes') !== 0) return 'home';
+          var internal = r.pathname.indexOf('/routes') === 0 || r.pathname.indexOf('/run-clubs') === 0;
+          if ((r.hostname === 'tandemrun.app' || r.hostname === 'www.tandemrun.app') && !internal) return 'home';
         }
       } catch (e) {}
       return null; // unknown / internal navigation
     }
     var detected = detect();
-    var ctx = detected || sessionStorage.getItem('tr_routes_ctx') || 'home';
-    if (detected) { try { sessionStorage.setItem('tr_routes_ctx', ctx); } catch (e) {} }
+    var ctx = detected || sessionStorage.getItem('tr_nav_ctx') || 'home';
+    if (detected) { try { sessionStorage.setItem('tr_nav_ctx', ctx); } catch (e) {} }
     if (ctx === 'app') {
       cta.textContent = 'Back to dashboard';
       cta.href = 'https://app.tandemrun.app/dashboard';

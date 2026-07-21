@@ -226,8 +226,44 @@
 
 <nav>
   <a href="/" class="nav-logo" aria-label="Tandem Run Home"><img src="../assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
-  <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
+  <a href="/" id="backCta" class="nav-cta">Back to home</a>
 </nav>
+
+<script>
+  // Context-aware "back" button (shared with the routes page). If the
+  // visitor arrived from the app (app.tandemrun.app) show "Back to
+  // dashboard"; otherwise show "Back to home". Kept in sessionStorage so
+  // it survives navigation between the routes and run-clubs pages.
+  (function () {
+    var APP_HOST = 'app.tandemrun.app';
+    var cta = document.getElementById('backCta');
+    if (!cta) return;
+    function detect() {
+      var from = new URLSearchParams(location.search).get('from');
+      if (from === 'app' || from === 'dashboard') return 'app';
+      if (from === 'home') return 'home';
+      try {
+        if (document.referrer) {
+          var r = new URL(document.referrer);
+          if (r.hostname === APP_HOST) return 'app';
+          var internal = r.pathname.indexOf('/routes') === 0 || r.pathname.indexOf('/run-clubs') === 0;
+          if ((r.hostname === 'tandemrun.app' || r.hostname === 'www.tandemrun.app') && !internal) return 'home';
+        }
+      } catch (e) {}
+      return null;
+    }
+    var detected = detect();
+    var ctx = detected || sessionStorage.getItem('tr_nav_ctx') || 'home';
+    if (detected) { try { sessionStorage.setItem('tr_nav_ctx', ctx); } catch (e) {} }
+    if (ctx === 'app') {
+      cta.textContent = 'Back to dashboard';
+      cta.href = 'https://app.tandemrun.app/dashboard';
+    } else {
+      cta.textContent = 'Back to home';
+      cta.href = '/';
+    }
+  })();
+</script>
 
 <main>
 
