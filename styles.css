@@ -227,31 +227,6 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
   color: var(--cream);
 }
 
-/* Secondary "explore" links (routes / run clubs) — outline pills that
-   sit in a row on desktop and stack full-width on mobile. */
-.hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.btn-secondary {
-  display: inline-block;
-  background: transparent;
-  color: var(--navy);
-  font-family: var(--sans);
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-transform: lowercase;
-  text-decoration: none;
-  padding: 0.8rem 1.6rem;
-  border: 1.5px solid var(--navy);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  white-space: nowrap;
-}
-.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
-  background: var(--navy);
-  color: var(--cream);
-}
-
 /* Shared section-headline — Lexend, navy, sentence case */
 .section-headline {
   font-family: var(--sans);
@@ -681,8 +656,6 @@ footer .footer-social svg { display: block; transition: color 0.2s ease; }
   nav { padding: 0.85rem 1.25rem; }
   .home-hero-logo { width: 14rem; }
   .section-headline { font-size: 1.85rem; }
-  .hero-links { flex-direction: column; align-self: stretch; }
-  .btn-secondary { text-align: center; }
 }
 
 /* ────────── SCROLL FADE-IN ──────────
