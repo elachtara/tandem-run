@@ -55,8 +55,6 @@ nav {
 .nav-menu[hidden] { display: none; }
 .nav-menu-item { display: block; padding: 0.7rem 1rem; border-radius: 9px; color: var(--navy); text-decoration: none; font-family: var(--sans); font-size: 0.95rem; font-weight: 500; text-transform: lowercase; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
 .nav-menu-item:hover { background: var(--cream-deep); color: var(--navy); }
-.nav-menu-item.is-primary { background: var(--berry); color: var(--cream); text-align: center; }
-.nav-menu-item.is-primary:hover { background: var(--berry-deep); color: var(--cream); }
 /* HERO — map left, text right */
 .hero { min-height: 75vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 4.5rem; }
 /* MAP PANEL */
