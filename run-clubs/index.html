@@ -8,28 +8,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="../styles.css">
 
   <style>
-    /* ── Design tokens (mirrors styles.css so page works standalone) ── */
-    :root {
-      --ink: #1a1814;
-      --ink-soft: #3a3530;
-      --ink-muted: #78726a;
-      --paper: #f7f3ec;
-      --paper-warm: #ede7da;
-      --accent: #e8a820;
-      --accent-light: #fdf3d4;
-      --accent-dark: #b07d0e;
-      --navy: #1c3f7a;
-      --navy-light: #e8eef8;
-      --white: #ffffff;
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
-    }
+    /* Design tokens come from the shared styles.css brand palette. */
 
     /* ── Page-specific styles ── */
     .rc-hero {
@@ -44,15 +29,15 @@
       margin-bottom: 1.5rem;
     }
     .rc-hero-headline {
-      font-family: var(--serif);
-      font-size: clamp(2.75rem, 5vw, 4.5rem);
-      font-weight: 300;
+      font-family: var(--sans);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
       line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--paper);
+      letter-spacing: -0.02em;
+      color: var(--cream);
       margin-bottom: 1.25rem;
     }
-    .rc-hero-headline em { font-style: italic; color: var(--accent); }
+    .rc-hero-headline em { font-style: normal; color: var(--gold); }
     .rc-hero-sub {
       font-size: 1.05rem;
       color: rgba(247,243,236,0.65);
@@ -63,9 +48,9 @@
     }
     .rc-count-badge {
       display: inline-block;
-      background: rgba(232,168,32,0.12);
-      border: 1px solid rgba(232,168,32,0.28);
-      color: var(--accent);
+      background: rgba(245,200,66,0.14);
+      border: 1px solid rgba(245,200,66,0.32);
+      color: var(--gold);
       font-size: 0.73rem;
       font-weight: 500;
       letter-spacing: 0.09em;
@@ -126,7 +111,7 @@
       margin-bottom: 0.3rem;
     }
     .rc-popup-name {
-      font-family: var(--serif);
+      font-family: var(--sans);
       font-size: 1.15rem;
       font-weight: 600;
       color: var(--navy);
@@ -151,26 +136,27 @@
       border-radius: 999px;
       transition: background 0.15s, color 0.15s;
     }
-    .rc-popup-link-ig {
-      background: var(--accent-light);
-      color: var(--accent-dark);
-      border: 1px solid rgba(232,168,32,0.22);
+    /* Scoped under .rc-popup to outrank Leaflet's .leaflet-container a color. */
+    .rc-popup .rc-popup-link-ig {
+      background: var(--berry-soft);
+      color: var(--berry-deep);
+      border: 1px solid rgba(191,67,127,0.28);
     }
-    .rc-popup-link-ig:hover { background: var(--accent); color: var(--navy); }
-    .rc-popup-link-web {
+    .rc-popup .rc-popup-link-ig:hover { background: var(--berry); color: var(--cream); }
+    .rc-popup .rc-popup-link-web {
       background: var(--navy-light);
       color: var(--navy);
       border: 1px solid rgba(28,63,122,0.12);
     }
-    .rc-popup-link-web:hover { background: var(--navy); color: white; }
+    .rc-popup .rc-popup-link-web:hover { background: var(--navy); color: white; }
 
     /* ── Markers ── */
     .rc-marker {
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: #e8a820;
-      border: 2.5px solid #1c3f7a;
+      background: #F5C842;
+      border: 2.5px solid #1C3F7A;
       box-shadow: 0 2px 6px rgba(28,63,122,0.28);
       cursor: pointer;
       transition: transform 0.15s;
@@ -210,7 +196,7 @@
       line-height: 1.7;
     }
     .rc-footer-cta a { color: var(--navy); font-weight: 500; }
-    .rc-footer-cta a:hover { color: var(--accent-dark); }
+    .rc-footer-cta a:hover { color: var(--berry); }
 
     @media (max-width: 600px) {
       #run-clubs-map { height: 55vh; min-height: 360px; }
@@ -221,7 +207,7 @@
 <body>
 
 <nav>
-  <a href="/" class="nav-logo" aria-label="Tandem Run Home">Tandem<span> Run</span></a>
+  <a href="/" class="nav-logo" aria-label="Tandem Run Home"><img src="../assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
   <a href="/#waitlist" class="nav-cta">Join the waitlist</a>
 </nav>
 
@@ -230,9 +216,9 @@
   <!-- HEADER -->
   <section class="rc-hero">
     <span class="hero-tag">Boston Run Club Directory</span>
-    <h1 class="rc-hero-headline" style="font-style:normal;">Tandem Run 🤝 run clubs</h1>
+    <h1 class="rc-hero-headline">Tandem Run <em>&amp;</em> run clubs</h1>
     <p class="rc-hero-sub">When you want a partner, use Tandem Run. When you want a group, use a run club. Here are our favorites: click any icon to see where they meet, when, and how to find them.</p>
-    <div class="rc-count-badge" id="rc-count-badge">13 clubs mapped · updated regularly</div>
+    <div class="rc-count-badge" id="rc-count-badge">12 clubs · 13 meetups mapped</div>
   </section>
 
   <!-- MAP -->
@@ -246,7 +232,7 @@
 </main>
 
 <footer>
-  <div class="footer-logo">Tandem<span> Run</span></div>
+  <div class="footer-logo"><img src="../assets/images/spikies.png" alt="" class="footer-logo-mark"><span class="footer-logo-text">Tandem Run</span></div>
   <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="/" style="color:inherit;text-decoration:none;">tandemrun.app</a> · <a href="/privacy" style="color:inherit;text-decoration:none;">Privacy Policy</a> · <a href="/terms" style="color:inherit;text-decoration:none;">Terms of Service</a></div>
 </footer>
 
@@ -392,8 +378,11 @@ const CLUBS = [
 ];
 
 // ── Update badge count ──
-document.getElementById('rc-count-badge').textContent =
-  CLUBS.length + ' clubs mapped · updated regularly';
+(function () {
+  var uniqueClubs = new Set(CLUBS.map(function (c) { return c.name; })).size;
+  document.getElementById('rc-count-badge').textContent =
+    uniqueClubs + ' clubs · ' + CLUBS.length + ' meetups mapped';
+})();
 
 // ── Map init ──
 const map = L.map('run-clubs-map', {
@@ -461,7 +450,7 @@ CLUBS.forEach(club => {
 
 <!-- ── Cookie consent (matches main site) ── -->
 <style>
-  .tr-cookie-banner { position:fixed; top:0; left:0; right:0; z-index:2000; background:#1C3F7A; color:#fff; font-family:'DM Sans',system-ui,sans-serif; font-size:.875rem; line-height:1.5; box-shadow:0 2px 12px rgba(0,0,0,.18); padding:.875rem 1.5rem; }
+  .tr-cookie-banner { position:fixed; top:0; left:0; right:0; z-index:2000; background:#1C3F7A; color:#fff; font-family:'Lexend',system-ui,sans-serif; font-size:.875rem; line-height:1.5; box-shadow:0 2px 12px rgba(0,0,0,.18); padding:.875rem 1.5rem; }
   .tr-cookie-banner[hidden] { display:none; }
   .tr-cookie-banner-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:1.25rem; }
   .tr-cookie-banner-text { flex:1; margin:0; }
