@@ -218,7 +218,7 @@
     <span class="hero-tag">Boston Run Club Directory</span>
     <h1 class="rc-hero-headline">Tandem Run <em>&amp;</em> run clubs</h1>
     <p class="rc-hero-sub">When you want a partner, use Tandem Run. When you want a group, use a run club. Here are our favorites: click any icon to see where they meet, when, and how to find them.</p>
-    <div class="rc-count-badge" id="rc-count-badge">12 clubs · 13 meetups mapped</div>
+    <div class="rc-count-badge" id="rc-count-badge">14 run clubs mapped</div>
   </section>
 
   <!-- MAP -->
@@ -241,25 +241,26 @@
 // ═══════════════════════════════════════════════════════════════
 // RUN CLUB DATA
 // ───────────────────────────────────────────────────────────────
-// To add a new club, copy one entry below, fill it in, and save.
-// lat / lng: Google Maps → right-click any spot → "What's here?"
+// Source of truth: RunClub_Outreach_Tracker.xlsx (this folder).
+// Only clubs with a GPS Coordinate are included. To change the map,
+// edit the tracker and regenerate this array.
 // ═══════════════════════════════════════════════════════════════
 const CLUBS = [
   {
     name: "Metro Movin",
     area: "Back Bay",
     instagram: "@metromovinrc",
-    schedule: "Tues & Thurs · 6:30am · Mass Ave Bridge (Boston side)",
-    pace: "8:30–10:30 min/mi",
+    schedule: "Tues thurs 6:30am, Mass Ave Bridge Boston Side, 8:30-10:30",
+    pace: "",
     website: "",
     logo: "metro_movin.jpg",
     lat: 42.352222, lng: -71.089731
   },
   {
     name: "Run Rich Run Club",
-    area: "South Boston",
+    area: "Southie",
     instagram: "@runrichrunclub",
-    schedule: "Wed · 6:15am · Park City · All paces",
+    schedule: "Weds 6:15 am, Park city, all paces",
     pace: "",
     website: "",
     logo: "run_rich_run_club.jpg",
@@ -269,7 +270,7 @@ const CLUBS = [
     name: "Cafecito Run Club",
     area: "Boston",
     instagram: "@amigasrunboston",
-    schedule: "Select weekends · 21 David G. Mugar Way · All paces",
+    schedule: "Select weekends, 21 David G. Mugar Way, Boston, all paces",
     pace: "",
     website: "",
     logo: "cafecito_run_club.jpg",
@@ -277,9 +278,9 @@ const CLUBS = [
   },
   {
     name: "Lunge Run Club",
-    area: "Downtown Boston",
+    area: "Downtown",
     instagram: "@lungerunclubboston",
-    schedule: "Wed · 6:45pm · City Hall Plaza · All paces",
+    schedule: "Weds, 6:45pm, City Hall Plaza, all paces",
     pace: "",
     website: "",
     logo: "lunge_run_club.jpg",
@@ -287,29 +288,19 @@ const CLUBS = [
   },
   {
     name: "Achilles Boston",
-    area: "Back Bay",
+    area: "Back Bay, Southie",
     instagram: "@achillesboston",
-    schedule: "Tues · 6pm · 276 Newbury St · All paces",
+    schedule: "Tues 6pm, 276 Newbury, all paces. sat 9am, Carson Beach 165 HarborWalk, all paces",
     pace: "",
     website: "",
     logo: "achilles_boston.jpg",
     lat: 42.349313918867374, lng: -71.08361042023948
   },
   {
-    name: "Achilles Boston",
-    area: "South Boston",
-    instagram: "@achillesboston",
-    schedule: "Sat · 9am · Carson Beach, 165 HarborWalk · All paces",
-    pace: "",
-    website: "",
-    logo: "achilles_boston.jpg",
-    lat: 42.32639571057264, lng: -71.04821831007807
-  },
-  {
     name: "Harbor Run Club",
     area: "Hingham",
     instagram: "@harborrunclub",
-    schedule: "Sunday · 8am · Brewed Awakenings",
+    schedule: "Sunday 8am, brewed awakenings",
     pace: "",
     website: "",
     logo: "harbor_run_club.jpg",
@@ -319,7 +310,7 @@ const CLUBS = [
     name: "North End Run Club",
     area: "North End",
     instagram: "@northendbos_runclub",
-    schedule: "Wed · 6:30pm · Paul Revere Statue · Social pace",
+    schedule: "Wednesday 6:30pm, Paul revere statue, social pace",
     pace: "",
     website: "",
     logo: "north_end_run_club.jpg",
@@ -329,9 +320,9 @@ const CLUBS = [
     name: "Quincy Social Run Club",
     area: "Quincy",
     instagram: "@quincysocialrunclub",
-    schedule: "Tues · 6:30pm · A Healthy Balance · Social pace",
+    schedule: "Tuesdays 6:30p, A Healthy Balance, social pace",
     pace: "",
-    website: "https://rungroop.com/group/quincy-social-run-club",
+    website: "",
     logo: "quincy_social_run_club.jpg",
     lat: 42.2562689248114, lng: -71.00787632219793
   },
@@ -339,7 +330,7 @@ const CLUBS = [
     name: "Boston Latina Run Club",
     area: "Boston",
     instagram: "@bostonlatinarunclub",
-    schedule: "Sunday mornings · Park St · 11–14 min/mi",
+    schedule: "Sunday morning, Park St, 11-14 min",
     pace: "",
     website: "",
     logo: "boston_latina_run_club.jpg",
@@ -347,19 +338,19 @@ const CLUBS = [
   },
   {
     name: "Boston Bulldogs Running Club",
-    area: "Brookline / Greater Boston",
+    area: "Brookline Reservoir",
     instagram: "@bostonbulldogsrunning",
-    schedule: "Mon 6:30pm · Thomas Crane Library\nThurs 6:30pm & Sat 9am · Reilly Memorial Rink",
+    schedule: "Mondays 6:30pm, thomas crane library. thusdays 6:30pm and saturdays at 9am reilly memorial rink parking lot",
     pace: "",
     website: "https://bostonbulldogs.run",
     logo: "boston_bulldogs_running_club.jpg",
-    lat: 42.335859, lng: -71.153535
+    lat: 42.25154076433762, lng: -71.0007094321225
   },
   {
     name: "Charles River Rats Run Club",
     area: "Boston",
     instagram: "@crrrc_bos",
-    schedule: "Mon · 6:30am · MIT Bridge (Cambridge side) · 8:30–9:30 min/mi",
+    schedule: "Mondays 6:30am, MIT bridge Cambridge side, 8:30-9:30",
     pace: "",
     website: "",
     logo: "charles_river_rats_run_club.jpg",
@@ -369,11 +360,31 @@ const CLUBS = [
     name: "La Corsa Club Boston",
     area: "Boston",
     instagram: "@lacorsaclubboston",
-    schedule: "Mon (Alma Cantina) · Thurs (Roberto Clemente Track) · Sat (Flour Boston Common) · Sun (Puro Ceviche) · All paces",
+    schedule: "Monday - Alma Cantina Thursday - Roberto Clementine Track Saturday - Flour Boston Common Sunday - Puro Ceviche , all paces",
     pace: "",
     website: "",
     logo: "la_corsa_club_boston.jpg",
     lat: 42.36104422853544, lng: -71.05661327116395
+  },
+  {
+    name: "1.5 Star Run Club",
+    area: "Boston",
+    instagram: "@runsouthie",
+    schedule: "Saturday 9am, Loco South Boston, 5k or 10k all paces",
+    pace: "",
+    website: "",
+    logo: "",
+    lat: 42.33742618081709, lng: -71.04760226931295
+  },
+  {
+    name: "Brunch club boston",
+    area: "Boston",
+    instagram: "@brunchclub.bos",
+    schedule: "Sunday morning, tues/thurs nights,10-10:30 pace, Beacon & Arlington St",
+    pace: "",
+    website: "",
+    logo: "brunch_club.jpg",
+    lat: 42.35554007515494, lng: -71.07271811534353
   },
 ];
 
@@ -381,7 +392,9 @@ const CLUBS = [
 (function () {
   var uniqueClubs = new Set(CLUBS.map(function (c) { return c.name; })).size;
   document.getElementById('rc-count-badge').textContent =
-    uniqueClubs + ' clubs · ' + CLUBS.length + ' meetups mapped';
+    (uniqueClubs === CLUBS.length)
+      ? uniqueClubs + ' run clubs mapped'
+      : uniqueClubs + ' clubs · ' + CLUBS.length + ' meetups mapped';
 })();
 
 // ── Map init ──
