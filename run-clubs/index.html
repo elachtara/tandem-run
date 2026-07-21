@@ -39,14 +39,6 @@
       backdrop-filter: blur(8px);
       box-shadow: 0 4px 24px rgba(20, 48, 92, 0.08);
     }
-    .rc-overlay .eyebrow {
-      font-size: 0.6875rem;
-      font-weight: 600;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 0.6rem;
-    }
     .rc-overlay h1 {
       font-family: var(--sans);
       font-size: 1.6rem;
@@ -64,18 +56,17 @@
       line-height: 1.55;
       margin-bottom: 0.9rem;
     }
-    .rc-count-badge {
-      display: inline-block;
-      background: rgba(245,200,66,0.14);
-      border: 1px solid rgba(245,200,66,0.32);
-      color: var(--gold);
-      font-size: 0.73rem;
-      font-weight: 500;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 0.4rem 1.1rem;
-      border-radius: 999px;
+    .rc-overlay .fine-print {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--gray-soft);
+      letter-spacing: 0.01em;
+      margin-top: 0.75rem;
+      margin-bottom: 0;
     }
+    .rc-overlay .fine-print a { color: var(--berry); text-decoration: none; font-weight: 500; }
+    .rc-overlay .fine-print a:hover { text-decoration: underline; }
 
     /* ── Map (sizing handled by .map-wrap above) ── */
     .leaflet-control-attribution {
@@ -198,23 +189,6 @@
       display: block;
     }
 
-    /* ── Footer CTA ── */
-    .rc-footer-cta {
-      background: var(--cream);
-      padding: 2rem 5vw;
-      text-align: center;
-    }
-    .rc-footer-cta p {
-      color: var(--ink-soft);
-      font-size: 1rem;
-      font-weight: 300;
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-    .rc-footer-cta a { color: var(--navy); font-weight: 500; }
-    .rc-footer-cta a:hover { color: var(--berry); }
-
     @media (max-width: 600px) {
       .map-wrap { height: calc(100vh - 3.5rem); min-height: 420px; }
       .rc-overlay { left: 1rem; right: 1rem; bottom: 1rem; max-width: none; padding: 1.1rem 1.25rem; }
@@ -271,17 +245,11 @@
   <div class="map-wrap">
     <div id="run-clubs-map" role="region" aria-label="Interactive map of Boston-area run clubs"></div>
     <aside class="rc-overlay">
-      <div class="eyebrow">Boston Run Club Directory</div>
       <h1 aria-label="Tandem Run loves Run Clubs">Tandem Run <span class="heart" aria-hidden="true"><svg viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 24 C14 24 2 16 2 8.5 C2 4.4 5.1 1.5 8.8 1.5 C11.2 1.5 13.1 2.9 14 5 C14.9 2.9 16.8 1.5 19.2 1.5 C22.9 1.5 26 4.4 26 8.5 C26 16 14 24 14 24 Z" fill="currentColor"/></svg></span> Run Clubs</h1>
-      <p>When you want a partner, use Tandem Run. When you want a group, use a run club. Here are some of our favorites: click any icon to see where and when they meet, what pace they run, and their instagram handle.</p>
-      <div class="rc-count-badge" id="rc-count-badge">14 Partnered Run Clubs</div>
+      <p>When you want a partner, use Tandem Run. When you want a group, use a run club.</p>
+      <p class="fine-print">Want to add your run club to the map? Reach out to us at <a href="mailto:hello@tandemrun.app">hello@tandemrun.app</a> or <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener">@tandemrunapp</a>!</p>
     </aside>
   </div>
-
-  <!-- FOOTER CTA -->
-  <section class="rc-footer-cta">
-    <p>Do you know a run club that should be on this map? Reach out to us at <a href="mailto:hello@tandemrun.app">hello@tandemrun.app</a> or <a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener">@tandemrunapp</a> on Instagram!</p>
-  </section>
 
 </main>
 
@@ -455,12 +423,6 @@ const CLUBS = [
     lat: 42.35554007515494, lng: -71.07271811534353
   },
 ];
-
-// ── Update badge count ──
-(function () {
-  var count = new Set(CLUBS.map(function (c) { return c.name; })).size;
-  document.getElementById('rc-count-badge').textContent = count + ' Partnered Run Clubs';
-})();
 
 // ── Map init ──
 const map = L.map('run-clubs-map', {
