@@ -231,9 +231,9 @@
     <div id="run-clubs-map" role="region" aria-label="Interactive map of Boston-area run clubs"></div>
     <aside class="rc-overlay">
       <div class="eyebrow">Boston Run Club Directory</div>
-      <h1>Tandem Run <em>&amp;</em> run clubs</h1>
-      <p>When you want a partner, use Tandem Run. When you want a group, use a run club. Here are our favorites: click any icon to see where they meet, when, and how to find them.</p>
-      <div class="rc-count-badge" id="rc-count-badge">14 run clubs mapped</div>
+      <h1>Tandem Run <em>&amp;</em> Run Clubs</h1>
+      <p>When you want a partner, use Tandem Run. When you want a group, use a run club. Here are some of our favorites: click any icon to see where and when they meet, what pace they run, and their instagram handle.</p>
+      <div class="rc-count-badge" id="rc-count-badge">14 Partnered Run Clubs</div>
     </aside>
   </div>
 
@@ -417,11 +417,8 @@ const CLUBS = [
 
 // ── Update badge count ──
 (function () {
-  var uniqueClubs = new Set(CLUBS.map(function (c) { return c.name; })).size;
-  document.getElementById('rc-count-badge').textContent =
-    (uniqueClubs === CLUBS.length)
-      ? uniqueClubs + ' run clubs mapped'
-      : uniqueClubs + ' clubs · ' + CLUBS.length + ' meetups mapped';
+  var count = new Set(CLUBS.map(function (c) { return c.name; })).size;
+  document.getElementById('rc-count-badge').textContent = count + ' Partnered Run Clubs';
 })();
 
 // ── Map init ──
