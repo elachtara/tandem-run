@@ -301,6 +301,11 @@ footer { background: var(--navy); color: rgba(247,243,236,0.45); padding: 2.5rem
   margin: 0;
   max-width: 60ch;
 }
+.home-hero-content p .brand-inline {
+  font-weight: 600;
+  font-size: 1.15em;
+  color: var(--navy);
+}
 .home-hero-byline {
   font-family: var(--sans);
   font-size: 0.8125rem;
