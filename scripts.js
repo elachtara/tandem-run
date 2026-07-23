@@ -70,8 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Payload key stays `time` — the Google Apps Script that writes
         // to the Sheet is keyed on this name. DOM id is footer-when.
         time: 'footer-when',
-        // Other big city the user wants Tandem Run to launch in.
-        city: 'footer-city',
       };
       for (const [key, id] of Object.entries(fields)) {
         const el = document.getElementById(id);
