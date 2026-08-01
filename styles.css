@@ -699,3 +699,73 @@ footer .footer-social svg { display: block; transition: color 0.2s ease; }
   }
 }
 
+
+/* ────────── LAUNCH PARTY POP-UP ────────── */
+.party-pop[hidden] { display: none; }
+.party-pop {
+  position: fixed; inset: 0; z-index: 3000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.party-pop-overlay {
+  position: absolute; inset: 0;
+  background: rgba(20, 48, 92, 0.55);
+  backdrop-filter: blur(4px);
+  animation: partyFade 0.25s ease;
+}
+.party-pop-card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 400px;
+  background: var(--cream);
+  border: 1px solid var(--cream-deep);
+  border-radius: 22px;
+  padding: 2.25rem 1.75rem 1.75rem;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(20, 48, 92, 0.28);
+  animation: partyPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.party-pop-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--gold), var(--berry));
+}
+.party-pop-close {
+  position: absolute; top: 0.7rem; right: 0.95rem;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.6rem; line-height: 1; color: var(--gray-soft);
+}
+.party-pop-close:hover { color: var(--navy); }
+.party-pop-eyebrow {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--berry); margin-bottom: 0.6rem;
+}
+.party-pop-title {
+  font-family: var(--sans); font-size: 1.75rem; font-weight: 600;
+  line-height: 1.1; color: var(--navy); margin-bottom: 0.6rem;
+}
+.party-pop-when {
+  font-size: 1rem; font-weight: 500; color: var(--navy); margin-bottom: 0.75rem;
+}
+.party-pop-blurb {
+  font-size: 0.9rem; color: var(--gray-soft); line-height: 1.55; margin-bottom: 1.4rem;
+}
+.party-pop-cta {
+  display: block; background: var(--berry); color: var(--cream);
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+  letter-spacing: 0.01em; text-transform: lowercase; text-decoration: none;
+  padding: 0.85rem 1.5rem; border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.party-pop-cta:hover, .party-pop-cta:active { background: var(--berry-deep); color: var(--cream); }
+.party-pop-later {
+  display: inline-block; margin-top: 0.9rem;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 0.8rem; color: var(--gray-soft);
+  text-transform: lowercase;
+}
+.party-pop-later:hover { color: var(--navy); text-decoration: underline; }
+@keyframes partyFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes partyPop {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}

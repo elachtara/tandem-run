@@ -348,6 +348,39 @@
 
 <script src="scripts.js" defer></script>
 
+<!-- Launch party pop-up -->
+<div class="party-pop" id="partyPop" hidden>
+  <div class="party-pop-overlay" data-party-close></div>
+  <div class="party-pop-card" role="dialog" aria-modal="true" aria-labelledby="party-pop-title">
+    <button type="button" class="party-pop-close" aria-label="Close" data-party-close>&times;</button>
+    <div class="party-pop-eyebrow">🎉 you're invited</div>
+    <h2 class="party-pop-title" id="party-pop-title">Tandem Run Launch Party</h2>
+    <p class="party-pop-when">Thursday, August 20 · 6:30pm · The Anchor</p>
+    <p class="party-pop-blurb">Come kick off Tandem Run's official app launch! Merch, giveaways from local businesses, games, and a whole lot of fun. Come solo or bring friends.</p>
+    <a class="party-pop-cta" href="https://partiful.com/e/dn6fskdwPcaQZpCfavzn?f=1&photo=all" target="_blank" rel="noopener" data-party-rsvp>rsvp on partiful</a>
+    <button type="button" class="party-pop-later" data-party-close>maybe later</button>
+  </div>
+</div>
+<script>
+(function () {
+  var KEY = 'tr-party-launch-2026-08';
+  var pop = document.getElementById('partyPop');
+  if (!pop) return;
+  try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  function open() { pop.hidden = false; document.addEventListener('keydown', onKey); }
+  function close() {
+    pop.hidden = true;
+    document.removeEventListener('keydown', onKey);
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  }
+  pop.querySelectorAll('[data-party-close]').forEach(function (el) { el.addEventListener('click', close); });
+  var rsvp = pop.querySelector('[data-party-rsvp]');
+  if (rsvp) rsvp.addEventListener('click', close);
+  setTimeout(open, 1000);
+})();
+</script>
+
 <!-- Cookie consent banner + gated HubSpot loader -->
 <style>
   .tr-cookie-banner {
