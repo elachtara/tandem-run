@@ -232,10 +232,11 @@
   }
   .footer-logo-mark { height: 1.8rem; width: auto; display: block; }
 
-  /* Embed mode (?embed=1): hide our own nav/footer so an app shell can wrap just the map. */
-  html.embed .nav { display: none; }
+  /* Embed mode (?embed=1): keep a slim bar with just the back link over the map; hide footer. */
   html.embed footer { display: none; }
-  html.embed .map-wrap { height: 100vh; }
+  html.embed .nav .wordmark { display: none; }
+  html.embed .nav { padding: 0.6rem 1rem; }
+  html.embed .map-wrap { height: calc(100vh - 3.6rem); }
 </style>
 </head>
 <body>
@@ -673,7 +674,7 @@
       line.bindTooltip(tooltipHtml, { sticky: true, direction: 'top', className: 'route-tooltip' });
       line.on('mouseover', () => { line.setStyle({ weight: 5.5, opacity: 1 }); glow.setStyle({ opacity: 0.55 }); });
       line.on('mouseout',  () => { line.setStyle({ weight: 3.5, opacity: 0.9 }); glow.setStyle({ opacity: 1 }); });
-      line.on('click', () => { window.location.href = `${route.slug}/`; });
+      line.on('click', () => { window.location.href = `${route.slug}/${location.search}`; });
 
       allBoundsList.push(line.getBounds());
     } catch (e) {

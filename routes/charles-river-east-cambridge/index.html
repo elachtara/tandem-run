@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+<script>if (new URLSearchParams(location.search).get('embed') === '1') { document.documentElement.classList.add('embed'); }</script>
+
 <style>
   :root {
     --navy: #1C3F7A;
@@ -246,14 +248,19 @@
     text-decoration: none;
   }
   footer a:hover { text-decoration: underline; }
+  /* Embed mode (?embed=1): hide footer and wordmark, slim the nav. */
+  html.embed footer { display: none; }
+  html.embed .nav .wordmark { display: none; }
+  html.embed .nav { padding: 0.6rem 1rem; }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="/routes/" class="nav-back">← All routes</a>
+  <a href="/routes/" id="allRoutesLink" class="nav-back">← All routes</a>
   <div class="wordmark"><img src="../../assets/images/spikies.png" alt="" class="wordmark-mark">Tandem Run</div>
 </nav>
+<script>if (new URLSearchParams(location.search).get('embed') === '1') { var l = document.getElementById('allRoutesLink'); if (l) l.href = '/routes/?embed=1'; }</script>
 
 <header class="hero">
   <div class="eyebrow">East Cambridge · BOSTON</div>
