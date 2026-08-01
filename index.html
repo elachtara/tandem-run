@@ -366,6 +366,8 @@
   var KEY = 'tr-party-launch-2026-08';
   var pop = document.getElementById('partyPop');
   if (!pop) return;
+  // Auto-hide after the party: stop showing from Aug 21, 2026 onward (local time).
+  if (new Date() >= new Date(2026, 7, 21)) return;
   try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
   function onKey(e) { if (e.key === 'Escape') close(); }
   function open() { pop.hidden = false; document.addEventListener('keydown', onKey); }
