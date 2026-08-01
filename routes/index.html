@@ -641,7 +641,7 @@
 
   async function loadRoute(route) {
     try {
-      const res = await fetch(`${route.slug}/route.gpx`);
+      const res = await fetch(`/routes/${route.slug}/route.gpx`);
       if (!res.ok) return;
       const text = await res.text();
       const xml = new DOMParser().parseFromString(text, 'application/xml');
