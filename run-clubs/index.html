@@ -11,7 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://tandemrun.app/styles.css">
+
+  <!-- App icons (favicon / home-screen icon, incl. when this page is proxied into the app). -->
+  <link rel="icon" type="image/png" sizes="192x192" href="https://tandemrun.app/assets/images/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="https://tandemrun.app/assets/images/icon-512.png">
+  <link rel="apple-touch-icon" href="https://tandemrun.app/assets/images/apple-touch-icon.png">
+  <!-- ?embed=1 hides this page's own nav/footer/cookie banner so an app shell can wrap just the map. -->
+  <script>if (new URLSearchParams(location.search).get('embed') === '1') { document.documentElement.classList.add('embed'); }</script>
 
   <style>
     /* Design tokens come from the shared styles.css brand palette. */
@@ -193,12 +200,20 @@
       .rc-overlay { left: 1rem; right: 1rem; bottom: 1rem; max-width: none; padding: 1.1rem 1.25rem; }
       .rc-overlay h1 { font-size: 1.4rem; }
     }
+
+    /* Embed mode (?embed=1): keep a slim bar with just the back link over the map; hide the rest of the chrome. */
+    html.embed footer { display: none; }
+    html.embed .tr-cookie-banner { display: none !important; }
+    html.embed .nav-logo { display: none; }
+    html.embed .nav-cta { white-space: nowrap; }
+    html.embed nav { padding: 0.6rem 1rem; }
+    html.embed .map-wrap { height: calc(100vh - 3.6rem); min-height: 0; }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" class="nav-logo" aria-label="Tandem Run Home"><img src="../assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
+  <a href="/" class="nav-logo" aria-label="Tandem Run Home"><img src="https://tandemrun.app/assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
   <a href="/" id="backCta" class="nav-cta">Back to home</a>
 </nav>
 
@@ -253,8 +268,8 @@
 </main>
 
 <footer>
-  <div class="footer-logo"><img src="../assets/images/spikies.png" alt="" class="footer-logo-mark"><span class="footer-logo-text">Tandem Run</span></div>
-  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="/" style="color:inherit;text-decoration:none;">tandemrun.app</a> · <a href="/privacy" style="color:inherit;text-decoration:none;">Privacy Policy</a> · <a href="/terms" style="color:inherit;text-decoration:none;">Terms of Service</a></div>
+  <div class="footer-logo"><img src="https://tandemrun.app/assets/images/spikies.png" alt="" class="footer-logo-mark"><span class="footer-logo-text">Tandem Run</span></div>
+  <div>© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <a href="https://tandemrun.app/" style="color:inherit;text-decoration:none;">tandemrun.app</a> · <a href="https://tandemrun.app/privacy" style="color:inherit;text-decoration:none;">Privacy Policy</a> · <a href="https://tandemrun.app/terms" style="color:inherit;text-decoration:none;">Terms of Service</a></div>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -465,7 +480,7 @@ function makeMarker(club) {
   if (club.logo) {
     return L.divIcon({
       className: '',
-      html: `<div class="rc-marker-logo"><img src="${club.logo}" alt="${club.name}" onerror="this.parentElement.outerHTML='<div class=\\'rc-marker\\'></div>'"></div>`,
+      html: `<div class="rc-marker-logo"><img src="/run-clubs/${club.logo}" alt="${club.name}" onerror="this.parentElement.outerHTML='<div class=\\'rc-marker\\'></div>'"></div>`,
       iconSize: [36, 36],
       iconAnchor: [18, 18],
       popupAnchor: [0, -20]
