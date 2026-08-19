@@ -40,6 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => handleSignup(btn.dataset.context));
   });
 
+  // Boston is live: selecting the Boston option opens the app instead of the waitlist.
+  const neighborhoodSelect = document.getElementById('footer-neighborhood');
+  if (neighborhoodSelect) {
+    neighborhoodSelect.addEventListener('change', () => {
+      const appUrl = neighborhoodSelect.selectedOptions[0] && neighborhoodSelect.selectedOptions[0].dataset.app;
+      if (appUrl) window.location.href = appUrl;
+    });
+  }
+
   document.querySelectorAll('input[type="email"]').forEach(input => {
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
