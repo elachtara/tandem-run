@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tandem Run NYC — Join the Waitlist</title>
+  <meta name="description" content="Tandem Run is coming to New York City. Join the waitlist for the women-only running and walking buddy app and get early access when we launch in your neighborhood.">
+
+  <!-- Favicon / app icons (the little logo in the browser tab and bookmark bar) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/images/icon-512.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+
+  <!-- Open Graph (social sharing) -->
+  <meta property="og:title" content="Tandem Run NYC — Join the Waitlist">
+  <meta property="og:description" content="Tandem Run is coming to New York City. Join the waitlist for the women-only running and walking buddy app.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tandemrun.app/nyc/">
+  <meta property="og:image" content="https://tandemrun.app/assets/images/icon-1024.png">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* NYC waitlist page — women-in-grass photo background with a frosted content card */
+    body { background: var(--navy-deep); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(20,48,92,0.34), rgba(20,48,92,0.44)),
+        url("/assets/images/women_in_grass.png") center / cover no-repeat;
+    }
+
+    .nyc-stage {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.25rem 4rem;
+    }
+    .nyc-card {
+      width: 100%;
+      max-width: 560px;
+      background: rgba(248,245,239,0.94);
+      -webkit-backdrop-filter: blur(8px) saturate(1.05);
+      backdrop-filter: blur(8px) saturate(1.05);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(20,48,92,0.28);
+      padding: 2.75rem 2.25rem 2.5rem;
+      text-align: center;
+    }
+
+    .nyc-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--berry);
+      margin-bottom: 0.9rem;
+    }
+    .nyc-card h1 {
+      font-family: var(--sans);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      margin: 0 0 0.9rem;
+    }
+    .nyc-card .lede {
+      font-family: var(--sans);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--gray-soft);
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .nyc-card .waitlist-form { margin: 1.75rem auto 0; text-align: left; }
+    .nyc-card .waitlist-form .btn-primary { align-self: center; }
+
+    .nyc-cross-link {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gray-soft);
+      margin: 1.75rem 0 0;
+    }
+    .nyc-cross-link a {
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-color: rgba(28,63,122,0.35);
+    }
+    .nyc-cross-link a:hover { color: var(--berry); text-decoration-color: var(--berry); }
+
+    @media (max-width: 600px) {
+      .nyc-stage { padding: 4.5rem 1rem 3rem; }
+      .nyc-card { padding: 2rem 1.35rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Tandem Run Home"><img src="/assets/images/spikies.png" alt="" class="nav-logo-mark"><span class="nav-logo-text">Tandem Run</span></a>
+  <a href="#nyc-waitlist" class="nav-cta">join the waitlist</a>
+</nav>
+
+<main class="nyc-stage">
+  <div class="nyc-card">
+    <div class="nyc-eyebrow">🗽 New York City</div>
+    <h1>Tandem Run is coming to NYC</h1>
+    <p class="lede">We're building the women-only running and walking buddy app for New York. Join the waitlist to be first in line when we launch in your neighborhood, plus community updates straight from the Tandem Run founders.</p>
+
+    <form class="waitlist-form" id="nyc-waitlist" autocomplete="on" novalidate>
+    <div class="waitlist-row">
+      <input class="waitlist-input" type="text" id="nyc-name" name="first-name" placeholder="First name" autocomplete="given-name" aria-label="First name">
+      <input class="waitlist-input" type="email" id="nyc-email" name="email" placeholder="Email address" autocomplete="email" aria-label="Email address" required>
+    </div>
+    <select class="waitlist-input waitlist-select" id="nyc-neighborhood" name="neighborhood" aria-label="Your neighborhood">
+      <option value="" disabled selected>Your neighborhood</option>
+      <optgroup label="Manhattan">
+        <option>FiDi / Seaport</option>
+        <option>Tribeca</option>
+        <option>SoHo</option>
+        <option>Nolita</option>
+        <option>Lower East Side</option>
+        <option>East Village</option>
+        <option>West Village</option>
+        <option>Chinatown</option>
+        <option>Little Italy</option>
+        <option>Chelsea</option>
+        <option>Flatiron / NoMad</option>
+        <option>Gramercy</option>
+        <option>Murray Hill</option>
+        <option>Hell's Kitchen</option>
+        <option>Midtown East</option>
+        <option>Upper East Side</option>
+        <option>Upper West Side</option>
+        <option>Harlem</option>
+        <option>Washington Heights</option>
+      </optgroup>
+      <optgroup label="Brooklyn">
+        <option>Brooklyn Heights</option>
+        <option>DUMBO</option>
+        <option>Cobble Hill</option>
+        <option>Carroll Gardens</option>
+        <option>Park Slope</option>
+        <option>Prospect Heights</option>
+        <option>Williamsburg</option>
+        <option>Greenpoint</option>
+        <option>Bushwick</option>
+        <option>Bed-Stuy</option>
+        <option>Crown Heights</option>
+        <option>Prospect Lefferts Gardens</option>
+        <option>Sunset Park</option>
+        <option>Bay Ridge</option>
+      </optgroup>
+      <optgroup label="Queens">
+        <option>Long Island City</option>
+        <option>Astoria</option>
+        <option>Sunnyside</option>
+        <option>Jackson Heights</option>
+        <option>Forest Hills</option>
+        <option>Flushing</option>
+      </optgroup>
+      <optgroup label="The Bronx">
+        <option>Riverdale</option>
+        <option>South Bronx</option>
+        <option>Pelham Bay</option>
+      </optgroup>
+      <optgroup label="Staten Island">
+        <option>North Shore (SI)</option>
+        <option>South Shore (SI)</option>
+      </optgroup>
+      <optgroup label="Nearby · New Jersey">
+        <option>Hoboken</option>
+        <option>Jersey City</option>
+        <option>Weehawken</option>
+        <option>Edgewater</option>
+      </optgroup>
+      <optgroup label="Somewhere else">
+        <option>Elsewhere in the NYC metro — email us!</option>
+      </optgroup>
+    </select>
+    <select class="waitlist-input waitlist-select" id="nyc-pace" name="pace" aria-label="Your typical pace (per mile)">
+      <option value="" disabled selected>Your typical pace (per mile)</option>
+      <option>Under 7:00</option>
+      <option>7:00–8:30</option>
+      <option>8:30–10:00</option>
+      <option>10:00–12:00</option>
+      <option>12:00+</option>
+      <option>I'm a walker — pace varies</option>
+    </select>
+    <select class="waitlist-input waitlist-select" id="nyc-when" name="when" aria-label="When do you move">
+      <option value="" disabled selected>When do you move</option>
+      <option>Early morning (5–7am)</option>
+      <option>Morning (7–9am)</option>
+      <option>Lunch (11am–1pm)</option>
+      <option>After work (5–7pm)</option>
+      <option>Evening (7pm+)</option>
+      <option>Weekends only</option>
+    </select>
+    <button type="button" class="btn-primary signup-btn" data-context="nyc">join the NYC waitlist</button>
+    <p class="waitlist-success" id="nyc-success" hidden>You're on the NYC list! We'll be in touch as we get closer to launch.</p>
+    </form>
+
+    <p class="nyc-cross-link">Already running in Boston? The app is live — <a href="https://app.tandemrun.app">open Tandem Run &rarr;</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo"><img src="/assets/images/spikies.png" alt="" class="footer-logo-mark"><span class="footer-logo-text">Tandem Run</span></div>
+  <div class="footer-meta">© 2026 Tandem Run LLC · 217 Hanover St #130019, Boston, MA 02113 · <span class="footer-socials"><a href="https://instagram.com/tandemrunapp" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@tandem.run" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743 2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"/></svg></a></span> · <a href="mailto:hello@tandemrun.app">hello@tandemrun.app</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a></div>
+</footer>
+
+<script>
+(function () {
+  // Same Google Apps Script endpoint as the main site; source:'nyc' tags these rows.
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMcJ5fB0PrSLX9__KH9UYSwAQdx2bUspEbD2WnfGC8QZMFvEWjarXBSUGfbjlT1EE1gQ/exec';
+  var btn = document.querySelector('.signup-btn[data-context="nyc"]');
+  var emailEl = document.getElementById('nyc-email');
+
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  function submit() {
+    if (!emailEl || !emailEl.value.trim().includes('@')) {
+      if (emailEl) { emailEl.style.borderColor = 'var(--berry)'; emailEl.focus(); }
+      return;
+    }
+    var payload = {
+      source: 'nyc',
+      email: emailEl.value.trim(),
+      name: val('nyc-name'),
+      neighborhood: val('nyc-neighborhood'),
+      pace: val('nyc-pace'),
+      // Payload key stays `time` — the Google Apps Script Sheet is keyed on it.
+      time: val('nyc-when')
+    };
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+      .catch(function (err) { console.error('Submission error:', err); });
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "you're on the list!";
+      btn.style.background = 'var(--berry-deep)';
+    }
+    var success = document.getElementById('nyc-success');
+    if (success) success.hidden = false;
+  }
+
+  if (btn) btn.addEventListener('click', submit);
+  if (emailEl) emailEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    this.style.borderColor = '';
+  });
+})();
+</script>
+
+</body>
+</html>
