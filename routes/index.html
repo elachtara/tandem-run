@@ -263,8 +263,8 @@
         if (document.referrer) {
           var r = new URL(document.referrer);
           if (r.hostname === APP_HOST) return 'app';
-          // A tandemrun.app referrer that isn't the routes/run-clubs area
-          // itself means the visitor came from the marketing site.
+          // A tandemrun.app referrer that isn't the routes area itself
+          // means the visitor came from the marketing site.
           var internal = r.pathname.indexOf('/routes') === 0 || r.pathname.indexOf('/run-clubs') === 0;
           if ((r.hostname === 'tandemrun.app' || r.hostname === 'www.tandemrun.app') && !internal) return 'home';
         }
@@ -289,7 +289,7 @@
 
   <aside class="hero-overlay">
     <h1>Your new favorite <em>routes.</em></h1>
-    <p><span class="count">64</span> hand-curated routes across Boston and the suburbs. Every meeting point is chosen with safety in mind. Tap any route to see the details.</p>
+    <p><span class="count">66</span> hand-curated routes across Boston and the suburbs. Every meeting point is chosen with safety in mind. Tap any route to see the details.</p>
     <p class="fine-print">© 2026 Tandem Run · routes are our own; please don't redistribute.</p>
   </aside>
 </div>
@@ -621,6 +621,16 @@
     "slug": "flour-x-beacon-hill",
     "name": "Flour x Beacon Hill",
     "distance": "3.6"
+  },
+  {
+    "slug": "tour-de-charlestown",
+    "name": "Tour de Charlestown",
+    "distance": "3.1"
+  },
+  {
+    "slug": "boston-10k-for-women",
+    "name": "Boston 10K for Women",
+    "distance": "6.2"
   }
 ];
 
