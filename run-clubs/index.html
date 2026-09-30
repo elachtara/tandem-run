@@ -273,6 +273,7 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/assets/js/map-config.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // RUN CLUB DATA
@@ -502,7 +503,7 @@ const map = L.map('run-clubs-map', {
 });
 
 // CARTO light tiles (same as main site)
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer(window.TANDEM_MAP_TILE_URL, {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
   subdomains: 'abcd',
   maxZoom: 19
